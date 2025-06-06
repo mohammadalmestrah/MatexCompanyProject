@@ -1,0 +1,248 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "services": "Services",
+    "clients": "Clients",
+    "careers": "Carrières",
+    "auth": {
+      "signIn": "Se Connecter",
+      "signOut": "Se Déconnecter"
+    },
+    "legal": {
+      "privacy": "Politique de Confidentialité",
+      "terms": "Conditions d'Utilisation"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Bienvenue !",
+    "createAccount": "Créer un Compte",
+    "signInMessage": "Connectez-vous à votre compte",
+    "signUpMessage": "Rejoignez-nous pour commencer votre voyage",
+    "email": "Adresse Email",
+    "emailPlaceholder": "Entrez votre email",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "processing": "Traitement en cours...",
+    "or": "ou",
+    "noAccount": "Pas de compte ? Inscrivez-vous",
+    "haveAccount": "Déjà un compte ? Connectez-vous"
+  },
+  "home": {
+    "hero": {
+      "title": "Excellence en Gestion de Projets Technologiques",
+      "subtitle": "Fondée par Mohammad ALMESTRAH, nous sommes spécialisés dans la gestion de projets technologiques complexes en IA, design, développement web et mobile, assurant une livraison réussie et une valeur commerciale.",
+      "cta": {
+        "services": "Nos Services",
+        "projects": "Voir les Projets"
+      }
+    },
+    "services": {
+      "title": "Nos Services de Gestion de Projet",
+      "strategic": {
+        "title": "Planification Stratégique",
+        "description": "Planification experte de projets, évaluation des risques et développement de feuilles de route pour les initiatives technologiques."
+      },
+      "team": {
+        "title": "Gestion d'Équipe",
+        "description": "Allocation qualifiée des ressources, coordination d'équipe et gestion de la communication avec les parties prenantes."
+      },
+      "delivery": {
+        "title": "Livraison de Projet",
+        "description": "Livraison ponctuelle de projets technologiques avec des systèmes robustes de suivi et de contrôle."
+      },
+      "consulting": {
+        "title": "Conseil Technologique",
+        "description": "Services de conseil technologique stratégique pour aligner les projets sur les objectifs commerciaux."
+      }
+    },
+    "stats": {
+      "projects": "Projets Livrés",
+      "satisfaction": "Satisfaction Client",
+      "consultants": "Consultants PM Experts",
+      "experience": "Années d'Expérience"
+    },
+    "cta": {
+      "title": "Prêt à Démarrer Votre Projet ?",
+      "subtitle": "Discutons de la façon dont notre expertise en gestion de projet peut assurer le succès de votre initiative technologique.",
+      "button": "Planifier une Consultation"
+    }
+  },
+  "footer": {
+    "contact": "Contactez-nous",
+    "email": "contact@matex.com",
+    "phone": "+1 (234) 567-890",
+    "follow": "Suivez-nous",
+    "newsletter": "Newsletter",
+    "emailPlaceholder": "Entrez votre email",
+    "subscribe": "S'abonner",
+    "quickLinks": "Liens Rapides",
+    "rights": "Tous droits réservés.",
+    "about": "À Propos"
+  },
+  "about": {
+    "hero": {
+      "title": "À Propos de Matex",
+      "description": "Fondée par Mohammad ALMESTRAH, nous sommes pionniers en innovation IA et logicielle"
+    },
+    "founder": {
+      "title": "Notre Fondateur",
+      "description1": "Mohammad ALMESTRAH a créé Matex avec la vision de transformer les entreprises grâce à des solutions technologiques innovantes.",
+      "description2": "Fort d'une vaste expérience en IA et en génie logiciel, il dirige notre équipe dans la fourniture de solutions de pointe.",
+      "role": "PDG & Fondateur",
+      "name": "Mohammad ALMESTRAH",
+      "stats": {
+        "experts": "Membres d'Équipe",
+        "projects": "Projets Réalisés",
+        "countries": "Pays Desservis",
+        "awards": "Prix de l'Industrie"
+      }
+    },
+    "locations": {
+      "title": "Nos Emplacements",
+      "subtitle": "Présence mondiale, expertise locale",
+      "lebanon": {
+        "address": "Baabda, Mont Liban",
+        "postal": "Liban",
+        "email": "contact@matex.com",
+        "phone": "+1 (234) 567-890"
+      }
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "Nos Services",
+      "subtitle": "Solutions technologiques complètes adaptées à vos besoins"
+    },
+    "categories": {
+      "ai": {
+        "title": "Solutions IA",
+        "description": "Solutions d'intelligence artificielle et d'apprentissage automatique de pointe"
+      },
+      "software": {
+        "title": "Développement Logiciel",
+        "description": "Solutions logicielles personnalisées pour la transformation des entreprises"
+      },
+      "cloud": {
+        "title": "Services Cloud",
+        "description": "Solutions d'infrastructure cloud évolutives et sécurisées"
+      },
+      "consulting": {
+        "title": "Conseil Technologique",
+        "description": "Accompagnement expert pour la transformation digitale"
+      }
+    }
+  },
+  "clients": {
+    "hero": {
+      "title": "Nos Clients",
+      "subtitle": "Histoires de réussite des entreprises que nous avons transformées",
+      "cta": "Démarrer Votre Projet"
+    },
+    "testimonials": {
+      "title": "Témoignages Clients",
+      "quote": "Matex a transformé notre entreprise avec des solutions IA innovantes.",
+      "author": "Mohammad ALMESTRAH",
+      "position": "PDG & Fondateur"
+    }
+  },
+  "careers": {
+    "hero": {
+      "title": "Rejoignez Notre Équipe",
+      "subtitle": "Construisez l'avenir de la technologie avec nous. Nous recherchons des personnes talentueuses passionnées par l'innovation et désireuses de faire la différence."
+    },
+    "positions": {
+      "title": "Postes Ouverts",
+      "fullTime": "Postes à Temps Plein",
+      "internships": "Stages",
+      "location": "Localisation",
+      "type": "Type",
+      "department": "Département",
+      "jobs": {
+        "seniorEngineer": {
+          "title": "Ingénieur Logiciel Senior",
+          "department": "Ingénierie",
+          "location": "Télétravail / Liban",
+          "type": "Temps Plein",
+          "description": "Rejoignez notre équipe d'ingénierie pour construire des solutions de pointe utilisant des technologies modernes.",
+          "requirements": [
+            "5+ ans d'expérience en développement logiciel",
+            "Forte expertise en React, Node.js et TypeScript",
+            "Expérience avec les plateformes cloud (AWS/GCP)",
+            "Compréhension des principes de conception système",
+            "Expérience avec les pratiques DevOps"
+          ],
+          "technologies": [
+            "React",
+            "Node.js",
+            "TypeScript",
+            "AWS",
+            "Docker",
+            "Kubernetes",
+            "MongoDB",
+            "Redis"
+          ],
+          "responsibilities": [
+            "Diriger des projets techniques et encadrer les développeurs juniors",
+            "Concevoir et implémenter des solutions évolutives",
+            "Réviser le code et fournir des conseils techniques",
+            "Collaborer avec les équipes produit et design",
+            "Contribuer aux décisions d'architecture technique"
+          ]
+        },
+        "productManager": {
+          "title": "Chef de Produit",
+          "department": "Produit",
+          "location": "Télétravail / Liban",
+          "type": "Temps Plein",
+          "description": "Diriger la stratégie et le développement de produits pour nos solutions technologiques innovantes.",
+          "requirements": [
+            "5+ ans d'expérience en gestion de produit",
+            "Forte compréhension du cycle de vie du développement logiciel",
+            "Expérience avec les méthodologies agiles",
+            "Excellentes compétences en communication et leadership",
+            "Historique de lancements de produits réussis"
+          ],
+          "technologies": [
+            "Jira",
+            "Confluence",
+            "Figma",
+            "Outils d'analyse",
+            "Outils de gestion de produit"
+          ],
+          "responsibilities": [
+            "Définir la vision et la stratégie du produit",
+            "Gérer la feuille de route et le backlog du produit",
+            "Travailler en étroite collaboration avec les équipes d'ingénierie et de design",
+            "Mener des études de marché et analyses concurrentielles",
+            "Piloter la croissance et l'innovation du produit"
+          ]
+        }
+      },
+      "internships": {}
+    },
+    "apply": {
+      "title": "Postuler Maintenant",
+      "success": "Candidature Envoyée !",
+      "thankYou": "Merci de votre intérêt. Nous examinerons votre candidature et vous recontacterons bientôt.",
+      "form": {
+        "applicationType": "Type de Candidature",
+        "position": "Poste",
+        "fullName": "Nom Complet",
+        "email": "Adresse Email",
+        "phone": "Numéro de Téléphone",
+        "resume": "CV",
+        "coverLetter": "Lettre de Motivation",
+        "additionalInfo": "Informations Complémentaires",
+        "placeholder": "Dites-nous pourquoi ce poste vous intéresse et ce qui fait de vous un excellent candidat...",
+        "submit": "Envoyer la Candidature",
+        "submitting": "Envoi en cours..."
+      },
+      "options": {
+        "fullTime": "Poste à Temps Plein",
+        "internship": "Stage",
+        "selectPosition": "Sélectionnez un poste"
+      }
+    }
+  }
+}
