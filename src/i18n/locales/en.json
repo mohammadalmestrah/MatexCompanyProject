@@ -5,6 +5,7 @@
     "services": "Services",
     "clients": "Clients",
     "careers": "Careers",
+    "profile": "Profile",
     "auth": {
       "signIn": "Sign In",
       "signOut": "Sign Out"
@@ -13,6 +14,92 @@
       "privacy": "Privacy Policy",
       "terms": "Terms of Service"
     }
+  },
+  "chatbot": {
+    "open": "Chat with us",
+    "title": "Matex Assistant",
+    "showSuggestions": "Show suggestions",
+    "close": "Close chat",
+    "placeholder": "Type your message...",
+    "greeting": "Hello! I'm the Matex Assistant. I can help you with:\n\n• Information about Matex\n• Our services and solutions\n• Office locations\n• Contact information\n• Career opportunities\n• Technology stack\n• Schedule a consultation\n\nWhat would you like to know?",
+    "suggestions": {
+      "about": "Tell me about Matex",
+      "services": "What services do you offer?",
+      "locations": "Where are your offices?",
+      "contact": "How can I contact you?",
+      "careers": "Career opportunities",
+      "consult": "Schedule a consultation"
+    },
+    "fallback": {
+      "price": "For pricing, please share your project details and we'll provide a quote.",
+      "services": "We provide AI solutions, software development, cloud services, and consulting.",
+      "contact": "You can reach us at contact@matex.com or +1 (234) 567-890.",
+      "generic": "I'm here to help with Matex information. Could you tell me a bit more about what you need?"
+    }
+  },
+  "profile": {
+    "tabs": {
+      "info": "Profile Information",
+      "invoices": "Invoices",
+      "delete": "Delete Account"
+    },
+    "title": "Profile Information",
+    "subtitle": "Update your account's profile information and email address.",
+    "name": "Name",
+    "email": "Email",
+    "save": "Save",
+    "invoicesTitle": "Invoices",
+    "invoicesEmpty": "No invoices found.",
+    "deleteTitle": "Delete Account",
+    "deleteBody": "Permanently delete your account and all related data.",
+    "deleteCta": "Delete Account"
+  },
+  "requirements": {
+    "title": "Project Requirements & Payment",
+    "companyInfo": "Company Information",
+    "companyName": "Company Name",
+    "contactName": "Contact Name",
+    "email": "Email",
+    "phone": "Phone",
+    "projectDetails": "Project Details",
+    "projectType": "Project Type",
+    "selectProjectType": "Select a project type",
+    "types": {
+      "web": "Web Development",
+      "mobile": "Mobile App",
+      "design": "UI/UX Design",
+      "consulting": "Consulting"
+    },
+    "projectDescription": "Project Description",
+    "budgetTimeline": "Budget & Timeline",
+    "budgetRange": "Budget Range",
+    "selectBudget": "Select budget range",
+    "budgets": {
+      "small": "$5,000 - $10,000",
+      "medium": "$10,000 - $25,000",
+      "large": "$25,000 - $50,000",
+      "enterprise": "$50,000+"
+    },
+    "timeline": "Timeline",
+    "selectTimeline": "Select timeline",
+    "timelines": {
+      "m1_3": "1-3 months",
+      "m3_6": "3-6 months",
+      "m6_12": "6-12 months",
+      "m12_plus": "12+ months"
+    },
+    "paymentMethod": "Payment Method",
+    "thanksTitle": "Thank You!",
+    "thanksBody": "Your project requirements and payment have been submitted. We'll contact you shortly.",
+    "paypal": "PayPal",
+    "paypalDesc": "Pay securely with PayPal",
+    "wishMoney": "Wish Money",
+    "wishMoneyDesc": "Send money via Wish Money",
+    "wise": "Wise (TransferWise)",
+    "wiseDesc": "International bank transfer via Wise",
+    "back": "Back",
+    "proceed": "Proceed to Payment",
+    "next": "Next"
   },
   "auth": {
     "welcomeBack": "Welcome Back!",
@@ -31,7 +118,15 @@
     "userAlreadyExistsError": "This email is already registered. Please sign in instead.",
     "genericAuthError": "An error occurred during authentication. Please try again.",
     "signupSuccess": "Account created successfully!",
-    "signupSuccessMessage": "You can now sign in with your credentials."
+    "signupSuccessMessage": "You can now sign in with your credentials.",
+    "useEmailCode": "Sign in with email code",
+    "usePasswordInstead": "Use password instead",
+    "sendCode": "Send Code",
+    "verifyCode": "Verify Code",
+    "code": "Confirmation Code",
+    "codePlaceholder": "Enter the 6-digit code",
+    "codeSent": "We sent a confirmation code to your email.",
+    "invalidOtpError": "Invalid or expired code. Please check the code and try again."
   },
   "home": {
     "hero": {

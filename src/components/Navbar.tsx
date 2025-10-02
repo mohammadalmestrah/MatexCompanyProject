@@ -57,6 +57,12 @@ const Navbar = () => {
             </div>
             <LanguageSwitcher />
             {user ? (
+              <>
+                <motion.div whileHover={{ scale: 1.1 }}>
+                  <Link to="/profile" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
+                    {t('nav.profile')}
+                  </Link>
+                </motion.div>
               <motion.button
                 onClick={signOut}
                 className="flex items-center px-4 py-2 text-sm font-medium bg-indigo-800 rounded-md hover:bg-indigo-700 transition-colors"
@@ -66,6 +72,7 @@ const Navbar = () => {
                 <LogOut className="h-4 w-4 mr-2" />
                 {t('nav.auth.signOut')}
               </motion.button>
+              </>
             ) : (
               <motion.button
                 onClick={() => setShowAuth(true)}
@@ -85,6 +92,7 @@ const Navbar = () => {
           >
             <LanguageSwitcher />
             <button
+              aria-label="Menu"
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md hover:bg-indigo-800 focus:outline-none transition-all duration-300"
             >

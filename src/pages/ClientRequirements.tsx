@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { Send, Wallet, CreditCard } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ClientRequirements = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [step, setStep] = useState(1);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [formData, setFormData] = useState({
@@ -123,7 +125,7 @@ const ClientRequirements = () => {
       case 1:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">Company Information</h2>
+            <h2 className="text-2xl font-bold mb-6">{t('requirements.companyInfo')}</h2>
             {!isAuthenticated && (
               <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
                 <div className="flex">
@@ -143,7 +145,7 @@ const ClientRequirements = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Company Name
+                  {t('requirements.companyName')}
                 </label>
                 <input
                   type="text"
@@ -156,7 +158,7 @@ const ClientRequirements = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Contact Name
+                  {t('requirements.contactName')}
                 </label>
                 <input
                   type="text"
@@ -169,7 +171,7 @@ const ClientRequirements = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
+                  {t('requirements.email')}
                 </label>
                 <input
                   type="email"
@@ -182,7 +184,7 @@ const ClientRequirements = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone
+                  {t('requirements.phone')}
                 </label>
                 <input
                   type="tel"
@@ -199,11 +201,11 @@ const ClientRequirements = () => {
       case 2:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">Project Details</h2>
+            <h2 className="text-2xl font-bold mb-6">{t('requirements.projectDetails')}</h2>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Project Type
+                  {t('requirements.projectType')}
                 </label>
                 <select
                   name="projectType"
@@ -212,16 +214,16 @@ const ClientRequirements = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   required
                 >
-                  <option value="">Select a project type</option>
-                  <option value="web">Web Development</option>
-                  <option value="mobile">Mobile App</option>
-                  <option value="design">UI/UX Design</option>
-                  <option value="consulting">Consulting</option>
+                  <option value="">{t('requirements.selectProjectType')}</option>
+                  <option value="web">{t('requirements.types.web')}</option>
+                  <option value="mobile">{t('requirements.types.mobile')}</option>
+                  <option value="design">{t('requirements.types.design')}</option>
+                  <option value="consulting">{t('requirements.types.consulting')}</option>
                 </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Project Description
+                  {t('requirements.projectDescription')}
                 </label>
                 <textarea
                   name="projectDescription"
@@ -238,11 +240,11 @@ const ClientRequirements = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">Budget & Timeline</h2>
+            <h2 className="text-2xl font-bold mb-6">{t('requirements.budgetTimeline')}</h2>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Budget Range
+                  {t('requirements.budgetRange')}
                 </label>
                 <select
                   name="budget"
@@ -251,16 +253,16 @@ const ClientRequirements = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   required
                 >
-                  <option value="">Select budget range</option>
-                  <option value="small">$5,000 - $10,000</option>
-                  <option value="medium">$10,000 - $25,000</option>
-                  <option value="large">$25,000 - $50,000</option>
-                  <option value="enterprise">$50,000+</option>
+                  <option value="">{t('requirements.selectBudget')}</option>
+                  <option value="small">{t('requirements.budgets.small')}</option>
+                  <option value="medium">{t('requirements.budgets.medium')}</option>
+                  <option value="large">{t('requirements.budgets.large')}</option>
+                  <option value="enterprise">{t('requirements.budgets.enterprise')}</option>
                 </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Timeline
+                  {t('requirements.timeline')}
                 </label>
                 <select
                   name="timeline"
@@ -269,11 +271,11 @@ const ClientRequirements = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   required
                 >
-                  <option value="">Select timeline</option>
-                  <option value="1-3">1-3 months</option>
-                  <option value="3-6">3-6 months</option>
-                  <option value="6-12">6-12 months</option>
-                  <option value="12+">12+ months</option>
+                  <option value="">{t('requirements.selectTimeline')}</option>
+                  <option value="1-3">{t('requirements.timelines.m1_3')}</option>
+                  <option value="3-6">{t('requirements.timelines.m3_6')}</option>
+                  <option value="6-12">{t('requirements.timelines.m6_12')}</option>
+                  <option value="12+">{t('requirements.timelines.m12_plus')}</option>
                 </select>
               </div>
             </div>
@@ -282,16 +284,14 @@ const ClientRequirements = () => {
       case 4:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">Payment Method</h2>
+            <h2 className="text-2xl font-bold mb-6">{t('requirements.paymentMethod')}</h2>
             {submitted ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Send className="h-8 w-8 text-green-500" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Thank You!</h3>
-                <p className="text-gray-600">
-                  Your project requirements and payment have been submitted. We'll contact you shortly.
-                </p>
+                <h3 className="text-xl font-semibold mb-2">{t('requirements.thanksTitle')}</h3>
+                <p className="text-gray-600">{t('requirements.thanksBody')}</p>
               </div>
             ) : (
               <div className="space-y-6">
@@ -299,10 +299,10 @@ const ClientRequirements = () => {
                   {/* PayPal Option */}
                   <div className="border rounded-lg p-6 hover:border-indigo-500 transition-colors">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-semibold">PayPal</h3>
+                      <h3 className="text-lg font-semibold">{t('requirements.paypal')}</h3>
                       <CreditCard className="h-6 w-6 text-indigo-600" />
                     </div>
-                    <p className="text-gray-600 mb-4">Pay securely with PayPal</p>
+                    <p className="text-gray-600 mb-4">{t('requirements.paypalDesc')}</p>
                     {/* <PayPalScriptProvider options={{ 
                       "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
                       currency: "USD"
@@ -329,10 +329,10 @@ const ClientRequirements = () => {
                     onClick={handleWishMoneyPayment}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-semibold">Wish Money</h3>
+                      <h3 className="text-lg font-semibold">{t('requirements.wishMoney')}</h3>
                       <Wallet className="h-6 w-6 text-indigo-600" />
                     </div>
-                    <p className="text-gray-600 mb-4">Send money via Wish Money</p>
+                    <p className="text-gray-600 mb-4">{t('requirements.wishMoneyDesc')}</p>
                     <p className="text-sm text-gray-500">Contact: Mohammad Almestrah (76162549)</p>
                   </div>
 
@@ -342,10 +342,10 @@ const ClientRequirements = () => {
                     onClick={handleWisePayment}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-semibold">Wise (TransferWise)</h3>
+                      <h3 className="text-lg font-semibold">{t('requirements.wise')}</h3>
                       <CreditCard className="h-6 w-6 text-indigo-600" />
                     </div>
-                    <p className="text-gray-600 mb-4">International bank transfer via Wise</p>
+                    <p className="text-gray-600 mb-4">{t('requirements.wiseDesc')}</p>
                     <p className="text-sm text-gray-500">Email: mohammadmestrah10@gmail.com</p>
                   </div>
                 </div>
@@ -364,14 +364,14 @@ const ClientRequirements = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-3xl font-bold text-center mb-8">
-            Project Requirements & Payment
+            {t('requirements.title')}
           </h1>
 
           <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -431,7 +431,7 @@ const ClientRequirements = () => {
                       onClick={() => setStep(step - 1)}
                       className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
                     >
-                      Back
+                      {t('requirements.back')}
                     </button>
                   )}
                   <button
@@ -441,7 +441,7 @@ const ClientRequirements = () => {
                     }`}
                     disabled={!isAuthenticated}
                   >
-                    {step === 3 ? 'Proceed to Payment' : 'Next'}
+                    {step === 3 ? t('requirements.proceed') : t('requirements.next')}
                   </button>
                 </div>
               )}

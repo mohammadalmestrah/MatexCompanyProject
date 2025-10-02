@@ -16,7 +16,14 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [signupSuccess, setSignupSuccess] = useState(false);
-  const [hidePassword, setHidePassword] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
+  const [useOtp, setUseOtp] = useState(import.meta.env.VITE_USE_CUSTOM_OTP === 'true');
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpCode, setOtpCode] = useState('');
+
+  const isValidEmail = (value: string) => /.+@.+\..+/.test(value.trim());
+  const isValidPassword = (value: string) => value.trim().length >= 6;
+  const isFormValid = isValidEmail(email) && isValidPassword(password);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,13 +51,58 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
           setSignupSuccess(false);
         }, 3000);
       } else {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        
-        if (signInError) throw signInError;
-        onClose();
+        if (useOtp) {
+          if (!otpSent) {
+            if (import.meta.env.VITE_USE_CUSTOM_OTP === 'true') {
+              const res = await fetch('/api/otp/request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+              });
+              if (!res.ok) throw new Error(await res.text());
+              setOtpSent(true);
+            } else {
+              const { error: otpError } = await supabase.auth.signInWithOtp({
+                email,
+                options: {
+                  shouldCreateUser: true
+                }
+              });
+              if (otpError) throw otpError;
+              setOtpSent(true);
+            }
+          } else {
+            if (import.meta.env.VITE_USE_CUSTOM_OTP === 'true') {
+              const res = await fetch('/api/otp/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, code: otpCode })
+              });
+              if (!res.ok) throw new Error(t('auth.invalidOtpError'));
+              onClose();
+            } else {
+              const { data, error: verifyError } = await supabase.auth.verifyOtp({
+                email,
+                token: otpCode,
+                type: 'email'
+              } as any);
+              if (verifyError || !data?.session) {
+                throw verifyError || new Error(t('auth.invalidOtpError'));
+              }
+              onClose();
+            }
+          }
+        } else {
+          const { data, error: signInError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+
+          if (signInError || !data?.session) {
+            throw signInError || new Error('Invalid login credentials');
+          }
+          onClose();
+        }
       }
     } catch (error: any) {
       console.error('Auth error:', error);
@@ -61,6 +113,8 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
         setError(t('auth.invalidCredentialsError'));
       } else if (error.message.includes('User already registered')) {
         setError(t('auth.userAlreadyExistsError'));
+      } else if (useOtp) {
+        setError(t('auth.invalidOtpError'));
       } else {
         setError(error.message || t('auth.genericAuthError'));
       }
@@ -138,29 +192,49 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('auth.password')}
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              {!useOtp && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('auth.password')}
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                    <input
+                      type={hidePassword ? "password" : "text"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-gray-900"
+                      placeholder={t('auth.passwordPlaceholder')}
+                      required={!useOtp}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setHidePassword(!hidePassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    >
+                      <EyeOff className={`h-5 w-5 ${hidePassword ? 'text-gray-400' : 'text-indigo-600'}`} />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {useOtp && otpSent && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('auth.code')}
+                  </label>
                   <input
-                    type={hidePassword ? "password" : "text"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-gray-900"
-                    placeholder={t('auth.passwordPlaceholder')}
+                    type="text"
+                    inputMode="numeric"
+                    value={otpCode}
+                    onChange={(e) => setOtpCode(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-gray-900"
+                    placeholder={t('auth.codePlaceholder')}
                     required
                   />
-                  <button
-                    type="button"
-                    onClick={() => setHidePassword(!hidePassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  >
-                    <EyeOff className={`h-5 w-5 ${hidePassword ? 'text-gray-400' : 'text-indigo-600'}`} />
-                  </button>
+                  <p className="text-xs text-gray-500 mt-2">{t('auth.codeSent')}</p>
                 </div>
-              </div>
+              )}
 
               {error && (
                 <motion.div
@@ -175,7 +249,7 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
 
               <motion.button
                 type="submit"
-                disabled={loading}
+                disabled={loading || (!useOtp && !isFormValid) || (useOtp && !email)}
                 className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -186,7 +260,11 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
                     <span>{t('auth.processing')}</span>
                   </>
                 ) : (
-                  <span>{t(mode === 'signin' ? 'nav.auth.signIn' : 'auth.createAccount')}</span>
+                  <span>
+                    {mode === 'signin'
+                      ? (useOtp ? (otpSent ? t('auth.verifyCode') : t('auth.sendCode')) : t('nav.auth.signIn'))
+                      : t('auth.createAccount')}
+                  </span>
                 )}
               </motion.button>
 
@@ -208,6 +286,23 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
               >
                 {t(mode === 'signin' ? 'auth.noAccount' : 'auth.haveAccount')}
               </motion.button>
+
+              {mode === 'signin' && (
+                <motion.button
+                  type="button"
+                  onClick={() => {
+                    setUseOtp(!useOtp);
+                    setOtpSent(false);
+                    setOtpCode('');
+                    setError(null);
+                  }}
+                  className="w-full text-center text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {t(useOtp ? 'auth.usePasswordInstead' : 'auth.useEmailCode')}
+                </motion.button>
+              )}
             </form>
           </div>
         </motion.div>

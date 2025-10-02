@@ -9,6 +9,7 @@ import Careers from './pages/Careers';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import ClientRequirements from './pages/ClientRequirements';
+import Profile from './pages/Profile';
 import Chatbot from './components/Chatbot';
 import { AuthProvider } from './contexts/AuthContext';
 
@@ -28,6 +29,7 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/client-requirements" element={<ClientRequirements />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </main>
           <Footer />

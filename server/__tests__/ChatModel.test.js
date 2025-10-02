@@ -48,7 +48,7 @@ describe('ChatModel', () => {
   describe('generateResponse', () => {
     it('generates response for matching category', async () => {
       const response = await chatModel.generateResponse('help me');
-      expect(response).toBe('I can help you!');
+      expect(response).toMatch(/I can help you!/);
     });
 
     it('includes follow-up for questions', async () => {

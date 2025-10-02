@@ -37,6 +37,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               <motion.a 
                 href="https://www.linkedin.com/company/103787906"
+                aria-label="LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-300 transition-all duration-300"
@@ -46,6 +47,7 @@ const Footer = () => {
               </motion.a>
               <motion.a 
                 href="https://www.instagram.com/matex.leb?igsh=MWN6azR0cnV4MXBlNg%3D%3D&utm_source=qr"
+                aria-label="Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-300 transition-all duration-300"

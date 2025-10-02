@@ -21,11 +21,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // If supabase client is not configured, disable auth gracefully
+    if (!(supabase as any).auth) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session }, error }) => {
+    (supabase as any).auth.getSession().then(({ data: { session }, error }: any) => {
       if (error) {
         console.error('Session retrieval error:', error.message);
-        supabase.auth.signOut();
+        (supabase as any).auth.signOut();
         setUser(null);
       } else {
         setUser(session?.user ?? null);
@@ -34,12 +41,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     // Listen for changes on auth state
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: { subscription } } = (supabase as any).auth.onAuthStateChange(async (event: string, session: any) => {
       if (event === 'TOKEN_REFRESHED' || event === 'SIGNED_IN') {
         setUser(session?.user ?? null);
       } else if (event === 'SIGNED_OUT') {
         setUser(null);
-        await supabase.auth.signOut();
+        await (supabase as any).auth.signOut();
       }
       setLoading(false);
     });
@@ -49,7 +56,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = async () => {
     try {
-      await supabase.auth.signOut();
+      if ((supabase as any).auth) {
+        await (supabase as any).auth.signOut();
+      }
     } catch (error) {
       console.error('Error signing out:', error);
       // Force clear the user state even if signOut fails

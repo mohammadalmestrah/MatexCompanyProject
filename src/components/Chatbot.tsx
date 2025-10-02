@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Send, X, MessageSquare, Loader2, Bot, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -11,21 +12,35 @@ const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([{
     role: 'assistant',
-    content: "Hello! I'm the Matex Assistant. I can help you with:\n\n• Information about Matex\n• Our services and solutions\n• Office locations\n• Contact information\n• Career opportunities\n• Technology stack\n• Schedule a consultation\n\nWhat would you like to know?"
+    content: ''
   }]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [backendOnline, setBackendOnline] = useState<boolean>(true);
+  const { t, i18n } = useTranslation();
+
+  const API_BASE = (import.meta as any).env?.VITE_API_BASE || '';
+
+  const healthCheck = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/health`, { method: 'GET' });
+      setBackendOnline(res.ok);
+    } catch {
+      setBackendOnline(false);
+    }
+  };
   const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const suggestions = [
-    "Tell me about Matex",
-    "What services do you offer?",
-    "Where are your offices?",
-    "How can I contact you?",
-    "Career opportunities",
-    "Schedule a consultation"
+    t('chatbot.suggestions.about'),
+    t('chatbot.suggestions.services'),
+    t('chatbot.suggestions.locations'),
+    t('chatbot.suggestions.contact'),
+    t('chatbot.suggestions.careers'),
+    t('chatbot.suggestions.consult')
   ];
 
   const scrollToBottom = () => {
@@ -42,6 +57,63 @@ const Chatbot = () => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    healthCheck();
+  }, []);
+
+  useEffect(() => {
+    // Set initial assistant greeting when language changes
+    setMessages([{ role: 'assistant', content: t('chatbot.greeting') }]);
+  }, [i18n.language]);
+
+  const localFallbackResponder = (text: string) => {
+    const lower = text.toLowerCase();
+    if (/(price|cost|pay|pricing|سعر|تكلفة|دفع)/.test(lower)) {
+      return t('chatbot.fallback.price');
+    }
+    if (/(service|offer|what do you do|خدمة|خدمات|ماذا تفعلون)/.test(lower)) {
+      return t('chatbot.fallback.services');
+    }
+    if (/(contact|email|phone|reach|اتصال|تواصل|بريد|هاتف)/.test(lower)) {
+      return t('chatbot.fallback.contact');
+    }
+    return t('chatbot.fallback.generic');
+  };
+
+  const postChat = async (messageText: string) => {
+    const reqBody = { message: messageText, session_id: sessionId } as any;
+    const controller = new AbortController();
+    const attempt = async () => {
+      const res = await fetch(`${API_BASE}/api/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(reqBody),
+        signal: controller.signal
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.session_id && !sessionId) setSessionId(data.session_id);
+      if (data.error) throw new Error(data.error);
+      return data.response as string;
+    };
+
+    try {
+      // simple retry once
+      try {
+        return await attempt();
+      } catch {
+        await new Promise(r => setTimeout(r, 400));
+        return await attempt();
+      }
+    } catch (e) {
+      setBackendOnline(false);
+      throw e;
+    }
+  };
+
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
@@ -52,32 +124,13 @@ const Chatbot = () => {
     setShowSuggestions(false);
 
     try {
-      const response = await fetch('http://localhost:3000/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({ message: userMessage.content })
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      if (data.error) {
-        throw new Error(data.error);
-      }
-      
-      setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
+      const reply = await postChat(userMessage.content);
+      setBackendOnline(true);
+      setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
     } catch (error) {
       console.error('Error:', error);
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: "I apologize, but I'm having trouble processing your request right now. Please try again later."
-      }]);
+      const fallback = localFallbackResponder(userMessage.content);
+      setMessages(prev => [...prev, { role: 'assistant', content: fallback }]);
     } finally {
       setIsLoading(false);
     }
@@ -85,7 +138,19 @@ const Chatbot = () => {
 
   const handleSuggestionClick = (suggestion: string) => {
     setInputValue(suggestion);
-    handleSendMessage();
+    // Send the suggestion as a message immediately
+    setMessages(prev => [...prev, { role: 'user', content: suggestion }]);
+    setIsLoading(true);
+    setShowSuggestions(false);
+    postChat(suggestion)
+      .then((reply) => {
+        setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+      })
+      .catch(() => {
+        const fallback = localFallbackResponder(suggestion);
+        setMessages(prev => [...prev, { role: 'assistant', content: fallback }]);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -105,7 +170,7 @@ const Chatbot = () => {
         whileTap={{ scale: 0.98 }}
       >
         <MessageSquare className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-        <span className="font-medium text-sm sm:text-base whitespace-nowrap">Chat with us</span>
+        <span className="font-medium text-sm sm:text-base whitespace-nowrap">{t('chatbot.open')}</span>
       </motion.button>
 
       {/* Chat Window - Half Screen */}
@@ -125,7 +190,7 @@ const Chatbot = () => {
                   <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm">
                     <Bot className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-lg">Matex Assistant</h3>
+                  <h3 className="font-medium text-white text-lg">{t('chatbot.title')}</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   <motion.button
@@ -136,7 +201,7 @@ const Chatbot = () => {
                   >
                     <HelpCircle className="h-5 w-5" />
                     <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                      Show suggestions
+                      {t('chatbot.showSuggestions')}
                     </span>
                   </motion.button>
                   <motion.button
@@ -147,7 +212,7 @@ const Chatbot = () => {
                   >
                     <X className="h-5 w-5" />
                     <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                      Close chat
+                      {t('chatbot.close')}
                     </span>
                   </motion.button>
                 </div>
@@ -224,7 +289,7 @@ const Chatbot = () => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Type your message..."
+                  placeholder={t('chatbot.placeholder')}
                   className="flex-1 h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#5C3FBD]/20 focus:border-[#5C3FBD] outline-none transition-all duration-200"
                 />
                 <motion.button
