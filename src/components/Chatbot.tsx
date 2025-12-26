@@ -42,9 +42,27 @@ const Chatbot = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatWindowRef = useRef<HTMLDivElement>(null);
   
   // Check if current language is RTL (Arabic)
   const isRTL = i18n.language === 'ar';
+  
+  // Close chat when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && chatWindowRef.current && !chatWindowRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const suggestions = [
     "What is machine learning?",
@@ -244,23 +262,35 @@ const Chatbot = () => {
       {/* Chat Window - Half Screen */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
-            transition={{ 
-              type: 'spring', 
-              damping: 25, 
-              stiffness: 300,
-              mass: 0.5
-            }}
-            className={`fixed top-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col ${
-              isRTL 
-                ? 'left-0 border-r border-gray-200 dark:border-gray-700' 
-                : 'right-0 border-l border-gray-200 dark:border-gray-700'
-            }`}
-            dir={isRTL ? 'rtl' : 'ltr'}
-          >
+          <>
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-40 md:block hidden"
+            />
+            {/* Chat Window */}
+            <motion.div
+              ref={chatWindowRef}
+              initial={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
+              transition={{ 
+                type: 'spring', 
+                damping: 25, 
+                stiffness: 300,
+                mass: 0.5
+              }}
+              className={`fixed top-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col ${
+                isRTL 
+                  ? 'left-0 border-r border-gray-200 dark:border-gray-700' 
+                  : 'right-0 border-l border-gray-200 dark:border-gray-700'
+              }`}
+              dir={isRTL ? 'rtl' : 'ltr'}
+            >
             {/* Header */}
             <div className="bg-[#5C3FBD] dark:bg-gray-800 h-16 flex items-center px-4 sm:px-6 relative overflow-visible">
               <div className="relative flex items-center justify-between w-full">
@@ -457,7 +487,8 @@ const Chatbot = () => {
                 </motion.button>
               </div>
             </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
