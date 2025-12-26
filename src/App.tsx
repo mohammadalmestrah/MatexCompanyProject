@@ -17,25 +17,30 @@ import { AuthProvider } from './contexts/AuthContext';
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 20,
-    scale: 0.98
+    y: 30,
+    scale: 0.96,
+    filter: "blur(10px)"
   },
   animate: {
     opacity: 1,
     y: 0,
-    scale: 1
+    scale: 1,
+    filter: "blur(0px)"
   },
   exit: {
     opacity: 0,
-    y: -20,
-    scale: 0.98
+    y: -30,
+    scale: 0.96,
+    filter: "blur(10px)"
   }
 };
 
 const pageTransition = {
-  type: "tween",
-  ease: "anticipate",
-  duration: 0.4
+  type: "spring",
+  stiffness: 100,
+  damping: 20,
+  mass: 0.5,
+  duration: 0.6
 };
 
 function AnimatedRoutes() {

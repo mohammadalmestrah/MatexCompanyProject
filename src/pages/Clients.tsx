@@ -90,25 +90,32 @@ const Clients = () => {
             {clients.map((client, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 50, scale: 0.85, rotateX: -20 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: index * 0.15, duration: 0.6, type: "spring" }}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
-                whileHover={{ y: -8, scale: 1.03 }}
+                transition={{ 
+                  delay: index * 0.15, 
+                  duration: 0.7, 
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group relative"
+                whileHover={{ y: -12, scale: 1.05, rotateY: 3, z: 30 }}
               >
                 <motion.div 
                   className="h-48 overflow-hidden relative"
-                  whileHover={{ scale: 1.15 }}
-                  transition={{ duration: 0.5 }}
+                  whileHover={{ scale: 1.2 }}
+                  transition={{ duration: 0.6, type: "spring" }}
                 >
-                  <img 
+                  <motion.img 
                     src={client.image}
                     alt={client.name}
                     className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ duration: 0.6 }}
                   />
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-indigo-600/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-gradient-to-t from-indigo-600/40 via-indigo-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </motion.div>
                 <div className="p-6">
