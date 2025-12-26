@@ -29,6 +29,9 @@ const Chatbot = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  
+  // Check if current language is RTL (Arabic)
+  const isRTL = i18n.language === 'ar';
 
   const suggestions = [
     "What is machine learning?",
@@ -174,28 +177,35 @@ const Chatbot = () => {
       {/* Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-[#5C3FBD] text-white px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-[#5C3FBD]/20 transition-all duration-300 flex items-center gap-2 sm:gap-3 z-50 group"
+        className={`fixed bottom-4 sm:bottom-6 bg-[#5C3FBD] text-white px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-[#5C3FBD]/20 transition-all duration-300 flex items-center gap-2 sm:gap-3 z-50 group ${
+          isRTL ? 'left-4 sm:left-6' : 'right-4 sm:right-6'
+        }`}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
         <MessageSquare className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-        <span className="font-medium text-sm sm:text-base whitespace-nowrap">Chat with Matex AI</span>
+        <span className="font-medium text-sm sm:text-base whitespace-nowrap">{t('chatbot.buttonText')}</span>
       </motion.button>
 
       {/* Chat Window - Half Screen */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%', scale: 0.9 }}
+            initial={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: '100%', scale: 0.9 }}
+            exit={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
             transition={{ 
               type: 'spring', 
               damping: 25, 
               stiffness: 300,
               mass: 0.5
             }}
-            className="fixed top-0 right-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col border-l border-gray-200 dark:border-gray-700"
+            className={`fixed top-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col ${
+              isRTL 
+                ? 'left-0 border-r border-gray-200 dark:border-gray-700' 
+                : 'right-0 border-l border-gray-200 dark:border-gray-700'
+            }`}
+            dir={isRTL ? 'rtl' : 'ltr'}
           >
             {/* Header */}
             <div className="bg-[#5C3FBD] dark:bg-gray-800 h-16 flex items-center px-4 sm:px-6 relative overflow-visible">
@@ -204,7 +214,7 @@ const Chatbot = () => {
                   <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm">
                     <Bot className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-medium text-white text-lg">Matex ML AI Assistant</h3>
+                  <h3 className="font-medium text-white text-lg">{t('chatbot.title')}</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   <motion.button
@@ -215,7 +225,7 @@ const Chatbot = () => {
                   >
                     <HelpCircle className="h-5 w-5" />
                     <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 pointer-events-none">
-                      Show Suggestions
+                      {t('chatbot.showSuggestions')}
                     </span>
                   </motion.button>
                   <motion.button
@@ -226,7 +236,7 @@ const Chatbot = () => {
                   >
                     <X className="h-5 w-5" />
                     <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 pointer-events-none">
-                      Close
+                      {t('chatbot.close')}
                     </span>
                   </motion.button>
                 </div>
@@ -246,11 +256,17 @@ const Chatbot = () => {
                     stiffness: 200,
                     delay: index * 0.05
                   }}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${
+                    isRTL 
+                      ? (message.role === 'user' ? 'justify-start' : 'justify-end')
+                      : (message.role === 'user' ? 'justify-end' : 'justify-start')
+                  }`}
                 >
                   {message.role === 'assistant' && (
                     <motion.div 
-                      className="w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center mr-3"
+                      className={`w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center ${
+                        isRTL ? 'ml-3' : 'mr-3'
+                      }`}
                       whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
                       transition={{ duration: 0.5 }}
                     >
@@ -260,8 +276,8 @@ const Chatbot = () => {
                   <motion.div
                     className={`max-w-[80%] p-4 text-base rounded-2xl shadow-sm whitespace-pre-wrap ${
                       message.role === 'user'
-                        ? 'bg-[#5C3FBD] text-white rounded-br-none'
-                        : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-bl-none border border-gray-100 dark:border-gray-600'
+                        ? `bg-[#5C3FBD] text-white ${isRTL ? 'rounded-bl-none' : 'rounded-br-none'}`
+                        : `bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`
                     }`}
                     whileHover={{ scale: 1.02, y: -2 }}
                     transition={{ type: "spring", stiffness: 300 }}
@@ -274,12 +290,12 @@ const Chatbot = () => {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="flex justify-start"
+                  className={`flex ${isRTL ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center mr-3">
+                  <div className={`w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center ${isRTL ? 'ml-3' : 'mr-3'}`}>
                     <Bot className="h-5 w-5 text-[#5C3FBD]" />
                   </div>
-                  <div className="bg-white dark:bg-gray-700 p-4 rounded-2xl rounded-bl-none border border-gray-100 dark:border-gray-600">
+                  <div className={`bg-white dark:bg-gray-700 p-4 rounded-2xl ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`}>
                     <Loader2 className="h-6 w-6 animate-spin text-[#5C3FBD]" />
                   </div>
                 </motion.div>
@@ -305,20 +321,20 @@ const Chatbot = () => {
                     className="w-full text-left p-4 text-base bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-xl hover:bg-[#5C3FBD]/5 dark:hover:bg-[#5C3FBD]/10 transition-all duration-200 border border-gray-100 dark:border-gray-600 hover:border-[#5C3FBD]/20 dark:hover:border-[#5C3FBD]/30"
                     whileHover={{ x: 5 }}
                   >
-                    Contact Sales
+                    {t('chatbot.contactSales')}
                   </motion.button>
                 </motion.div>
               )}
               {showLead && (
                 <div className="mt-4 p-4 bg-white dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-600 space-y-3">
                   <div className="flex gap-3">
-                    <input placeholder="Your Name" value={lead.name} onChange={(e)=>setLead({...lead,name:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
-                    <input placeholder="Your Email" value={lead.email} onChange={(e)=>setLead({...lead,email:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
+                    <input placeholder={t('chatbot.leadName')} value={lead.name} onChange={(e)=>setLead({...lead,name:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
+                    <input placeholder={t('chatbot.leadEmail')} value={lead.email} onChange={(e)=>setLead({...lead,email:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
                   </div>
-                  <input placeholder="Company (Optional)" value={lead.company} onChange={(e)=>setLead({...lead,company:e.target.value})} className="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
+                  <input placeholder={t('chatbot.leadCompany')} value={lead.company} onChange={(e)=>setLead({...lead,company:e.target.value})} className="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
                   <div className="flex gap-2">
-                    <button onClick={submitLead} className="px-4 py-2 bg-[#5C3FBD] text-white rounded">Submit</button>
-                    <button onClick={()=>setShowLead(false)} className="px-4 py-2 border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">Cancel</button>
+                    <button onClick={submitLead} className="px-4 py-2 bg-[#5C3FBD] text-white rounded">{t('chatbot.leadSubmit')}</button>
+                    <button onClick={()=>setShowLead(false)} className="px-4 py-2 border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">{t('chatbot.leadCancel')}</button>
                   </div>
                 </div>
               )}
@@ -327,14 +343,14 @@ const Chatbot = () => {
 
             {/* Input */}
             <div className="p-6 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
-              <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <input
                   ref={inputRef}
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask me about Matex services, founder, or contact info..."
+                  placeholder={t('chatbot.placeholder')}
                   className="flex-1 h-12 px-4 text-base bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5C3FBD]/20 focus:border-[#5C3FBD] outline-none transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
                 <motion.button
