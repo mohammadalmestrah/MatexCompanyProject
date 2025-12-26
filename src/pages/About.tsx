@@ -184,35 +184,102 @@ const About = () => {
             </motion.p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
-            className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
-            whileHover={{ y: -5 }}
-          >
-            <motion.div 
-              className="h-64 overflow-hidden"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.5 }}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Lebanon Location */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
+              whileHover={{ y: -5 }}
             >
-              <img 
-                src="https://images.pexels.com/photos/1549326/pexels-photo-1549326.jpeg" 
-                alt="Lebanon Office"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-            <div className="p-8">
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Lebanon</h3>
-              <div className="space-y-2 text-gray-600 dark:text-gray-300">
-                <p>{t('about.locations.lebanon.address')}</p>
-                <p>{t('about.locations.lebanon.postal')}</p>
-                <p>{t('about.locations.lebanon.email')}</p>
-                <p>{t('about.locations.lebanon.phone')}</p>
+              <motion.div 
+                className="h-64 overflow-hidden relative group"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img 
+                  src="/beirut-cityscape.jpg" 
+                  alt="Beirut, Lebanon - Aerial view of the coastal city with mosque, harbor, and Lebanese flag"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback to placeholder if image not found
+                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop";
+                  }}
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
+                  initial={{ opacity: 0.7 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.div
+                  className="absolute bottom-4 left-4 right-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h4 className="text-2xl font-bold text-white drop-shadow-lg">Beirut, Lebanon</h4>
+                  <p className="text-white/90 text-sm mt-1">🇱🇧 Middle East Hub</p>
+                </motion.div>
+              </motion.div>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Lebanon</h3>
+                <div className="space-y-2 text-gray-600 dark:text-gray-300">
+                  <p>{t('about.locations.lebanon.address')}</p>
+                  <p>{t('about.locations.lebanon.postal')}</p>
+                  <p>{t('about.locations.lebanon.email')}</p>
+                  <p>{t('about.locations.lebanon.phone')}</p>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+
+            {/* France Location */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.6, type: "spring" }}
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
+              whileHover={{ y: -5 }}
+            >
+              <motion.div 
+                className="h-64 overflow-hidden relative group"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&h=600&fit=crop" 
+                  alt="Paris, France"
+                  className="w-full h-full object-cover"
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
+                  initial={{ opacity: 0.7 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.div
+                  className="absolute bottom-4 left-4 right-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h4 className="text-2xl font-bold text-white drop-shadow-lg">Paris, France</h4>
+                  <p className="text-white/90 text-sm mt-1">🇫🇷 City of Light</p>
+                </motion.div>
+              </motion.div>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">France</h3>
+                <div className="space-y-2 text-gray-600 dark:text-gray-300">
+                  <p>{t('about.locations.france.address')}</p>
+                  <p>{t('about.locations.france.postal')}</p>
+                  <p>{t('about.locations.france.email')}</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>

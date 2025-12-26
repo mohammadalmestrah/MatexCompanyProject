@@ -36,7 +36,7 @@
     "fallback": {
       "price": "للاطلاع على الأسعار، يرجى تزويدنا بتفاصيل مشروعك وسنقدم عرض سعر.",
       "services": "نحن نقدم حلول الذكاء الاصطناعي، وتطوير البرمجيات، وخدمات السحابة، والاستشارات.",
-      "contact": "يمكنك التواصل معنا عبر contact@matex.com أو +1 (234) 567-890.",
+      "contact": "يمكنك التواصل معنا عبر almestrahmohammad@gmail.com أو +961 76162549.",
       "generic": "أنا هنا للمساعدة بمعلومات Matex. هل يمكنك توضيح ما تحتاجه؟"
     },
     "leadName": "اسمك",
@@ -180,8 +180,8 @@
   },
   "footer": {
     "contact": "اتصل بنا",
-    "email": "contact@matex.com",
-    "phone": "+1 (234) 567-890",
+    "email": "almestrahmohammad@gmail.com",
+    "phone": "+961 76162549",
     "follow": "تابعنا",
     "newsletter": "النشرة الإخبارية",
     "emailPlaceholder": "أدخل بريدك الإلكتروني",
@@ -214,8 +214,20 @@
       "lebanon": {
         "address": "بعبدا، جبل لبنان",
         "postal": "لبنان",
-        "email": "contact@matex.com",
-        "phone": "+1 (234) 567-890"
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
+      },
+      "turkey": {
+        "address": "إسطنبول، تركيا",
+        "postal": "تركيا",
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
+      },
+      "france": {
+        "address": "باريس، فرنسا",
+        "postal": "فرنسا",
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
       }
     }
   },

@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Send, X, MessageSquare, Loader2, Bot, HelpCircle } from 'lucide-react';
+import { Send, X, MessageSquare, Loader2, Bot, HelpCircle, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MLChatbot from '../services/mlChatbot';
+import AIChatbot from '../services/aiChatbot';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -21,8 +22,20 @@ const Chatbot = () => {
   const [backendOnline, setBackendOnline] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
 
-  // Initialize ML chatbot
+  // Initialize AI chatbot (ChatGPT-like) with fallback to ML chatbot
+  const [aiChatbot] = useState(() => {
+    try {
+      return new AIChatbot({
+        useOpenAI: !!import.meta.env.VITE_OPENAI_API_KEY
+      });
+    } catch (error) {
+      console.warn('AI Chatbot initialization failed, using ML chatbot:', error);
+      return null;
+    }
+  });
   const [mlChatbot] = useState(() => new MLChatbot());
+  const [useAI, setUseAI] = useState(!!import.meta.env.VITE_OPENAI_API_KEY);
+  const [isStreaming, setIsStreaming] = useState(false);
   const API_BASE = (import.meta as any).env?.VITE_API_BASE || '';
 
   // No need for health check since we're using local data
@@ -81,37 +94,78 @@ const Chatbot = () => {
   };
 
   const postChat = async (messageText: string) => {
-    // Use ML chatbot directly (no server needed)
     try {
-      const response = await mlChatbot.chat(messageText);
-      if (response.session_id && !sessionId) {
-        setSessionId(response.session_id);
+      // Try AI chatbot first if available and enabled
+      if (useAI && aiChatbot) {
+        const response = await aiChatbot.chat(messageText, true);
+        if (response.session_id && !sessionId) {
+          setSessionId(response.session_id);
+        }
+        return response.response;
+      } else {
+        // Fallback to ML chatbot
+        const response = await mlChatbot.chat(messageText);
+        if (response.session_id && !sessionId) {
+          setSessionId(response.session_id);
+        }
+        return response.response;
       }
-      return response.response;
     } catch (error) {
-      console.error('ML chatbot error:', error);
-      throw error;
+      console.error('Chatbot error:', error);
+      // Final fallback to ML chatbot
+      try {
+        const response = await mlChatbot.chat(messageText);
+        return response.response;
+      } catch (fallbackError) {
+        throw fallbackError;
+      }
     }
   };
 
   const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim() || isLoading) return;
 
     const userMessage = { role: 'user' as const, content: inputValue.trim() };
     setMessages(prev => [...prev, userMessage]);
+    const messageText = inputValue.trim();
     setInputValue('');
     setIsLoading(true);
     setShowSuggestions(false);
 
     try {
-      const reply = await postChat(userMessage.content);
-      setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+      // Check if streaming is available and enabled
+      if (useAI && aiChatbot && import.meta.env.VITE_ENABLE_STREAMING === 'true') {
+        setIsStreaming(true);
+        let fullResponse = '';
+        
+        await aiChatbot.chatStream(messageText, (chunk: string) => {
+          fullResponse += chunk;
+          // Update the last message with streaming content
+          setMessages(prev => {
+            const newMessages = [...prev];
+            const lastMsg = newMessages[newMessages.length - 1];
+            if (lastMsg && lastMsg.role === 'assistant') {
+              lastMsg.content = fullResponse;
+            } else {
+              newMessages.push({ role: 'assistant', content: fullResponse });
+            }
+            return newMessages;
+          });
+        });
+        
+        setIsStreaming(false);
+      } else {
+        // Regular non-streaming response
+        const reply = await postChat(messageText);
+        setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
+      }
     } catch (error) {
       console.error('Error:', error);
-      const fallback = localFallbackResponder(userMessage.content);
+      const fallback = localFallbackResponder(messageText);
       setMessages(prev => [...prev, { role: 'assistant', content: fallback }]);
     } finally {
       setIsLoading(false);
+      setIsStreaming(false);
     }
   };
 
@@ -151,7 +205,7 @@ const Chatbot = () => {
       setShowLead(false);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Thank you for your interest! We have received your information and will contact you soon. You can also reach us directly at contact@matex.com or +1 (234) 567-890.' 
+        content: 'Thank you for your interest! We have received your information and will contact you soon. You can also reach us directly at almestrahmohammad@gmail.com or +961 76162549.' 
       }]);
       
       // Reset form
@@ -160,7 +214,7 @@ const Chatbot = () => {
       console.error('Error saving lead:', error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Sorry, there was an error saving your information. Please contact us directly at contact@matex.com or +1 (234) 567-890.' 
+        content: 'Sorry, there was an error saving your information. Please contact us directly at almestrahmohammad@gmail.com or +961 76162549.' 
       }]);
     }
   };
@@ -211,10 +265,25 @@ const Chatbot = () => {
             <div className="bg-[#5C3FBD] dark:bg-gray-800 h-16 flex items-center px-4 sm:px-6 relative overflow-visible">
               <div className="relative flex items-center justify-between w-full">
                 <div className="flex items-center gap-3">
-                  <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm">
+                  <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm relative">
                     <Bot className="h-6 w-6 text-white" />
+                    {useAI && aiChatbot && (
+                      <motion.div
+                        className="absolute -top-1 -right-1 bg-green-500 rounded-full p-0.5"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 500 }}
+                      >
+                        <Sparkles className="h-2 w-2 text-white" />
+                      </motion.div>
+                    )}
                   </div>
-                  <h3 className="font-medium text-white text-lg">{t('chatbot.title')}</h3>
+                  <div>
+                    <h3 className="font-medium text-white text-lg">{t('chatbot.title')}</h3>
+                    {useAI && aiChatbot && (
+                      <p className="text-xs text-white/70">AI-Powered</p>
+                    )}
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <motion.button
@@ -286,7 +355,7 @@ const Chatbot = () => {
                   </motion.div>
                 </motion.div>
               ))}
-              {isLoading && (
+              {isLoading && !isStreaming && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -297,6 +366,24 @@ const Chatbot = () => {
                   </div>
                   <div className={`bg-white dark:bg-gray-700 p-4 rounded-2xl ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`}>
                     <Loader2 className="h-6 w-6 animate-spin text-[#5C3FBD]" />
+                  </div>
+                </motion.div>
+              )}
+              {isStreaming && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`flex ${isRTL ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div className={`w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center ${isRTL ? 'ml-3' : 'mr-3'}`}>
+                    <Sparkles className="h-5 w-5 text-[#5C3FBD] animate-pulse" />
+                  </div>
+                  <div className={`bg-white dark:bg-gray-700 p-3 rounded-2xl ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`}>
+                    <div className="flex gap-1">
+                      <motion.div className="w-2 h-2 bg-[#5C3FBD] rounded-full" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} />
+                      <motion.div className="w-2 h-2 bg-[#5C3FBD] rounded-full" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} />
+                      <motion.div className="w-2 h-2 bg-[#5C3FBD] rounded-full" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }} />
+                    </div>
                   </div>
                 </motion.div>
               )}
