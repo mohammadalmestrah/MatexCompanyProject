@@ -188,7 +188,7 @@ const Privacy = () => {
                 </p>
                 <div className="space-y-2 text-gray-600 dark:text-gray-300">
                   <p>Email: privacy@matex.com</p>
-                  <p>Phone: +1 (234) 567-890</p>
+                  <p>Phone: +961 76162549</p>
                   <p>Address: Lebanon</p>
                 </div>
               </motion.section>

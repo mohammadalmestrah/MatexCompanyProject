@@ -62,10 +62,12 @@
   },
   "chatbot": {
     "open": "Discuter avec nous",
-    "title": "Assistant Matex",
+    "buttonText": "Discuter avec l'IA Matex",
+    "title": "Assistant IA Matex",
     "showSuggestions": "Afficher les suggestions",
-    "close": "Fermer la discussion",
-    "placeholder": "Tapez votre message...",
+    "close": "Fermer",
+    "closeChat": "Fermer la discussion",
+    "placeholder": "Posez-moi des questions sur les services Matex, le fondateur ou les informations de contact...",
     "greeting": "Bonjour ! Je suis l'Assistant Matex. Je peux vous aider avec :\n\n• Informations sur Matex\n• Nos services et solutions\n• Emplacements des bureaux\n• Coordonnées\n• Opportunités de carrière\n• Technologies utilisées\n• Planifier une consultation\n\nQue souhaitez-vous savoir ?",
     "suggestions": {
       "about": "Parlez-moi de Matex",
@@ -73,13 +75,13 @@
       "locations": "Où sont vos bureaux ?",
       "contact": "Comment puis-je vous contacter ?",
       "careers": "Opportunités de carrière",
-      "consult": "Planifier une consultation",
-      "contactSales": "Contacter les ventes"
+      "consult": "Planifier une consultation"
     },
+    "contactSales": "Contacter les ventes",
     "fallback": {
       "price": "Pour les prix, veuillez partager les détails de votre projet et nous fournirons un devis.",
       "services": "Nous proposons des solutions IA, le développement logiciel, des services cloud et du conseil.",
-      "contact": "Vous pouvez nous joindre à contact@matex.com ou +1 (234) 567-890.",
+      "contact": "Vous pouvez nous joindre à almestrahmohammad@gmail.com ou +961 76162549.",
       "generic": "Je suis là pour vous aider avec les informations Matex. Pouvez-vous préciser votre besoin ?"
     },
     "leadName": "Votre nom",
@@ -159,8 +161,8 @@
   },
   "footer": {
     "contact": "Contactez-nous",
-    "email": "contact@matex.com",
-    "phone": "+1 (234) 567-890",
+    "email": "almestrahmohammad@gmail.com",
+    "phone": "+961 76162549",
     "follow": "Suivez-nous",
     "newsletter": "Newsletter",
     "emailPlaceholder": "Entrez votre email",
@@ -193,8 +195,20 @@
       "lebanon": {
         "address": "Baabda, Mont Liban",
         "postal": "Liban",
-        "email": "contact@matex.com",
-        "phone": "+1 (234) 567-890"
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
+      },
+      "turkey": {
+        "address": "Istanbul, Turquie",
+        "postal": "Turquie",
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
+      },
+      "france": {
+        "address": "Paris, France",
+        "postal": "France",
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
       }
     }
   },

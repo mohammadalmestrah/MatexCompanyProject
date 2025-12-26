@@ -35,7 +35,7 @@
     "fallback": {
       "price": "For pricing, please share your project details and we'll provide a quote.",
       "services": "We provide AI solutions, software development, cloud services, and consulting.",
-      "contact": "You can reach us at contact@matex.com or +1 (234) 567-890.",
+      "contact": "You can reach us at almestrahmohammad@gmail.com or +961 76162549.",
       "generic": "I'm here to help with Matex information. Could you tell me a bit more about what you need?"
     },
     "contactSales": "Contact Sales",
@@ -180,8 +180,8 @@
   },
   "footer": {
     "contact": "Contact Us",
-    "email": "contact@matex.com",
-    "phone": "+1 (234) 567-890",
+    "email": "almestrahmohammad@gmail.com",
+    "phone": "+961 76162549",
     "follow": "Follow Us",
     "newsletter": "Newsletter",
     "emailPlaceholder": "Enter your email",
@@ -214,8 +214,20 @@
       "lebanon": {
         "address": "Baabda, Mount Lebanon",
         "postal": "Lebanon",
-        "email": "contact@matex.com",
-        "phone": "+1 (234) 567-890"
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
+      },
+      "turkey": {
+        "address": "Istanbul, Turkey",
+        "postal": "Turkey",
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
+      },
+      "france": {
+        "address": "Paris, France",
+        "postal": "France",
+        "email": "almestrahmohammad@gmail.com",
+        "phone": "+961 76162549"
       }
     }
   },

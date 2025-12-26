@@ -17,8 +17,8 @@ describe('Footer', () => {
   });
 
   it('renders contact information', () => {
-    expect(screen.getByText('contact@matex.com')).toBeInTheDocument();
-    expect(screen.getByText('+1 (234) 567-890')).toBeInTheDocument();
+    expect(screen.getByText('almestrahmohammad@gmail.com')).toBeInTheDocument();
+    expect(screen.getByText('+961 76162549')).toBeInTheDocument();
   });
 
   it('renders social media links', () => {
