@@ -135,31 +135,43 @@ const About = () => {
               <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
               
               {/* Image container with enhanced styling */}
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl border-4 border-white dark:border-gray-700 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 p-2">
+              <div className="relative inline-block rounded-2xl shadow-2xl border-4 border-white dark:border-gray-700 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 overflow-hidden">
                 <motion.img 
                   src="/image.png" 
                   alt={t('about.founder.name')}
-                  className="rounded-xl object-cover w-full h-auto relative z-10"
+                  className="rounded-xl object-contain w-auto h-auto max-w-full max-h-[700px] block relative z-10"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
+                  loading="eager"
+                  onError={(e) => {
+                    console.error('Image failed to load:', e);
+                    const target = e.target as HTMLImageElement;
+                    // Try alternative path
+                    if (!target.src.includes('image.png')) {
+                      target.src = "/image.png";
+                    }
+                  }}
+                  onLoad={() => {
+                    console.log('Founder image loaded successfully');
+                  }}
                 />
+                
+                {/* Enhanced CEO badge - positioned inside image container */}
+                <motion.div 
+                  className="absolute bottom-4 right-4 bg-gradient-to-br from-indigo-600 to-indigo-800 text-white p-4 rounded-xl shadow-2xl border-2 border-white/20 backdrop-blur-sm z-20"
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
+                  whileHover={{ scale: 1.08, rotate: 2, y: -5 }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    <p className="text-lg font-semibold">{t('about.founder.role')}</p>
+                  </div>
+                  <p className="text-sm text-indigo-100">{t('about.founder.name')}</p>
+                </motion.div>
               </div>
-              
-              {/* Enhanced CEO badge */}
-              <motion.div 
-                className="absolute -bottom-6 -right-6 bg-gradient-to-br from-indigo-600 to-indigo-800 text-white p-6 rounded-xl shadow-2xl border-2 border-white/20 backdrop-blur-sm"
-                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
-                whileHover={{ scale: 1.08, rotate: 2, y: -5 }}
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  <p className="text-lg font-semibold">{t('about.founder.role')}</p>
-                </div>
-                <p className="text-sm text-indigo-100">{t('about.founder.name')}</p>
-              </motion.div>
               
               {/* Decorative corner accent */}
               <motion.div
