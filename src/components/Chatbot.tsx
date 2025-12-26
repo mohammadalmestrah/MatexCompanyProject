@@ -198,7 +198,7 @@ const Chatbot = () => {
             className="fixed top-0 right-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col border-l border-gray-200 dark:border-gray-700"
           >
             {/* Header */}
-            <div className="bg-[#5C3FBD] dark:bg-gray-800 h-16 flex items-center px-4 sm:px-6 relative overflow-hidden">
+            <div className="bg-[#5C3FBD] dark:bg-gray-800 h-16 flex items-center px-4 sm:px-6 relative overflow-visible">
               <div className="relative flex items-center justify-between w-full">
                 <div className="flex items-center gap-3">
                   <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm">
@@ -214,7 +214,7 @@ const Chatbot = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <HelpCircle className="h-5 w-5" />
-                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                    <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 pointer-events-none">
                       Show Suggestions
                     </span>
                   </motion.button>
@@ -225,7 +225,7 @@ const Chatbot = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <X className="h-5 w-5" />
-                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                    <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 pointer-events-none">
                       Close
                     </span>
                   </motion.button>
