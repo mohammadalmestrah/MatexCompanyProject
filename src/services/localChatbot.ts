@@ -59,6 +59,36 @@ class LocalChatbot {
       return response;
     }
 
+    // LLM Algorithms detailed information
+    if (message.includes('llm') || message.includes('large language model') || message.includes('language model') || message.includes('gpt') || message.includes('claude') || message.includes('llama') || message.includes('bert')) {
+      const llm = websiteData.technologies.llm_algorithms;
+      let response = `${llm.definition}\n\nArchitecture Types:\n`;
+      llm.architecture_types.forEach(arch => {
+        response += `• ${arch.name}: ${arch.description}\n`;
+        if (arch.key_components) {
+          response += `  Key Components: ${arch.key_components.join(', ')}\n`;
+        }
+        if (arch.examples) {
+          response += `  Examples: ${arch.examples.join(', ')}\n`;
+        }
+        response += '\n';
+      });
+      response += `Popular Models:\n`;
+      llm.popular_models.forEach(model => {
+        response += `• ${model.name}: ${model.description}\n`;
+        if (model.models) {
+          response += `  Models: ${model.models.join(', ')}\n`;
+        }
+        if (model.capabilities) {
+          response += `  Capabilities: ${model.capabilities.join(', ')}\n`;
+        }
+        response += '\n';
+      });
+      response += `Applications:\n${llm.applications.map(app => `• ${app}`).join('\n')}\n\n`;
+      response += `Frameworks & Tools: ${llm.frameworks_and_tools.join(', ')}`;
+      return response;
+    }
+
     // Artificial Intelligence detailed information
     if (message.includes('artificial intelligence') || message.includes('ai')) {
       const ai = websiteData.technologies.artificial_intelligence;
