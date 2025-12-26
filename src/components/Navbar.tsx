@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Menu, X, LogOut } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import Auth from './Auth';
@@ -20,19 +20,35 @@ const Navbar = () => {
           <motion.div 
             className="flex items-center"
             whileHover={{ scale: 1.05 }}
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ 
+              duration: 0.6,
+              type: "spring",
+              stiffness: 100
+            }}
           >
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center group">
               <motion.img 
                 src="/matex-logo.png" 
                 alt="Matex" 
                 className="h-16 w-auto"
-                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                transition={{ duration: 0.5 }}
+                whileHover={{ 
+                  rotate: [0, -5, 5, -5, 0],
+                  scale: 1.1
+                }}
+                transition={{ 
+                  duration: 0.6,
+                  type: "spring"
+                }}
               />
-              <span className="ml-2 text-xl font-bold">Matex</span>
+              <motion.span 
+                className="ml-2 text-xl font-bold"
+                whileHover={{ x: 5 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                Matex
+              </motion.span>
             </Link>
           </motion.div>
           
@@ -47,21 +63,38 @@ const Navbar = () => {
               ].map((item, index) => (
                 <motion.div 
                   key={item.path}
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.3 }}
+                  initial={{ opacity: 0, y: -20, rotateX: -90 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ 
+                    delay: index * 0.08, 
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 200
+                  }}
                 >
                   <Link 
                     to={item.path} 
-                    className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300 relative group"
+                    className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300 relative group overflow-hidden"
                   >
-                    {item.label}
                     <motion.span
-                      className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"
+                      className="relative z-10"
+                      whileHover={{ x: 2 }}
+                    >
+                      {item.label}
+                    </motion.span>
+                    <motion.span
+                      className="absolute bottom-0 left-0 w-0 h-0.5 bg-white"
                       initial={{ width: 0 }}
                       whileHover={{ width: "100%" }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-indigo-700/20 rounded-md"
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
                     />
                   </Link>
                 </motion.div>
@@ -114,40 +147,46 @@ const Navbar = () => {
         </div>
       </div>
 
-      {isOpen && (
-        <motion.div 
-          className="md:hidden"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className="md:hidden"
+            initial={{ opacity: 0, y: -20, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -20, height: 0 }}
+            transition={{ 
+              duration: 0.4,
+              type: "spring",
+              stiffness: 200,
+              damping: 20
+            }}
+          >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <motion.div whileHover={{ x: 10 }} className="block">
-              <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800 transition-all duration-300">
-                {t('nav.home')}
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ x: 10 }} className="block">
-              <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800 transition-all duration-300">
-                {t('nav.about')}
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ x: 10 }} className="block">
-              <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800 transition-all duration-300">
-                {t('nav.services')}
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ x: 10 }} className="block">
-              <Link to="/clients" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800 transition-all duration-300">
-                {t('nav.clients')}
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ x: 10 }} className="block">
-              <Link to="/careers" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800 transition-all duration-300">
-                {t('nav.careers')}
-              </Link>
-            </motion.div>
+            {[
+              { path: '/', label: t('nav.home') },
+              { path: '/about', label: t('nav.about') },
+              { path: '/services', label: t('nav.services') },
+              { path: '/clients', label: t('nav.clients') },
+              { path: '/careers', label: t('nav.careers') }
+            ].map((item, index) => (
+              <motion.div 
+                key={item.path}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.3 }}
+                whileHover={{ x: 10, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="block"
+              >
+                <Link 
+                  to={item.path} 
+                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800 transition-all duration-300"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
+            ))}
             {user ? (
               <motion.button
                 onClick={signOut}
@@ -168,7 +207,8 @@ const Navbar = () => {
             )}
           </div>
         </motion.div>
-      )}
+        )}
+      </AnimatePresence>
 
       {showAuth && <Auth onClose={() => setShowAuth(false)} />}
     </nav>

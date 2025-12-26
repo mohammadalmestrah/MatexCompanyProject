@@ -126,17 +126,17 @@ const About = () => {
             </motion.div>
             <motion.div 
               className="relative"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: 50, rotateY: -20 }}
+              whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 100 }}
             >
               <motion.img 
                 src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg" 
                 alt={t('about.founder.name')}
                 className="rounded-lg shadow-xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ scale: 1.08, rotateY: 5, z: 20 }}
+                transition={{ duration: 0.5, type: "spring" }}
               />
               <motion.div 
                 className="absolute -bottom-6 -right-6 bg-indigo-600 text-white p-6 rounded-lg"

@@ -186,10 +186,15 @@ const Chatbot = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            initial={{ opacity: 0, x: '100%', scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: '100%', scale: 0.9 }}
+            transition={{ 
+              type: 'spring', 
+              damping: 25, 
+              stiffness: 300,
+              mass: 0.5
+            }}
             className="fixed top-0 right-0 w-full md:w-1/2 h-screen bg-white shadow-2xl z-50 flex flex-col"
           >
             {/* Header */}
@@ -233,25 +238,36 @@ const Chatbot = () => {
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0, y: 20, scale: 0.9, x: message.role === 'user' ? 20 : -20 }}
+                  animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
+                  transition={{ 
+                    duration: 0.4,
+                    type: "spring",
+                    stiffness: 200,
+                    delay: index * 0.05
+                  }}
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {message.role === 'assistant' && (
-                    <div className="w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center mr-3">
+                    <motion.div 
+                      className="w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center mr-3"
+                      whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
+                      transition={{ duration: 0.5 }}
+                    >
                       <Bot className="h-5 w-5 text-[#5C3FBD]" />
-                    </div>
+                    </motion.div>
                   )}
-                  <div
+                  <motion.div
                     className={`max-w-[80%] p-4 text-base rounded-2xl shadow-sm whitespace-pre-wrap ${
                       message.role === 'user'
                         ? 'bg-[#5C3FBD] text-white rounded-br-none'
                         : 'bg-white text-gray-800 rounded-bl-none border border-gray-100'
                     }`}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
                     {message.content}
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
               {isLoading && (

@@ -65,8 +65,31 @@ const Home = () => {
             ease: "linear"
           }}
         >
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full blur-3xl"></div>
+          <motion.div 
+            className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"
+            animate={{
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div 
+            className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full blur-3xl"
+            animate={{
+              x: [0, -50, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5
+            }}
+          />
         </motion.div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
@@ -98,20 +121,54 @@ const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -2 }} 
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
+              >
                 <Link
                   to="/services"
-                  className="bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 inline-block"
+                  className="bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 inline-block relative overflow-hidden group"
                 >
-                  {t('home.hero.cta.services')}
+                  <motion.span
+                    className="relative z-10"
+                    whileHover={{ x: 2 }}
+                  >
+                    {t('home.hero.cta.services')}
+                  </motion.span>
+                  <motion.div
+                    className="absolute inset-0 bg-indigo-50"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -2 }} 
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
+              >
                 <Link
                   to="/clients"
-                  className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 transition-all duration-300 inline-block"
+                  className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 transition-all duration-300 inline-block relative overflow-hidden group"
                 >
-                  {t('home.hero.cta.projects')}
+                  <motion.span
+                    className="relative z-10"
+                    whileHover={{ x: 2 }}
+                  >
+                    {t('home.hero.cta.projects')}
+                  </motion.span>
+                  <motion.div
+                    className="absolute inset-0 bg-white"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </Link>
               </motion.div>
             </motion.div>
@@ -141,30 +198,52 @@ const Home = () => {
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group relative"
                 variants={fadeInUp}
-                whileHover={{ scale: 1.05, y: -5 }}
+                whileHover={{ scale: 1.05, y: -8, rotateY: 5 }}
                 whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, rotateX: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                transition={{ 
+                  delay: index * 0.1, 
+                  duration: 0.6,
+                  type: "spring",
+                  stiffness: 100
+                }}
               >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
                 <motion.div 
-                  className="text-indigo-600 mb-4"
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.5 }}
+                  className="text-indigo-600 mb-4 relative z-10"
+                  whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.2 }}
+                  transition={{ duration: 0.6, type: "spring" }}
                 >
                   {service.icon}
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <motion.div whileHover={{ x: 5 }}>
+                <motion.h3 
+                  className="text-xl font-semibold mb-2 relative z-10"
+                  whileHover={{ color: "#4F46E5" }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {service.title}
+                </motion.h3>
+                <p className="text-gray-600 mb-4 relative z-10">{service.description}</p>
+                <motion.div 
+                  whileHover={{ x: 5 }}
+                  className="relative z-10"
+                >
                   <Link
                     to="/services"
-                    className="text-indigo-600 font-medium flex items-center hover:text-indigo-700 transition-colors"
+                    className="text-indigo-600 font-medium flex items-center hover:text-indigo-700 transition-colors group/link"
                   >
-                    {t('home.hero.cta.services')} <ArrowRight className="ml-2 h-4 w-4" />
+                    {t('home.hero.cta.services')} 
+                    <motion.span
+                      whileHover={{ x: 5 }}
+                    >
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </motion.span>
                   </Link>
                 </motion.div>
               </motion.div>
@@ -191,23 +270,37 @@ const Home = () => {
             ].map((stat, index) => (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.5, rotateY: -90 }}
+                whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5, type: "spring" }}
-                whileHover={{ scale: 1.1, y: -5 }}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+                transition={{ 
+                  delay: index * 0.1, 
+                  duration: 0.6, 
+                  type: "spring",
+                  stiffness: 100
+                }}
+                whileHover={{ scale: 1.1, y: -8, rotateY: 5, z: 50 }}
+                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group"
               >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
                 <motion.div 
-                  className="text-4xl font-bold text-indigo-600 mb-2"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
+                  className="text-4xl font-bold text-indigo-600 mb-2 relative z-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
+                  transition={{ delay: index * 0.1 + 0.2, type: "spring" }}
+                  whileHover={{ scale: 1.1, color: "#4338CA" }}
                 >
                   {stat.value}
                 </motion.div>
-                <div className="text-gray-600">{stat.label}</div>
+                <motion.div 
+                  className="text-gray-600 relative z-10"
+                  whileHover={{ color: "#4F46E5" }}
+                >
+                  {stat.label}
+                </motion.div>
               </motion.div>
             ))}
           </div>

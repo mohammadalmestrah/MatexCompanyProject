@@ -215,14 +215,19 @@ const Careers = () => {
               {positions.jobs.map((job, index) => (
                 <motion.div 
                   key={index}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ opacity: 0, y: 40, scale: 0.9, rotateX: -15 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: index * 0.15, duration: 0.5, type: "spring" }}
-                  className={`bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-xl ${
+                  transition={{ 
+                    delay: index * 0.15, 
+                    duration: 0.6, 
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  className={`bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-xl relative overflow-hidden ${
                     selectedPosition === job.title ? 'ring-2 ring-indigo-500' : ''
                   }`}
-                  whileHover={{ y: -3, scale: 1.01 }}
+                  whileHover={{ y: -5, scale: 1.02, rotateY: 2 }}
                 >
                   <div 
                     className="p-6 cursor-pointer"
@@ -257,9 +262,14 @@ const Careers = () => {
                   {selectedPosition === job.title && job.description && (
                     <motion.div 
                       className="px-6 pb-6 border-t border-gray-100 pt-4"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      initial={{ opacity: 0, height: 0, y: -20 }}
+                      animate={{ opacity: 1, height: 'auto', y: 0 }}
+                      transition={{ 
+                        duration: 0.5, 
+                        ease: "easeInOut",
+                        type: "spring",
+                        stiffness: 100
+                      }}
                     >
                       <p className="text-gray-700 mb-6 leading-relaxed">{job.description}</p>
                       
