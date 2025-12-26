@@ -27,18 +27,28 @@ const ClientRequirements = () => {
 
   useEffect(() => {
     checkAuth();
+    
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session?.user);
+      if (session?.user) {
+        setError(''); // Clear any auth errors when user logs in
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const checkAuth = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       setIsAuthenticated(!!user);
-      if (!user) {
-        setError('Please log in to submit a project request.');
-      }
+      // Don't set error here - let users fill the form first
     } catch (error) {
       console.error('Error checking authentication:', error);
-      setError('Authentication check failed. Please try again.');
+      // Only set error if there's an actual error, not just missing auth
     }
   };
 
@@ -53,23 +63,20 @@ const ClientRequirements = () => {
     e.preventDefault();
     setError('');
 
-    if (!isAuthenticated) {
-      setError('You must be logged in to submit a project. Please log in and try again.');
-      navigate('/login'); // Assuming you have a login route
-      return;
-    }
-
+    // Allow navigation between steps without authentication
     if (step < 3) {
       setStep(step + 1);
       return;
     }
 
+    // Only require authentication on final submission
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        setError('You must be logged in to submit a project. Please log in and try again.');
-        navigate('/login');
+        setError('Please log in to submit your project request. Click "Sign In" in the navigation bar to continue.');
+        // Scroll to top to show the error
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
@@ -125,22 +132,27 @@ const ClientRequirements = () => {
       case 1:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">{t('requirements.companyInfo')}</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{t('requirements.companyInfo')}</h2>
             {!isAuthenticated && (
-              <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 dark:border-yellow-600 p-4 mb-6">
-                <div className="flex">
+              <motion.div 
+                className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 dark:border-blue-600 p-4 mb-6 rounded-r-lg"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-yellow-400 dark:text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    <svg className="h-5 w-5 text-blue-400 dark:text-blue-500 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <div className="ml-3">
-                    <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                      Please log in to submit a project request.
+                  <div className="ml-3 flex-1">
+                    <p className="text-sm text-blue-700 dark:text-blue-400">
+                      <strong>Note:</strong> You can fill out the form now, but you'll need to log in before submitting your project request.
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
             <div className="space-y-4">
               <div>
@@ -425,7 +437,12 @@ const ClientRequirements = () => {
             </div>
 
             {error && (
-              <div className="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 dark:border-red-600 p-4">
+              <motion.div 
+                className="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 dark:border-red-600 p-4 rounded-r-lg"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-400 dark:text-red-500" viewBox="0 0 20 20" fill="currentColor">
@@ -433,10 +450,10 @@ const ClientRequirements = () => {
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
+                    <p className="text-sm text-red-700 dark:text-red-400 font-medium">{error}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             <form onSubmit={handleSubmit}>
@@ -453,15 +470,16 @@ const ClientRequirements = () => {
                       {t('requirements.back')}
                     </button>
                   )}
-                  <button
+                  <motion.button
                     type="submit"
                     className={`px-6 py-2 bg-indigo-600 dark:bg-indigo-500 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors ${
                       step === 1 ? 'ml-auto' : ''
                     }`}
-                    disabled={!isAuthenticated}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     {step === 3 ? t('requirements.proceed') : t('requirements.next')}
-                  </button>
+                  </motion.button>
                 </div>
               )}
             </form>
