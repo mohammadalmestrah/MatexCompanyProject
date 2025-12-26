@@ -73,14 +73,22 @@
       "locations": "Où sont vos bureaux ?",
       "contact": "Comment puis-je vous contacter ?",
       "careers": "Opportunités de carrière",
-      "consult": "Planifier une consultation"
+      "consult": "Planifier une consultation",
+      "contactSales": "Contacter les ventes"
     },
     "fallback": {
       "price": "Pour les prix, veuillez partager les détails de votre projet et nous fournirons un devis.",
       "services": "Nous proposons des solutions IA, le développement logiciel, des services cloud et du conseil.",
       "contact": "Vous pouvez nous joindre à contact@matex.com ou +1 (234) 567-890.",
       "generic": "Je suis là pour vous aider avec les informations Matex. Pouvez-vous préciser votre besoin ?"
-    }
+    },
+    "leadName": "Votre nom",
+    "leadEmail": "Votre email",
+    "leadCompany": "Entreprise (optionnel)",
+    "leadSubmit": "Envoyer",
+    "leadCancel": "Annuler",
+    "leadThanks": "Merci ! Notre équipe vous contactera bientôt.",
+    "leadError": "Désolé, envoi impossible. Veuillez réessayer."
   },
   "auth": {
     "welcomeBack": "Bienvenue !",

@@ -47,42 +47,73 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <motion.section 
-        className="bg-indigo-900 text-white"
+        className="bg-indigo-900 text-white relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        {/* Animated background elements */}
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full blur-3xl"></div>
+        </motion.div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <motion.div 
             className="text-center"
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            transition={{ delay: 0.2, duration: 0.8, type: "spring" }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
               {t('home.hero.title')}
-            </h1>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              {t('home.hero.subtitle')}
-            </p>
-            <motion.div 
-              className="flex justify-center gap-4"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+            </motion.h1>
+            <motion.p 
+              className="text-xl mb-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              <Link
-                to="/services"
-                className="bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
-              >
-                {t('home.hero.cta.services')}
-              </Link>
-              <Link
-                to="/clients"
-                className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 transition"
-              >
-                {t('home.hero.cta.projects')}
-              </Link>
+              {t('home.hero.subtitle')}
+            </motion.p>
+            <motion.div 
+              className="flex justify-center gap-4 flex-wrap"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  to="/services"
+                  className="bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 inline-block"
+                >
+                  {t('home.hero.cta.services')}
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  to="/clients"
+                  className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 transition-all duration-300 inline-block"
+                >
+                  {t('home.hero.cta.projects')}
+                </Link>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -93,7 +124,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2 
             className="text-3xl font-bold text-center mb-12"
-            {...fadeInUp}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
             {t('home.services.title')}
           </motion.h2>
@@ -101,25 +135,38 @@ const Home = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
             variants={staggerContainer}
             initial="initial"
-            animate="animate"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-100px" }}
           >
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition"
+                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
                 variants={fadeInUp}
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.05, y: -5 }}
                 whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <div className="text-indigo-600 mb-4">{service.icon}</div>
+                <motion.div 
+                  className="text-indigo-600 mb-4"
+                  whileHover={{ rotate: 360, scale: 1.2 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {service.icon}
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
-                <Link
-                  to="/services"
-                  className="text-indigo-600 font-medium flex items-center hover:text-indigo-700"
-                >
-                  {t('home.hero.cta.services')} <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                <motion.div whileHover={{ x: 5 }}>
+                  <Link
+                    to="/services"
+                    className="text-indigo-600 font-medium flex items-center hover:text-indigo-700 transition-colors"
+                  >
+                    {t('home.hero.cta.services')} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>
@@ -136,22 +183,33 @@ const Home = () => {
           viewport={{ once: true }}
         >
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <div className="text-4xl font-bold text-indigo-600 mb-2">200+</div>
-              <div className="text-gray-600">{t('home.stats.projects')}</div>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <div className="text-4xl font-bold text-indigo-600 mb-2">95%</div>
-              <div className="text-gray-600">{t('home.stats.satisfaction')}</div>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <div className="text-4xl font-bold text-indigo-600 mb-2">50+</div>
-              <div className="text-gray-600">{t('home.stats.consultants')}</div>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <div className="text-4xl font-bold text-indigo-600 mb-2">10+</div>
-              <div className="text-gray-600">{t('home.stats.experience')}</div>
-            </motion.div>
+            {[
+              { value: "200+", label: t('home.stats.projects') },
+              { value: "95%", label: t('home.stats.satisfaction') },
+              { value: "50+", label: t('home.stats.consultants') },
+              { value: "10+", label: t('home.stats.experience') }
+            ].map((stat, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5, type: "spring" }}
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+              >
+                <motion.div 
+                  className="text-4xl font-bold text-indigo-600 mb-2"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 + 0.2 }}
+                >
+                  {stat.value}
+                </motion.div>
+                <div className="text-gray-600">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </section>

@@ -1,0 +1,446 @@
+{
+  "company": {
+    "name": "Matex",
+    "founder": "Mohammad ALMESTRAH",
+    "description": "Matex is a technology solutions company founded by Mohammad ALMESTRAH, specializing in AI solutions, software development, cloud services, and technology consulting.",
+    "location": "Baabda, Mount Lebanon",
+    "email": "contact@matex.com",
+    "phone": "+1 (234) 567-890"
+  },
+  "services": [
+    {
+      "title": "AI Solutions",
+      "description": "We provide cutting-edge artificial intelligence solutions including machine learning models, natural language processing, computer vision, and AI-powered applications tailored to your business needs.",
+      "features": [
+        "Machine Learning Models",
+        "Natural Language Processing",
+        "Computer Vision",
+        "AI-Powered Applications",
+        "Custom AI Development"
+      ]
+    },
+    {
+      "title": "Software Development",
+      "description": "Full-stack software development services including web applications, mobile apps, desktop applications, and custom software solutions using modern technologies and best practices.",
+      "features": [
+        "Web Applications",
+        "Mobile Apps (iOS/Android)",
+        "Desktop Applications",
+        "Custom Software Solutions",
+        "API Development",
+        "Database Design"
+      ]
+    },
+    {
+      "title": "Cloud Services",
+      "description": "Comprehensive cloud solutions including cloud migration, infrastructure setup, cloud security, and cloud management services to help your business scale efficiently.",
+      "features": [
+        "Cloud Migration",
+        "Infrastructure Setup",
+        "Cloud Security",
+        "Cloud Management",
+        "Scalability Solutions",
+        "Cost Optimization"
+      ]
+    },
+    {
+      "title": "Technology Consulting",
+      "description": "Expert technology consulting services to help you make informed decisions about your technology stack, digital transformation, and IT strategy.",
+      "features": [
+        "Technology Strategy",
+        "Digital Transformation",
+        "IT Architecture",
+        "Technology Assessment",
+        "Implementation Planning",
+        "Training & Support"
+      ]
+    }
+  ],
+  "about": {
+    "founder": {
+      "name": "Mohammad ALMESTRAH",
+      "role": "Founder & CEO",
+      "description": "Mohammad ALMESTRAH is the visionary founder of Matex, bringing years of experience in technology and innovation to create solutions that drive business success."
+    },
+    "mission": "To provide innovative technology solutions that empower businesses to achieve their goals through cutting-edge AI, software development, and cloud services.",
+    "vision": "To be the leading technology partner for businesses seeking digital transformation and technological excellence.",
+    "values": [
+      "Innovation",
+      "Quality",
+      "Customer Satisfaction",
+      "Integrity",
+      "Continuous Learning"
+    ]
+  },
+  "contact": {
+    "email": "contact@matex.com",
+    "phone": "+1 (234) 567-890",
+    "location": "Baabda, Mount Lebanon",
+    "working_hours": "Monday - Friday: 9:00 AM - 6:00 PM",
+    "response_time": "We typically respond within 24 hours"
+  },
+  "pricing": {
+    "note": "Pricing varies based on project scope and requirements. We offer competitive rates and flexible payment options.",
+    "contact_for_quote": "Please contact us at contact@matex.com for a personalized quote based on your specific needs."
+  },
+  "technologies": {
+    "machine_learning": {
+      "definition": "Machine Learning (ML) is a subset of artificial intelligence that enables computers to learn and improve from experience without being explicitly programmed. It focuses on developing algorithms that can access data and use it to learn patterns and make predictions or decisions.",
+      "types": [
+        {
+          "name": "Supervised Learning",
+          "description": "Learning with labeled training data. The algorithm learns from input-output pairs to make predictions on new data.",
+          "examples": ["Linear Regression", "Decision Trees", "Random Forest", "Support Vector Machines", "Neural Networks"]
+        },
+        {
+          "name": "Unsupervised Learning",
+          "description": "Finding hidden patterns in data without labeled examples. The algorithm discovers structure in the data.",
+          "examples": ["K-Means Clustering", "Hierarchical Clustering", "PCA (Principal Component Analysis)", "DBSCAN", "Gaussian Mixture Models"]
+        },
+        {
+          "name": "Reinforcement Learning",
+          "description": "Learning through interaction with an environment using rewards and penalties to maximize cumulative reward.",
+          "examples": ["Q-Learning", "Policy Gradient Methods", "Actor-Critic Methods", "Deep Q-Networks (DQN)"]
+        }
+      ],
+      "applications": [
+        "Predictive Analytics",
+        "Image Recognition",
+        "Natural Language Processing",
+        "Recommendation Systems",
+        "Fraud Detection",
+        "Autonomous Vehicles",
+        "Medical Diagnosis",
+        "Financial Trading"
+      ],
+      "popular_frameworks": ["TensorFlow", "PyTorch", "Scikit-learn", "Keras", "XGBoost", "LightGBM"]
+    },
+    "artificial_intelligence": {
+      "definition": "Artificial Intelligence (AI) is the simulation of human intelligence in machines that are programmed to think and learn like humans. It encompasses machine learning, deep learning, natural language processing, computer vision, and more.",
+      "branches": [
+        {
+          "name": "Machine Learning",
+          "description": "Algorithms that improve through experience"
+        },
+        {
+          "name": "Deep Learning",
+          "description": "Neural networks with multiple layers that can learn complex patterns"
+        },
+        {
+          "name": "Natural Language Processing (NLP)",
+          "description": "Enabling computers to understand, interpret, and generate human language"
+        },
+        {
+          "name": "Computer Vision",
+          "description": "Enabling computers to interpret and understand visual information from images and videos"
+        },
+        {
+          "name": "Robotics",
+          "description": "Creating intelligent machines that can perform physical tasks"
+        },
+        {
+          "name": "Expert Systems",
+          "description": "Computer systems that emulate decision-making abilities of human experts"
+        }
+      ],
+      "ai_types": [
+        {
+          "name": "Narrow AI (Weak AI)",
+          "description": "AI designed for specific tasks (e.g., voice assistants, image recognition)"
+        },
+        {
+          "name": "General AI (Strong AI)",
+          "description": "AI with human-level cognitive abilities across all domains"
+        },
+        {
+          "name": "Superintelligence",
+          "description": "AI that surpasses human intelligence in all areas"
+        }
+      ]
+    },
+    "software_development": {
+      "definition": "Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.",
+      "methodologies": [
+        {
+          "name": "Agile",
+          "description": "Iterative approach emphasizing collaboration, flexibility, and customer feedback"
+        },
+        {
+          "name": "Scrum",
+          "description": "Framework within Agile using sprints, daily standups, and retrospectives"
+        },
+        {
+          "name": "Waterfall",
+          "description": "Sequential approach with distinct phases completed one after another"
+        },
+        {
+          "name": "DevOps",
+          "description": "Combining development and operations to improve collaboration and delivery speed"
+        }
+      ],
+      "programming_languages": {
+        "web_development": ["JavaScript", "TypeScript", "Python", "Java", "C#", "PHP", "Ruby", "Go"],
+        "mobile_development": ["Swift", "Kotlin", "Java", "Dart", "JavaScript", "C#"],
+        "backend": ["Python", "Java", "C#", "Node.js", "Go", "Rust", "PHP", "Ruby"],
+        "data_science": ["Python", "R", "SQL", "Julia", "Scala"],
+        "systems": ["C", "C++", "Rust", "Go", "Assembly"]
+      },
+      "development_types": [
+        {
+          "name": "Frontend Development",
+          "description": "Client-side development focusing on user interface and user experience",
+          "technologies": ["React", "Vue.js", "Angular", "HTML", "CSS", "JavaScript"]
+        },
+        {
+          "name": "Backend Development",
+          "description": "Server-side development handling business logic, databases, and APIs",
+          "technologies": ["Node.js", "Python", "Java", "C#", "PHP", "Ruby", "Go"]
+        },
+        {
+          "name": "Full-Stack Development",
+          "description": "Combining frontend and backend development skills",
+          "technologies": ["MERN Stack", "MEAN Stack", "LAMP Stack", "Django", "Rails"]
+        },
+        {
+          "name": "DevOps",
+          "description": "Combining development and operations for faster, more reliable deployments",
+          "technologies": ["Docker", "Kubernetes", "Jenkins", "AWS", "Azure", "GitLab CI"]
+        }
+      ]
+    },
+    "mobile_development": {
+      "definition": "Mobile development is the process of creating software applications that run on mobile devices such as smartphones and tablets.",
+      "platforms": [
+        {
+          "name": "Native Development",
+          "description": "Platform-specific development using native programming languages and tools",
+          "ios": {
+            "language": "Swift, Objective-C",
+            "framework": "UIKit, SwiftUI",
+            "ide": "Xcode"
+          },
+          "android": {
+            "language": "Kotlin, Java",
+            "framework": "Android SDK",
+            "ide": "Android Studio"
+          }
+        },
+        {
+          "name": "Cross-Platform Development",
+          "description": "Single codebase that runs on multiple platforms",
+          "frameworks": [
+            {
+              "name": "React Native",
+              "description": "Facebook's framework using JavaScript and React"
+            },
+            {
+              "name": "Flutter",
+              "description": "Google's framework using Dart programming language"
+            },
+            {
+              "name": "Xamarin",
+              "description": "Microsoft's framework using C#"
+            },
+            {
+              "name": "Ionic",
+              "description": "Framework using web technologies (HTML, CSS, JavaScript)"
+            }
+          ]
+        },
+        {
+          "name": "Hybrid Development",
+          "description": "Web-based applications wrapped in a native container",
+          "technologies": ["Cordova", "PhoneGap", "Ionic"]
+        }
+      ],
+      "mobile_app_types": [
+        "Consumer Apps (Social Media, Entertainment)",
+        "Business Apps (Productivity, CRM)",
+        "E-commerce Apps",
+        "Gaming Apps",
+        "Educational Apps",
+        "Healthcare Apps",
+        "Financial Apps",
+        "IoT Apps"
+      ]
+    },
+    "web_technologies": {
+      "frontend": {
+        "frameworks": [
+          {
+            "name": "React",
+            "description": "JavaScript library for building user interfaces, especially single-page applications",
+            "features": ["Component-based", "Virtual DOM", "JSX", "Hooks"]
+          },
+          {
+            "name": "Vue.js",
+            "description": "Progressive JavaScript framework for building user interfaces",
+            "features": ["Reactive data binding", "Component system", "Vue CLI", "Vuex"]
+          },
+          {
+            "name": "Angular",
+            "description": "TypeScript-based web application framework developed by Google",
+            "features": ["TypeScript", "Dependency injection", "RxJS", "Angular CLI"]
+          }
+        ],
+        "libraries": ["jQuery", "Lodash", "Axios", "Moment.js", "Chart.js"],
+        "styling": ["CSS3", "Sass", "Less", "Tailwind CSS", "Bootstrap", "Material-UI"]
+      },
+      "backend": {
+        "frameworks": [
+          {
+            "name": "Node.js",
+            "description": "JavaScript runtime built on Chrome's V8 JavaScript engine",
+            "frameworks": ["Express.js", "Koa.js", "NestJS", "Fastify"]
+          },
+          {
+            "name": "Python",
+            "description": "High-level programming language with excellent web frameworks",
+            "frameworks": ["Django", "Flask", "FastAPI", "Pyramid"]
+          },
+          {
+            "name": "Java",
+            "description": "Object-oriented programming language with robust web frameworks",
+            "frameworks": ["Spring Boot", "Struts", "JSF", "Play Framework"]
+          }
+        ]
+      },
+      "databases": {
+        "relational": ["MySQL", "PostgreSQL", "Oracle", "SQL Server", "SQLite"],
+        "nosql": ["MongoDB", "Cassandra", "Redis", "CouchDB", "Neo4j"],
+        "cloud": ["Amazon RDS", "Google Cloud SQL", "Azure SQL Database", "Firebase"]
+      }
+    },
+    "cloud_computing": {
+      "definition": "Cloud computing is the delivery of computing services including servers, storage, databases, networking, software, analytics, and intelligence over the Internet.",
+      "service_models": [
+        {
+          "name": "Infrastructure as a Service (IaaS)",
+          "description": "Virtualized computing resources over the internet",
+          "examples": ["Amazon EC2", "Google Compute Engine", "Microsoft Azure Virtual Machines"]
+        },
+        {
+          "name": "Platform as a Service (PaaS)",
+          "description": "Platform and environment for developing, testing, and managing applications",
+          "examples": ["Google App Engine", "AWS Elastic Beanstalk", "Microsoft Azure App Service"]
+        },
+        {
+          "name": "Software as a Service (SaaS)",
+          "description": "Software applications delivered over the internet on a subscription basis",
+          "examples": ["Google Workspace", "Microsoft 365", "Salesforce", "Dropbox"]
+        }
+      ],
+      "deployment_models": [
+        "Public Cloud",
+        "Private Cloud",
+        "Hybrid Cloud",
+        "Multi-Cloud"
+      ],
+      "major_providers": [
+        {
+          "name": "Amazon Web Services (AWS)",
+          "services": ["EC2", "S3", "Lambda", "RDS", "DynamoDB", "CloudFront"]
+        },
+        {
+          "name": "Microsoft Azure",
+          "services": ["Virtual Machines", "Blob Storage", "Functions", "SQL Database", "Cosmos DB"]
+        },
+        {
+          "name": "Google Cloud Platform (GCP)",
+          "services": ["Compute Engine", "Cloud Storage", "Cloud Functions", "Cloud SQL", "Firestore"]
+        }
+      ]
+    },
+    "cybersecurity": {
+      "definition": "Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks.",
+      "types_of_threats": [
+        "Malware",
+        "Phishing",
+        "Ransomware",
+        "SQL Injection",
+        "Cross-Site Scripting (XSS)",
+        "Distributed Denial of Service (DDoS)",
+        "Man-in-the-Middle Attacks",
+        "Social Engineering"
+      ],
+      "security_measures": [
+        "Firewalls",
+        "Antivirus Software",
+        "Encryption",
+        "Multi-Factor Authentication",
+        "Regular Security Updates",
+        "Employee Training",
+        "Network Monitoring",
+        "Backup and Recovery"
+      ]
+    }
+  },
+  "faq": [
+    {
+      "question": "What services does Matex offer?",
+      "answer": "Matex offers AI solutions, software development, cloud services, and technology consulting. We specialize in creating custom solutions tailored to your business needs."
+    },
+    {
+      "question": "Who is the founder of Matex?",
+      "answer": "Mohammad ALMESTRAH is the founder and CEO of Matex, bringing extensive experience in technology and innovation."
+    },
+    {
+      "question": "How can I contact Matex?",
+      "answer": "You can reach us at contact@matex.com or call +1 (234) 567-890. We're located in Baabda, Mount Lebanon."
+    },
+    {
+      "question": "Do you provide custom software development?",
+      "answer": "Yes, we specialize in custom software development including web applications, mobile apps, and desktop applications using modern technologies."
+    },
+    {
+      "question": "What AI solutions do you offer?",
+      "answer": "We provide machine learning models, natural language processing, computer vision, and AI-powered applications customized for your business requirements."
+    },
+    {
+      "question": "What is machine learning?",
+      "answer": "Machine Learning is a subset of artificial intelligence that enables computers to learn and improve from experience without being explicitly programmed. It includes supervised learning, unsupervised learning, and reinforcement learning approaches."
+    },
+    {
+      "question": "What is artificial intelligence?",
+      "answer": "Artificial Intelligence is the simulation of human intelligence in machines, encompassing machine learning, deep learning, natural language processing, computer vision, and robotics."
+    },
+    {
+      "question": "What programming languages do you use?",
+      "answer": "We work with various programming languages including JavaScript, Python, Java, C#, TypeScript, Swift, Kotlin, and more, depending on the project requirements and platform."
+    },
+    {
+      "question": "Do you develop mobile applications?",
+      "answer": "Yes, we develop both native iOS and Android applications, as well as cross-platform solutions using React Native, Flutter, and other modern frameworks."
+    },
+    {
+      "question": "What cloud services do you provide?",
+      "answer": "We offer cloud migration, infrastructure setup, security, and management services across AWS, Azure, and Google Cloud Platform."
+    }
+  ],
+  "escalation": {
+    "complex_question_message": "هذه مسألة معقدة وتتطلب خبرة متخصصة. يوجد عميل سوف يتكلم معكم قريباً. سيتم إرسال بريد إلكتروني إلى mohammad almestrah على almestrahmohammad@gmail.com",
+    "complex_keywords": [
+      "advanced machine learning",
+      "deep learning architecture",
+      "neural network optimization",
+      "custom ai model",
+      "complex algorithm",
+      "enterprise solution",
+      "large scale system",
+      "security implementation",
+      "performance optimization",
+      "advanced analytics",
+      "blockchain development",
+      "microservices architecture",
+      "distributed systems",
+      "real-time processing",
+      "high availability",
+      "disaster recovery",
+      "compliance requirements",
+      "integration complexity",
+      "legacy system migration",
+      "multi-tenant architecture"
+    ]
+  }
+}
+

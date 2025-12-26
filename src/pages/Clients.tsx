@@ -28,25 +28,57 @@ const Clients = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-indigo-900 text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-indigo-900 text-white py-24 relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, -90, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-300 rounded-full blur-3xl"></div>
+        </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, type: "spring" }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-5xl font-bold mb-6">{t('clients.hero.title')}</h1>
-            <p className="text-xl text-indigo-200 leading-relaxed mb-8">
-              {t('clients.hero.subtitle')}
-            </p>
-            <Link
-              to="/client-requirements"
-              className="inline-flex items-center px-6 py-3 bg-white text-indigo-900 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
+            <motion.h1 
+              className="text-5xl font-bold mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
-              {t('clients.hero.cta')}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+              {t('clients.hero.title')}
+            </motion.h1>
+            <motion.p 
+              className="text-xl text-indigo-200 leading-relaxed mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              {t('clients.hero.subtitle')}
+            </motion.p>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link
+                to="/client-requirements"
+                className="inline-flex items-center px-6 py-3 bg-white text-indigo-900 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300"
+              >
+                {t('clients.hero.cta')}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -58,20 +90,35 @@ const Clients = () => {
             {clients.map((client, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.15, duration: 0.6, type: "spring" }}
+                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                whileHover={{ y: -8, scale: 1.03 }}
               >
-                <div className="h-48 overflow-hidden">
+                <motion.div 
+                  className="h-48 overflow-hidden relative"
+                  whileHover={{ scale: 1.15 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <img 
                     src={client.image}
                     alt={client.name}
                     className="w-full h-full object-cover"
                   />
-                </div>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-t from-indigo-600/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </motion.div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{client.name}</h3>
+                  <motion.h3 
+                    className="text-xl font-bold mb-2"
+                    whileHover={{ color: "#4F46E5" }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {client.name}
+                  </motion.h3>
                   <p className="text-gray-600">{client.description}</p>
                 </div>
               </motion.div>
@@ -81,20 +128,64 @@ const Clients = () => {
       </section>
 
       {/* Testimonial Section */}
-      <section className="py-20 bg-indigo-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-indigo-900 text-white relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 opacity-5"
+          animate={{
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, type: "spring" }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl font-bold mb-8">{t('clients.testimonials.title')}</h2>
-            <blockquote className="text-xl italic mb-6">
+            <motion.h2 
+              className="text-3xl font-bold mb-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              {t('clients.testimonials.title')}
+            </motion.h2>
+            <motion.blockquote 
+              className="text-xl italic mb-6"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
               {t('clients.testimonials.quote')}
-            </blockquote>
-            <div className="font-semibold">{t('clients.testimonials.author')}</div>
-            <div className="text-indigo-300">{t('clients.testimonials.position')}</div>
+            </motion.blockquote>
+            <motion.div 
+              className="font-semibold"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              {t('clients.testimonials.author')}
+            </motion.div>
+            <motion.div 
+              className="text-indigo-300"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+            >
+              {t('clients.testimonials.position')}
+            </motion.div>
           </motion.div>
         </div>
       </section>

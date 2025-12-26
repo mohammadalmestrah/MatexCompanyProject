@@ -35,7 +35,15 @@
       "services": "We provide AI solutions, software development, cloud services, and consulting.",
       "contact": "You can reach us at contact@matex.com or +1 (234) 567-890.",
       "generic": "I'm here to help with Matex information. Could you tell me a bit more about what you need?"
-    }
+    },
+    "suggestions": {"contactSales": "Contact sales"},
+    "leadName": "Your name",
+    "leadEmail": "Your email",
+    "leadCompany": "Company (optional)",
+    "leadSubmit": "Send",
+    "leadCancel": "Cancel",
+    "leadThanks": "Thanks! Our team will contact you shortly.",
+    "leadError": "Sorry, we couldn't submit your request. Please try again."
   },
   "profile": {
     "tabs": {
