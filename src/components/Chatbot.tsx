@@ -22,19 +22,19 @@ const Chatbot = () => {
   const [backendOnline, setBackendOnline] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
 
-  // Initialize AI chatbot (ChatGPT-like) with fallback to ML chatbot
+  // Initialize AI chatbot (ChatGPT-like) - Always use AI service
   const [aiChatbot] = useState(() => {
     try {
       return new AIChatbot({
-        useOpenAI: !!import.meta.env.VITE_OPENAI_API_KEY
+        useOpenAI: true // Always try to use AI
       });
     } catch (error) {
-      console.warn('AI Chatbot initialization failed, using ML chatbot:', error);
+      console.warn('AI Chatbot initialization failed:', error);
       return null;
     }
   });
-  const [mlChatbot] = useState(() => new MLChatbot());
-  const [useAI, setUseAI] = useState(!!import.meta.env.VITE_OPENAI_API_KEY);
+  const [mlChatbot] = useState(() => new MLChatbot()); // Fallback only
+  const [useAI] = useState(true); // Always prefer AI mode
   const [isStreaming, setIsStreaming] = useState(false);
   const API_BASE = (import.meta as any).env?.VITE_API_BASE || '';
 
@@ -95,15 +95,15 @@ const Chatbot = () => {
 
   const postChat = async (messageText: string) => {
     try {
-      // Try AI chatbot first if available and enabled
-      if (useAI && aiChatbot) {
+      // Always try AI chatbot first (it has built-in fallback)
+      if (aiChatbot) {
         const response = await aiChatbot.chat(messageText, true);
         if (response.session_id && !sessionId) {
           setSessionId(response.session_id);
         }
         return response.response;
       } else {
-        // Fallback to ML chatbot
+        // Fallback to ML chatbot if AI service unavailable
         const response = await mlChatbot.chat(messageText);
         if (response.session_id && !sessionId) {
           setSessionId(response.session_id);
@@ -133,8 +133,8 @@ const Chatbot = () => {
     setShowSuggestions(false);
 
     try {
-      // Check if streaming is available and enabled
-      if (useAI && aiChatbot && import.meta.env.VITE_ENABLE_STREAMING === 'true') {
+      // Check if streaming is available and enabled (if OpenAI API key is set)
+      if (aiChatbot && import.meta.env.VITE_OPENAI_API_KEY && import.meta.env.VITE_ENABLE_STREAMING === 'true') {
         setIsStreaming(true);
         let fullResponse = '';
         
@@ -267,22 +267,28 @@ const Chatbot = () => {
                 <div className="flex items-center gap-3">
                   <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm relative">
                     <Bot className="h-6 w-6 text-white" />
-                    {useAI && aiChatbot && (
-                      <motion.div
-                        className="absolute -top-1 -right-1 bg-green-500 rounded-full p-0.5"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 500 }}
-                      >
-                        <Sparkles className="h-2 w-2 text-white" />
-                      </motion.div>
-                    )}
+                    <motion.div
+                      className="absolute -top-1 -right-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full p-0.5 shadow-lg"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+                    >
+                      <Sparkles className="h-2.5 w-2.5 text-white" />
+                    </motion.div>
                   </div>
                   <div>
-                    <h3 className="font-medium text-white text-lg">{t('chatbot.title')}</h3>
-                    {useAI && aiChatbot && (
-                      <p className="text-xs text-white/70">AI-Powered</p>
-                    )}
+                    <h3 className="font-medium text-white text-lg flex items-center gap-2">
+                      {t('chatbot.title')}
+                      <motion.span
+                        className="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full border border-green-400/30"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        AI
+                      </motion.span>
+                    </h3>
+                    <p className="text-xs text-white/70">Powered by Advanced AI</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">

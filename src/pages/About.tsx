@@ -96,10 +96,10 @@ const About = () => {
               </motion.p>
               <div className="grid grid-cols-2 gap-6">
                 {[
-                  { icon: Users, value: "200+", label: t('about.founder.stats.experts') },
-                  { icon: Building2, value: "500+", label: t('about.founder.stats.projects') },
-                  { icon: Globe, value: "30+", label: t('about.founder.stats.countries') },
-                  { icon: Award, value: "50+", label: t('about.founder.stats.awards') }
+                  { icon: Users, value: "10+", label: t('about.founder.stats.experts') },
+                  { icon: Building2, value: "50+", label: t('about.founder.stats.projects') },
+                  { icon: Globe, value: "2+", label: t('about.founder.stats.countries') },
+                  { icon: Award, value: "2+", label: t('about.founder.stats.awards') }
                 ].map((stat, index) => (
                   <motion.div 
                     key={index}
@@ -125,30 +125,55 @@ const About = () => {
               </div>
             </motion.div>
             <motion.div 
-              className="relative"
+              className="relative group"
               initial={{ opacity: 0, x: 50, rotateY: -20 }}
               whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 100 }}
             >
-              <motion.img 
-                src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg" 
-                alt={t('about.founder.name')}
-                className="rounded-lg shadow-xl"
-                whileHover={{ scale: 1.08, rotateY: 5, z: 20 }}
-                transition={{ duration: 0.5, type: "spring" }}
-              />
+              {/* Decorative background elements */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+              
+              {/* Image container with enhanced styling */}
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl border-4 border-white dark:border-gray-700 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 p-2">
+                <motion.img 
+                  src="/image.png" 
+                  alt={t('about.founder.name')}
+                  className="rounded-xl object-cover w-full h-auto relative z-10"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
+                />
+              </div>
+              
+              {/* Enhanced CEO badge */}
               <motion.div 
-                className="absolute -bottom-6 -right-6 bg-indigo-600 text-white p-6 rounded-lg"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                className="absolute -bottom-6 -right-6 bg-gradient-to-br from-indigo-600 to-indigo-800 text-white p-6 rounded-xl shadow-2xl border-2 border-white/20 backdrop-blur-sm"
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
-                whileHover={{ scale: 1.05, rotate: 2 }}
+                whileHover={{ scale: 1.08, rotate: 2, y: -5 }}
               >
-                <p className="text-lg font-semibold">{t('about.founder.role')}</p>
-                <p className="text-sm">{t('about.founder.name')}</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <p className="text-lg font-semibold">{t('about.founder.role')}</p>
+                </div>
+                <p className="text-sm text-indigo-100">{t('about.founder.name')}</p>
               </motion.div>
+              
+              {/* Decorative corner accent */}
+              <motion.div
+                className="absolute -top-4 -left-4 w-20 h-20 bg-gradient-to-br from-indigo-400/30 to-purple-400/30 rounded-full blur-2xl opacity-50"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.5, 0.3]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
             </motion.div>
           </motion.div>
         </div>
