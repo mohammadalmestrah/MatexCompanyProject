@@ -187,7 +187,7 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
               }}
             />
             <motion.h2 
-              className="text-2xl font-bold relative z-10"
+              className="text-2xl font-bold text-white relative z-10"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
@@ -206,7 +206,7 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
 
           {/* Form */}
           <motion.div 
-            className="p-6 relative z-10"
+            className="p-6 relative z-10 bg-white dark:bg-gray-800"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -224,8 +224,8 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
                   <CheckCircle className="h-5 w-5 mr-2" />
                 </motion.div>
                 <div>
-                  <p className="font-medium">{t('auth.signupSuccess')}</p>
-                  <p className="text-sm">{t('auth.signupSuccessMessage')}</p>
+                  <p className="font-medium text-green-700 dark:text-green-400">{t('auth.signupSuccess')}</p>
+                  <p className="text-sm text-green-600 dark:text-green-300">{t('auth.signupSuccessMessage')}</p>
                 </div>
               </motion.div>
             )}
@@ -327,11 +327,11 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
               >
                 {loading ? (
                   <>
-                    <Loader className="animate-spin h-5 w-5" />
-                    <span>{t('auth.processing')}</span>
+                    <Loader className="animate-spin h-5 w-5 text-white" />
+                    <span className="text-white">{t('auth.processing')}</span>
                   </>
                 ) : (
-                  <span>
+                  <span className="text-white">
                     {mode === 'signin'
                       ? (useOtp ? (otpSent ? t('auth.verifyCode') : t('auth.sendCode')) : t('nav.auth.signIn'))
                       : t('auth.createAccount')}
