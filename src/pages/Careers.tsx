@@ -153,18 +153,45 @@ const Careers = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-indigo-900 text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-indigo-900 text-white py-24 relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 45, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full blur-3xl"></div>
+        </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, type: "spring" }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-5xl font-bold mb-6">{t('careers.hero.title')}</h1>
-            <p className="text-xl text-indigo-200 leading-relaxed">
+            <motion.h1 
+              className="text-5xl font-bold mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              {t('careers.hero.title')}
+            </motion.h1>
+            <motion.p 
+              className="text-xl text-indigo-200 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
               {t('careers.hero.subtitle')}
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </section>
@@ -188,12 +215,14 @@ const Careers = () => {
               {positions.jobs.map((job, index) => (
                 <motion.div 
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-md ${
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: index * 0.15, duration: 0.5, type: "spring" }}
+                  className={`bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-xl ${
                     selectedPosition === job.title ? 'ring-2 ring-indigo-500' : ''
                   }`}
+                  whileHover={{ y: -3, scale: 1.01 }}
                 >
                   <div 
                     className="p-6 cursor-pointer"
@@ -230,7 +259,7 @@ const Careers = () => {
                       className="px-6 pb-6 border-t border-gray-100 pt-4"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
                     >
                       <p className="text-gray-700 mb-6 leading-relaxed">{job.description}</p>
                       

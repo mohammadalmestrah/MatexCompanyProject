@@ -20,40 +20,52 @@ const Navbar = () => {
           <motion.div 
             className="flex items-center"
             whileHover={{ scale: 1.05 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <Link to="/" className="flex items-center">
-              <img src="/matex-logo.png" alt="Matex" className="h-16 w-auto" />
+              <motion.img 
+                src="/matex-logo.png" 
+                alt="Matex" 
+                className="h-16 w-auto"
+                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                transition={{ duration: 0.5 }}
+              />
               <span className="ml-2 text-xl font-bold">Matex</span>
             </Link>
           </motion.div>
           
           <div className="hidden md:flex items-center space-x-4">
             <div className="flex items-baseline space-x-4">
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <Link to="/" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
-                  {t('nav.home')}
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <Link to="/about" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
-                  {t('nav.about')}
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <Link to="/services" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
-                  {t('nav.services')}
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <Link to="/clients" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
-                  {t('nav.clients')}
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <Link to="/careers" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
-                  {t('nav.careers')}
-                </Link>
-              </motion.div>
+              {[
+                { path: '/', label: t('nav.home') },
+                { path: '/about', label: t('nav.about') },
+                { path: '/services', label: t('nav.services') },
+                { path: '/clients', label: t('nav.clients') },
+                { path: '/careers', label: t('nav.careers') }
+              ].map((item, index) => (
+                <motion.div 
+                  key={item.path}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
+                >
+                  <Link 
+                    to={item.path} 
+                    className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300 relative group"
+                  >
+                    {item.label}
+                    <motion.span
+                      className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"
+                      initial={{ width: 0 }}
+                      whileHover={{ width: "100%" }}
+                    />
+                  </Link>
+                </motion.div>
+              ))}
             </div>
             <LanguageSwitcher />
             {user ? (

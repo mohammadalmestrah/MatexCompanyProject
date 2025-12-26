@@ -366,41 +366,60 @@ const ClientRequirements = () => {
     <div className="min-h-screen bg-gray-50 py-12">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, type: "spring" }}
         >
-          <h1 className="text-3xl font-bold text-center mb-8">
+          <motion.h1 
+            className="text-3xl font-bold text-center mb-8"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             {t('requirements.title')}
-          </h1>
+          </motion.h1>
 
-          <div className="bg-white p-8 rounded-lg shadow-lg">
+          <motion.div 
+            className="bg-white p-8 rounded-lg shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <div className="mb-8">
               <div className="flex items-center justify-between mb-8">
                 {[1, 2, 3, 4].map((stepNumber) => (
-                  <div
+                  <motion.div
                     key={stepNumber}
                     className={`flex items-center ${
                       stepNumber < 4 ? 'flex-1' : ''
                     }`}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4 + stepNumber * 0.1, duration: 0.4 }}
                   >
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                    <motion.div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                         step >= stepNumber
                           ? 'bg-indigo-600 text-white'
                           : 'bg-gray-200 text-gray-600'
                       }`}
+                      whileHover={{ scale: 1.2 }}
+                      animate={step >= stepNumber ? { scale: [1, 1.1, 1] } : {}}
+                      transition={{ duration: 0.3 }}
                     >
                       {stepNumber}
-                    </div>
+                    </motion.div>
                     {stepNumber < 4 && (
-                      <div
+                      <motion.div
                         className={`flex-1 h-1 mx-4 ${
                           step > stepNumber ? 'bg-indigo-600' : 'bg-gray-200'
                         }`}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: step > stepNumber ? 1 : 0.3 }}
+                        transition={{ duration: 0.5 }}
                       />
                     )}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -446,7 +465,7 @@ const ClientRequirements = () => {
                 </div>
               )}
             </form>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matex ML Chatbot Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .chat-container {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #5C3FBD;
+            color: white;
+            text-align: right;
+            margin-left: 50px;
+        }
+        .bot-message {
+            background-color: #e9ecef;
+            color: #333;
+            margin-right: 50px;
+        }
+        .metadata {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #5C3FBD;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #4A2F9A;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .quick-tests {
+            margin-top: 20px;
+        }
+        .quick-tests h3 {
+            color: #5C3FBD;
+        }
+        .test-button {
+            margin: 5px;
+            padding: 8px 15px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .test-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Matex ML Chatbot Test</h1>
+        <p>Test the machine learning-powered chatbot directly in your browser!</p>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="message bot-message">
+                <strong>Matex AI:</strong> Hello! I'm Matex's AI assistant with machine learning capabilities. 
+                Ask me about our services, technologies, or anything else!
+                <div class="metadata">Ready to help • ML Model Active</div>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Ask me about machine learning, AI, software development..." 
+                   onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()" id="sendButton">Send</button>
+        </div>
+        
+        <div class="quick-tests">
+            <h3>Quick Test Questions:</h3>
+            <button class="test-button" onclick="quickTest('What is machine learning?')">ML Question</button>
+            <button class="test-button" onclick="quickTest('What services do you offer?')">Services</button>
+            <button class="test-button" onclick="quickTest('Tell me about AI')">AI Question</button>
+            <button class="test-button" onclick="quickTest('How can I contact you?')">Contact</button>
+            <button class="test-button" onclick="quickTest('What is software development?')">Software Dev</button>
+            <button class="test-button" onclick="quickTest('Do you develop mobile apps?')">Mobile Dev</button>
+            <button class="test-button" onclick="quickTest('What about cloud computing?')">Cloud</button>
+            <button class="test-button" onclick="quickTest('Tell me about cybersecurity')">Security</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000';
+        
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+        
+        function addMessage(content, isUser = false, metadata = null) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            
+            let html = `<strong>${isUser ? 'You' : 'Matex AI'}:</strong> ${content}`;
+            if (metadata) {
+                html += `<div class="metadata">${metadata}</div>`;
+            }
+            
+            messageDiv.innerHTML = html;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, true);
+            input.value = '';
+            sendButton.disabled = true;
+            sendButton.textContent = 'Sending...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        use_ml: true
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    let metadata = '';
+                    if (data.predicted_category) {
+                        metadata = `ML Category: ${data.predicted_category} • Confidence: ${(data.confidence * 100).toFixed(1)}% (${data.confidence_level})`;
+                    } else {
+                        metadata = 'Fallback Response';
+                    }
+                    
+                    addMessage(data.response, false, metadata);
+                    showStatus('Message sent successfully!', 'success');
+                } else {
+                    const errorData = await response.text();
+                    addMessage(`Error: ${response.status} - ${errorData}`, false);
+                    showStatus('Error sending message', 'error');
+                }
+            } catch (error) {
+                addMessage(`Connection Error: ${error.message}`, false);
+                showStatus('Cannot connect to server. Make sure it\'s running!', 'error');
+            } finally {
+                sendButton.disabled = false;
+                sendButton.textContent = 'Send';
+            }
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        function quickTest(message) {
+            document.getElementById('messageInput').value = message;
+            sendMessage();
+        }
+        
+        // Test server connection on page load
+        window.onload = async function() {
+            try {
+                const response = await fetch(`${API_BASE}/api/health`);
+                if (response.ok) {
+                    showStatus('✅ Connected to ML Chatbot Server!', 'success');
+                } else {
+                    showStatus('⚠️ Server responded with error', 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Cannot connect to server. Start it with: python -m uvicorn app:app --host 0.0.0.0 --port 8000', 'error');
+            }
+        };
+    </script>
+</body>
+</html>
+
+

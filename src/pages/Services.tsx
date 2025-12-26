@@ -36,18 +36,45 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-indigo-900 text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-indigo-900 text-white py-24 relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          animate={{
+            scale: [1, 1.1, 1],
+            x: [0, 50, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-72 h-72 bg-indigo-300 rounded-full blur-3xl"></div>
+        </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, type: "spring" }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-5xl font-bold mb-6">{t('services.hero.title')}</h1>
-            <p className="text-xl text-indigo-200 leading-relaxed">
+            <motion.h1 
+              className="text-5xl font-bold mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              {t('services.hero.title')}
+            </motion.h1>
+            <motion.p 
+              className="text-xl text-indigo-200 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
               {t('services.hero.subtitle')}
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </section>
@@ -59,28 +86,45 @@ const Services = () => {
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.15, duration: 0.6, type: "spring" }}
+                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                whileHover={{ y: -5, scale: 1.02 }}
               >
-                <div className="h-48 overflow-hidden">
+                <motion.div 
+                  className="h-48 overflow-hidden relative"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                >
                   <img 
                     src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover"
                   />
-                </div>
+                  <motion.div
+                    className="absolute inset-0 bg-indigo-600 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+                  />
+                </motion.div>
                 <div className="p-8">
-                  <div className="text-indigo-600 mb-4">{service.icon}</div>
+                  <motion.div 
+                    className="text-indigo-600 mb-4"
+                    whileHover={{ rotate: 360, scale: 1.2 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {service.icon}
+                  </motion.div>
                   <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
                   <p className="text-gray-600 mb-6">{service.description}</p>
-                  <Link
-                    to="/client-requirements"
-                    className="inline-flex items-center text-indigo-600 font-medium hover:text-indigo-700"
-                  >
-                    Learn More →
-                  </Link>
+                  <motion.div whileHover={{ x: 5 }}>
+                    <Link
+                      to="/client-requirements"
+                      className="inline-flex items-center text-indigo-600 font-medium hover:text-indigo-700 transition-colors"
+                    >
+                      Learn More →
+                    </Link>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}
