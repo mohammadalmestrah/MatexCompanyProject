@@ -198,8 +198,8 @@ const Chatbot = () => {
             className="fixed top-0 right-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col border-l border-gray-200 dark:border-gray-700"
           >
             {/* Header */}
-            <div className="bg-[#5C3FBD] p-6 relative overflow-hidden">
-              <div className="relative flex items-center justify-between">
+            <div className="bg-[#5C3FBD] dark:bg-gray-800 h-16 flex items-center px-4 sm:px-6 relative overflow-hidden">
+              <div className="relative flex items-center justify-between w-full">
                 <div className="flex items-center gap-3">
                   <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm">
                     <Bot className="h-6 w-6 text-white" />
@@ -279,7 +279,7 @@ const Chatbot = () => {
                   <div className="w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center mr-3">
                     <Bot className="h-5 w-5 text-[#5C3FBD]" />
                   </div>
-                  <div className="bg-white p-4 rounded-2xl rounded-bl-none border border-gray-100">
+                  <div className="bg-white dark:bg-gray-700 p-4 rounded-2xl rounded-bl-none border border-gray-100 dark:border-gray-600">
                     <Loader2 className="h-6 w-6 animate-spin text-[#5C3FBD]" />
                   </div>
                 </motion.div>
@@ -294,7 +294,7 @@ const Chatbot = () => {
                     <motion.button
                       key={index}
                       onClick={() => handleSuggestionClick(suggestion)}
-                      className="w-full text-left p-4 text-base bg-white rounded-xl hover:bg-[#5C3FBD]/5 transition-all duration-200 border border-gray-100 hover:border-[#5C3FBD]/20"
+                      className="w-full text-left p-4 text-base bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-xl hover:bg-[#5C3FBD]/5 dark:hover:bg-[#5C3FBD]/10 transition-all duration-200 border border-gray-100 dark:border-gray-600 hover:border-[#5C3FBD]/20 dark:hover:border-[#5C3FBD]/30"
                       whileHover={{ x: 5 }}
                     >
                       {suggestion}
@@ -302,7 +302,7 @@ const Chatbot = () => {
                   ))}
                   <motion.button
                     onClick={() => setShowLead(true)}
-                    className="w-full text-left p-4 text-base bg-white rounded-xl hover:bg-[#5C3FBD]/5 transition-all duration-200 border border-gray-100 hover:border-[#5C3FBD]/20"
+                    className="w-full text-left p-4 text-base bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-xl hover:bg-[#5C3FBD]/5 dark:hover:bg-[#5C3FBD]/10 transition-all duration-200 border border-gray-100 dark:border-gray-600 hover:border-[#5C3FBD]/20 dark:hover:border-[#5C3FBD]/30"
                     whileHover={{ x: 5 }}
                   >
                     Contact Sales
@@ -310,15 +310,15 @@ const Chatbot = () => {
                 </motion.div>
               )}
               {showLead && (
-                <div className="mt-4 p-4 bg-white rounded-xl border border-gray-200 space-y-3">
+                <div className="mt-4 p-4 bg-white dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-600 space-y-3">
                   <div className="flex gap-3">
-                    <input placeholder="Your Name" value={lead.name} onChange={(e)=>setLead({...lead,name:e.target.value})} className="flex-1 border rounded px-3 py-2"/>
-                    <input placeholder="Your Email" value={lead.email} onChange={(e)=>setLead({...lead,email:e.target.value})} className="flex-1 border rounded px-3 py-2"/>
+                    <input placeholder="Your Name" value={lead.name} onChange={(e)=>setLead({...lead,name:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
+                    <input placeholder="Your Email" value={lead.email} onChange={(e)=>setLead({...lead,email:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
                   </div>
-                  <input placeholder="Company (Optional)" value={lead.company} onChange={(e)=>setLead({...lead,company:e.target.value})} className="w-full border rounded px-3 py-2"/>
+                  <input placeholder="Company (Optional)" value={lead.company} onChange={(e)=>setLead({...lead,company:e.target.value})} className="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
                   <div className="flex gap-2">
                     <button onClick={submitLead} className="px-4 py-2 bg-[#5C3FBD] text-white rounded">Submit</button>
-                    <button onClick={()=>setShowLead(false)} className="px-4 py-2 border rounded">Cancel</button>
+                    <button onClick={()=>setShowLead(false)} className="px-4 py-2 border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">Cancel</button>
                   </div>
                 </div>
               )}
