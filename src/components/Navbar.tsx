@@ -15,7 +15,7 @@ const Navbar = () => {
   const { user, signOut } = useAuth();
 
   return (
-    <nav className="bg-indigo-900 text-white">
+    <nav className="sticky top-0 z-50 bg-indigo-900/95 dark:bg-gray-900/95 backdrop-blur-md text-white border-b border-indigo-800/50 dark:border-gray-700/50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <motion.div 
@@ -53,9 +53,9 @@ const Navbar = () => {
             </Link>
           </motion.div>
           
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center gap-6">
             {/* Navigation Links */}
-            <div className="flex items-center space-x-1 mr-4">
+            <nav className="flex items-center gap-1">
               {[
                 { path: '/', label: t('nav.home') },
                 { path: '/about', label: t('nav.about') },
@@ -65,49 +65,43 @@ const Navbar = () => {
               ].map((item, index) => (
                 <motion.div 
                   key={item.path}
-                  whileHover={{ scale: 1.1, y: -3 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: -20, rotateX: -90 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ 
-                    delay: index * 0.08, 
-                    duration: 0.5,
+                    delay: index * 0.05, 
+                    duration: 0.4,
                     type: "spring",
                     stiffness: 200
                   }}
                 >
                   <Link 
                     to={item.path} 
-                    className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300 relative group overflow-hidden"
+                    className="px-4 py-2 rounded-lg text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
                   >
                     <motion.span
                       className="relative z-10"
-                      whileHover={{ x: 2 }}
+                      whileHover={{ x: 1 }}
                     >
                       {item.label}
                     </motion.span>
                     <motion.span
-                      className="absolute bottom-0 left-0 w-0 h-0.5 bg-white"
+                      className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-white rounded-full -translate-x-1/2"
                       initial={{ width: 0 }}
-                      whileHover={{ width: "100%" }}
+                      whileHover={{ width: "80%" }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 bg-indigo-700/20 rounded-md"
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileHover={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.3 }}
                     />
                   </Link>
                 </motion.div>
               ))}
-            </div>
+            </nav>
             
             {/* Divider */}
-            <div className="h-6 w-px bg-indigo-700 mx-2" />
+            <div className="h-8 w-px bg-white/20" />
             
-            {/* Utility Buttons */}
-            <div className="flex items-center space-x-2">
+            {/* Utility Buttons Group */}
+            <div className="flex items-center gap-2">
               <ThemeSwitcher />
               <LanguageSwitcher />
             </div>
@@ -115,29 +109,35 @@ const Navbar = () => {
             {/* Auth Section */}
             {user ? (
               <>
-                <div className="h-6 w-px bg-indigo-700 mx-2" />
-                <motion.div whileHover={{ scale: 1.1 }}>
-                  <Link to="/profile" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
+                <div className="h-8 w-px bg-white/20" />
+                <motion.div 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link 
+                    to="/profile" 
+                    className="px-4 py-2 rounded-lg text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200"
+                  >
                     {t('nav.profile')}
                   </Link>
                 </motion.div>
                 <motion.button
                   onClick={signOut}
-                  className="flex items-center px-4 py-2 text-sm font-medium bg-indigo-800 rounded-md hover:bg-indigo-700 transition-colors"
-                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-white"
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  {t('nav.auth.signOut')}
+                  <LogOut className="h-4 w-4" />
+                  <span>{t('nav.auth.signOut')}</span>
                 </motion.button>
               </>
             ) : (
               <>
-                <div className="h-6 w-px bg-indigo-700 mx-2" />
+                <div className="h-8 w-px bg-white/20" />
                 <motion.button
                   onClick={() => setShowAuth(true)}
-                  className="px-4 py-2 text-sm font-medium bg-indigo-800 rounded-md hover:bg-indigo-700 transition-colors"
-                  whileHover={{ scale: 1.05 }}
+                  className="px-5 py-2 text-sm font-semibold bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 text-white backdrop-blur-sm"
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {t('nav.auth.signIn')}

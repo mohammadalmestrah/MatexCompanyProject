@@ -7,7 +7,7 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-gray-900 text-white relative overflow-hidden">
+    <footer className="bg-gray-900 dark:bg-gray-950 text-white relative overflow-hidden border-t border-gray-800 dark:border-gray-800">
       <motion.div
         className="absolute inset-0 opacity-5"
         animate={{
@@ -44,11 +44,11 @@ const Footer = () => {
               whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
               transition={{ duration: 0.5 }}
             />
-            <h3 className="text-lg font-semibold mb-4">{t('footer.contact')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.contact')}</h3>
             <div className="space-y-2">
               <motion.a 
                 href={`mailto:${t('footer.email')}`}
-                className="flex items-center hover:text-gray-300 transition-all duration-300"
+                className="flex items-center hover:text-gray-300 dark:hover:text-gray-400 transition-all duration-300 text-gray-300 dark:text-gray-400"
                 whileHover={{ x: 10, color: '#9CA3AF' }}
               >
                 <Mail size={18} className="mr-2" />
@@ -56,7 +56,7 @@ const Footer = () => {
               </motion.a>
               <motion.a 
                 href={`tel:${t('footer.phone')}`}
-                className="flex items-center hover:text-gray-300 transition-all duration-300"
+                className="flex items-center hover:text-gray-300 dark:hover:text-gray-400 transition-all duration-300 text-gray-300 dark:text-gray-400"
                 whileHover={{ x: 10, color: '#9CA3AF' }}
               >
                 <Phone size={18} className="mr-2" />
@@ -71,7 +71,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h3 className="text-lg font-semibold mb-4">{t('footer.follow')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.follow')}</h3>
             <div className="flex space-x-4">
               <motion.a 
                 href="https://www.linkedin.com/company/103787906"
@@ -113,12 +113,12 @@ const Footer = () => {
           </motion.div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t('footer.newsletter')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.newsletter')}</h3>
             <form className="flex">
               <input
                 type="email"
                 placeholder={t('footer.emailPlaceholder')}
-                className="px-4 py-2 rounded-l-md w-full text-gray-900 transition-all duration-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                className="px-4 py-2 rounded-l-md w-full text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 border border-gray-300 dark:border-gray-600 transition-all duration-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
               <motion.button
                 type="submit"
@@ -137,7 +137,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <h3 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               {[
                 { href: "/about", label: t('footer.about') },
@@ -155,7 +155,7 @@ const Footer = () => {
                 >
                   <a 
                     href={link.href} 
-                    className="hover:text-gray-300 transition-all duration-300 relative inline-block group"
+                    className="hover:text-gray-300 dark:hover:text-gray-400 transition-all duration-300 relative inline-block group text-gray-300 dark:text-gray-400"
                   >
                     {link.label}
                     <motion.span
