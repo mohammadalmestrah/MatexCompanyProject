@@ -247,6 +247,21 @@ html {
     --color-primary: 99 102 241;
     --color-secondary: 100 116 139;
   }
+  
+  .dark {
+    --color-primary: 129 140 248;
+    --color-secondary: 148 163 184;
+  }
+}
+
+/* Dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #0f172a;
+  color: #f1f5f9;
 }
 
 @layer components {

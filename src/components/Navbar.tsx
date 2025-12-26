@@ -3,6 +3,7 @@ import { Menu, X, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeSwitcher from './ThemeSwitcher';
 import Auth from './Auth';
 import { useAuth } from '../contexts/AuthContext';
 import { useState } from 'react';
@@ -52,8 +53,9 @@ const Navbar = () => {
             </Link>
           </motion.div>
           
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-baseline space-x-4">
+          <div className="hidden md:flex items-center space-x-2">
+            {/* Navigation Links */}
+            <div className="flex items-center space-x-1 mr-4">
               {[
                 { path: '/', label: t('nav.home') },
                 { path: '/about', label: t('nav.about') },
@@ -100,41 +102,56 @@ const Navbar = () => {
                 </motion.div>
               ))}
             </div>
-            <LanguageSwitcher />
+            
+            {/* Divider */}
+            <div className="h-6 w-px bg-indigo-700 mx-2" />
+            
+            {/* Utility Buttons */}
+            <div className="flex items-center space-x-2">
+              <ThemeSwitcher />
+              <LanguageSwitcher />
+            </div>
+            
+            {/* Auth Section */}
             {user ? (
               <>
+                <div className="h-6 w-px bg-indigo-700 mx-2" />
                 <motion.div whileHover={{ scale: 1.1 }}>
                   <Link to="/profile" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-800 transition-all duration-300">
                     {t('nav.profile')}
                   </Link>
                 </motion.div>
-              <motion.button
-                onClick={signOut}
-                className="flex items-center px-4 py-2 text-sm font-medium bg-indigo-800 rounded-md hover:bg-indigo-700 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                {t('nav.auth.signOut')}
-              </motion.button>
+                <motion.button
+                  onClick={signOut}
+                  className="flex items-center px-4 py-2 text-sm font-medium bg-indigo-800 rounded-md hover:bg-indigo-700 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  {t('nav.auth.signOut')}
+                </motion.button>
               </>
             ) : (
-              <motion.button
-                onClick={() => setShowAuth(true)}
-                className="px-4 py-2 text-sm font-medium bg-indigo-800 rounded-md hover:bg-indigo-700 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {t('nav.auth.signIn')}
-              </motion.button>
+              <>
+                <div className="h-6 w-px bg-indigo-700 mx-2" />
+                <motion.button
+                  onClick={() => setShowAuth(true)}
+                  className="px-4 py-2 text-sm font-medium bg-indigo-800 rounded-md hover:bg-indigo-700 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {t('nav.auth.signIn')}
+                </motion.button>
+              </>
             )}
           </div>
 
           <motion.div 
-            className="md:hidden flex items-center space-x-4"
+            className="md:hidden flex items-center space-x-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
+            <ThemeSwitcher />
             <LanguageSwitcher />
             <button
               aria-label="Menu"
