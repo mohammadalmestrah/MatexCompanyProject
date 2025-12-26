@@ -162,8 +162,12 @@ const Auth: React.FC<AuthProps> = ({ onClose }) => {
           <motion.button
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors z-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm cursor-pointer pointer-events-auto"
+            aria-label="Close"
           >
             <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
           </motion.button>
