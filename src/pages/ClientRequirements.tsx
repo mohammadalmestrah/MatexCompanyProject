@@ -127,15 +127,15 @@ const ClientRequirements = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold mb-6">{t('requirements.companyInfo')}</h2>
             {!isAuthenticated && (
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 dark:border-yellow-600 p-4 mb-6">
                 <div className="flex">
                   <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="h-5 w-5 text-yellow-400 dark:text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm text-yellow-700">
+                    <p className="text-sm text-yellow-700 dark:text-yellow-400">
                       Please log in to submit a project request.
                     </p>
                   </div>
@@ -144,7 +144,7 @@ const ClientRequirements = () => {
             )}
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.companyName')}
                 </label>
                 <input
@@ -152,12 +152,12 @@ const ClientRequirements = () => {
                   name="companyName"
                   value={formData.companyName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.contactName')}
                 </label>
                 <input
@@ -165,12 +165,12 @@ const ClientRequirements = () => {
                   name="contactName"
                   value={formData.contactName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.email')}
                 </label>
                 <input
@@ -178,12 +178,12 @@ const ClientRequirements = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.phone')}
                 </label>
                 <input
@@ -191,7 +191,7 @@ const ClientRequirements = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 />
               </div>
@@ -201,17 +201,17 @@ const ClientRequirements = () => {
       case 2:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">{t('requirements.projectDetails')}</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{t('requirements.projectDetails')}</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.projectType')}
                 </label>
                 <select
                   name="projectType"
                   value={formData.projectType}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 >
                   <option value="">{t('requirements.selectProjectType')}</option>
@@ -222,7 +222,7 @@ const ClientRequirements = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.projectDescription')}
                 </label>
                 <textarea
@@ -230,7 +230,7 @@ const ClientRequirements = () => {
                   value={formData.projectDescription}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                   required
                 />
               </div>
@@ -240,17 +240,17 @@ const ClientRequirements = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">{t('requirements.budgetTimeline')}</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{t('requirements.budgetTimeline')}</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.budgetRange')}
                 </label>
                 <select
                   name="budget"
                   value={formData.budget}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 >
                   <option value="">{t('requirements.selectBudget')}</option>
@@ -261,14 +261,14 @@ const ClientRequirements = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   {t('requirements.timeline')}
                 </label>
                 <select
                   name="timeline"
                   value={formData.timeline}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 >
                   <option value="">{t('requirements.selectTimeline')}</option>
@@ -284,25 +284,25 @@ const ClientRequirements = () => {
       case 4:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold mb-6">{t('requirements.paymentMethod')}</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{t('requirements.paymentMethod')}</h2>
             {submitted ? (
               <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Send className="h-8 w-8 text-green-500" />
+                <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Send className="h-8 w-8 text-green-500 dark:text-green-400" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{t('requirements.thanksTitle')}</h3>
-                <p className="text-gray-600">{t('requirements.thanksBody')}</p>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{t('requirements.thanksTitle')}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{t('requirements.thanksBody')}</p>
               </div>
             ) : (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 gap-4">
                   {/* PayPal Option */}
-                  <div className="border rounded-lg p-6 hover:border-indigo-500 transition-colors">
+                  <div className="border border-gray-300 dark:border-gray-600 rounded-lg p-6 hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors bg-white dark:bg-gray-700">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-semibold">{t('requirements.paypal')}</h3>
-                      <CreditCard className="h-6 w-6 text-indigo-600" />
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('requirements.paypal')}</h3>
+                      <CreditCard className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
                     </div>
-                    <p className="text-gray-600 mb-4">{t('requirements.paypalDesc')}</p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{t('requirements.paypalDesc')}</p>
                     {/* <PayPalScriptProvider options={{ 
                       "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
                       currency: "USD"
@@ -325,33 +325,33 @@ const ClientRequirements = () => {
 
                   {/* Wish Money Option */}
                   <div 
-                    className="border rounded-lg p-6 hover:border-indigo-500 transition-colors cursor-pointer"
+                    className="border border-gray-300 dark:border-gray-600 rounded-lg p-6 hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors cursor-pointer bg-white dark:bg-gray-700"
                     onClick={handleWishMoneyPayment}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-semibold">{t('requirements.wishMoney')}</h3>
-                      <Wallet className="h-6 w-6 text-indigo-600" />
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('requirements.wishMoney')}</h3>
+                      <Wallet className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
                     </div>
-                    <p className="text-gray-600 mb-4">{t('requirements.wishMoneyDesc')}</p>
-                    <p className="text-sm text-gray-500">Contact: Mohammad Almestrah (76162549)</p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{t('requirements.wishMoneyDesc')}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Contact: Mohammad Almestrah (76162549)</p>
                   </div>
 
                   {/* Wise Option */}
                   <div 
-                    className="border rounded-lg p-6 hover:border-indigo-500 transition-colors cursor-pointer"
+                    className="border border-gray-300 dark:border-gray-600 rounded-lg p-6 hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors cursor-pointer bg-white dark:bg-gray-700"
                     onClick={handleWisePayment}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-lg font-semibold">{t('requirements.wise')}</h3>
-                      <CreditCard className="h-6 w-6 text-indigo-600" />
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t('requirements.wise')}</h3>
+                      <CreditCard className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
                     </div>
-                    <p className="text-gray-600 mb-4">{t('requirements.wiseDesc')}</p>
-                    <p className="text-sm text-gray-500">Email: mohammadmestrah10@gmail.com</p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{t('requirements.wiseDesc')}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Email: mohammadmestrah10@gmail.com</p>
                   </div>
                 </div>
 
                 {error && (
-                  <div className="text-red-600 text-sm mt-2">{error}</div>
+                  <div className="text-red-600 dark:text-red-400 text-sm mt-2">{error}</div>
                 )}
               </div>
             )}
@@ -363,7 +363,7 @@ const ClientRequirements = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -371,7 +371,7 @@ const ClientRequirements = () => {
           transition={{ duration: 0.6, type: "spring" }}
         >
           <motion.h1 
-            className="text-3xl font-bold text-center mb-8"
+            className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -380,7 +380,7 @@ const ClientRequirements = () => {
           </motion.h1>
 
           <motion.div 
-            className="bg-white p-8 rounded-lg shadow-lg"
+            className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
@@ -400,8 +400,8 @@ const ClientRequirements = () => {
                     <motion.div
                       className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                         step >= stepNumber
-                          ? 'bg-indigo-600 text-white'
-                          : 'bg-gray-200 text-gray-600'
+                          ? 'bg-indigo-600 dark:bg-indigo-500 text-white'
+                          : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                       }`}
                       whileHover={{ scale: 1.2 }}
                       animate={step >= stepNumber ? { scale: [1, 1.1, 1] } : {}}
@@ -412,7 +412,7 @@ const ClientRequirements = () => {
                     {stepNumber < 4 && (
                       <motion.div
                         className={`flex-1 h-1 mx-4 ${
-                          step > stepNumber ? 'bg-indigo-600' : 'bg-gray-200'
+                          step > stepNumber ? 'bg-indigo-600 dark:bg-indigo-500' : 'bg-gray-200 dark:bg-gray-700'
                         }`}
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: step > stepNumber ? 1 : 0.3 }}
@@ -425,15 +425,15 @@ const ClientRequirements = () => {
             </div>
 
             {error && (
-              <div className="mb-6 bg-red-50 border-l-4 border-red-400 p-4">
+              <div className="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 dark:border-red-600 p-4">
                 <div className="flex">
                   <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="h-5 w-5 text-red-400 dark:text-red-500" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm text-red-700">{error}</p>
+                    <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
                   </div>
                 </div>
               </div>
@@ -448,14 +448,14 @@ const ClientRequirements = () => {
                     <button
                       type="button"
                       onClick={() => setStep(step - 1)}
-                      className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors bg-white dark:bg-gray-800"
                     >
                       {t('requirements.back')}
                     </button>
                   )}
                   <button
                     type="submit"
-                    className={`px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors ${
+                    className={`px-6 py-2 bg-indigo-600 dark:bg-indigo-500 text-white rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors ${
                       step === 1 ? 'ml-auto' : ''
                     }`}
                     disabled={!isAuthenticated}

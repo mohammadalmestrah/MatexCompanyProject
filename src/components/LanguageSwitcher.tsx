@@ -27,7 +27,7 @@ const LanguageSwitcher = () => {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium bg-indigo-800 hover:bg-indigo-700 transition-all duration-300 ${isRTL ? 'flex-row-reverse' : ''}`}
+        className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-white/10 hover:bg-white/20 transition-all duration-200 text-white backdrop-blur-sm ${isRTL ? 'flex-row-reverse' : ''}`}
       >
         <Globe className="h-4 w-4" />
         <span className={`flex items-center ${isRTL ? 'mr-2' : 'ml-2'}`}>
@@ -46,10 +46,11 @@ const LanguageSwitcher = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className={`absolute mt-2 w-48 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 ${isRTL ? 'right-0' : 'left-0'}`}
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className={`absolute mt-2 w-48 rounded-lg shadow-xl bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700 z-50 ${isRTL ? 'right-0' : 'left-0'}`}
           >
             <div className="py-2" role="menu" aria-orientation="vertical">
               {languages.map((language) => (
@@ -57,10 +58,10 @@ const LanguageSwitcher = () => {
                   key={language.code}
                   whileHover={{ x: isRTL ? -5 : 5, backgroundColor: 'rgba(79, 70, 229, 0.1)' }}
                   onClick={() => changeLanguage(language.code)}
-                  className={`flex items-center w-full px-4 py-2 text-sm ${
+                  className={`flex items-center w-full px-4 py-2.5 text-sm transition-colors ${
                     i18n.language === language.code 
-                      ? 'bg-indigo-50 text-indigo-900 font-medium' 
-                      : 'text-gray-700 hover:text-indigo-900'
+                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-900 dark:text-indigo-300 font-semibold' 
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                   } ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
                   role="menuitem"
                 >
@@ -69,7 +70,12 @@ const LanguageSwitcher = () => {
                   </span>
                   <span className="flex-1">{language.name}</span>
                   {i18n.language === language.code && (
-                    <span className="h-2 w-2 rounded-full bg-indigo-600"></span>
+                    <motion.span 
+                      className="h-2 w-2 rounded-full bg-indigo-600 dark:bg-indigo-400"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    />
                   )}
                 </motion.button>
               ))}

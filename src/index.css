@@ -264,6 +264,20 @@ html {
   color: #f1f5f9;
 }
 
+/* Smooth theme transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Ensure proper dark mode for html and body */
+html.dark,
+html.dark body {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
 @layer components {
   .btn-primary {
     @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold 

@@ -34,9 +34,9 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-indigo-900 text-white py-24 relative overflow-hidden">
+      <section className="bg-indigo-900 dark:bg-gray-900 text-white py-24 relative overflow-hidden">
         <motion.div
           className="absolute inset-0 opacity-10"
           animate={{
@@ -80,7 +80,7 @@ const Services = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
             {services.map((service, index) => (
@@ -95,7 +95,7 @@ const Services = () => {
                   type: "spring",
                   stiffness: 100
                 }}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group relative"
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group relative border border-gray-200 dark:border-gray-700"
                 whileHover={{ y: -10, scale: 1.03, rotateY: 2, z: 20 }}
               >
                 <motion.div 
@@ -119,14 +119,14 @@ const Services = () => {
                 </motion.div>
                 <div className="p-8">
                   <motion.div 
-                    className="text-indigo-600 mb-4"
+                    className="text-indigo-600 dark:text-indigo-400 mb-4"
                     whileHover={{ rotate: 360, scale: 1.2 }}
                     transition={{ duration: 0.5 }}
                   >
                     {service.icon}
                   </motion.div>
-                  <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{service.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">{service.description}</p>
                   <motion.div whileHover={{ x: 5 }}>
                     <Link
                       to="/client-requirements"

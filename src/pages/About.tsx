@@ -6,9 +6,9 @@ const About = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-indigo-900 text-white py-24 relative overflow-hidden">
+      <section className="bg-indigo-900 dark:bg-gray-900 text-white py-24 relative overflow-hidden">
         <motion.div
           className="absolute inset-0 opacity-10"
           animate={{
@@ -52,7 +52,7 @@ const About = () => {
       </section>
 
       {/* Founder Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="grid md:grid-cols-2 gap-12 items-center"
@@ -68,7 +68,7 @@ const About = () => {
               transition={{ delay: 0.2, duration: 0.6 }}
             >
               <motion.h2 
-                className="text-3xl font-bold mb-6"
+                className="text-3xl font-bold mb-6 text-gray-900 dark:text-white"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -77,7 +77,7 @@ const About = () => {
                 {t('about.founder.title')}
               </motion.h2>
               <motion.p 
-                className="text-gray-600 mb-6 leading-relaxed"
+                className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -86,7 +86,7 @@ const About = () => {
                 {t('about.founder.description1')}
               </motion.p>
               <motion.p 
-                className="text-gray-600 mb-6 leading-relaxed"
+                className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -114,11 +114,11 @@ const About = () => {
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <stat.icon className="h-8 w-8 text-indigo-600 mr-3" />
+                      <stat.icon className="h-8 w-8 text-indigo-600 dark:text-indigo-400 mr-3" />
                     </motion.div>
                     <div>
-                      <h4 className="font-semibold">{stat.value}</h4>
-                      <p className="text-gray-600">{stat.label}</p>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{stat.value}</h4>
+                      <p className="text-gray-600 dark:text-gray-300">{stat.label}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -155,7 +155,7 @@ const About = () => {
       </section>
 
       {/* Location Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -165,7 +165,7 @@ const About = () => {
             className="text-center mb-16"
           >
             <motion.h2 
-              className="text-3xl font-bold mb-4"
+              className="text-3xl font-bold mb-4 text-gray-900 dark:text-white"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -174,7 +174,7 @@ const About = () => {
               {t('about.locations.title')}
             </motion.h2>
             <motion.p 
-              className="text-xl text-gray-600"
+              className="text-xl text-gray-600 dark:text-gray-300"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -189,7 +189,7 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
-            className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+            className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
             whileHover={{ y: -5 }}
           >
             <motion.div 
@@ -204,8 +204,8 @@ const About = () => {
               />
             </motion.div>
             <div className="p-8">
-              <h3 className="text-2xl font-bold mb-4">Lebanon</h3>
-              <div className="space-y-2 text-gray-600">
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Lebanon</h3>
+              <div className="space-y-2 text-gray-600 dark:text-gray-300">
                 <p>{t('about.locations.lebanon.address')}</p>
                 <p>{t('about.locations.lebanon.postal')}</p>
                 <p>{t('about.locations.lebanon.email')}</p>

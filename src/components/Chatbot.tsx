@@ -195,7 +195,7 @@ const Chatbot = () => {
               stiffness: 300,
               mass: 0.5
             }}
-            className="fixed top-0 right-0 w-full md:w-1/2 h-screen bg-white shadow-2xl z-50 flex flex-col"
+            className="fixed top-0 right-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col border-l border-gray-200 dark:border-gray-700"
           >
             {/* Header */}
             <div className="bg-[#5C3FBD] p-6 relative overflow-hidden">
@@ -234,7 +234,7 @@ const Chatbot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50/50">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50/50 dark:bg-gray-900/50">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -261,7 +261,7 @@ const Chatbot = () => {
                     className={`max-w-[80%] p-4 text-base rounded-2xl shadow-sm whitespace-pre-wrap ${
                       message.role === 'user'
                         ? 'bg-[#5C3FBD] text-white rounded-br-none'
-                        : 'bg-white text-gray-800 rounded-bl-none border border-gray-100'
+                        : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-bl-none border border-gray-100 dark:border-gray-600'
                     }`}
                     whileHover={{ scale: 1.02, y: -2 }}
                     transition={{ type: "spring", stiffness: 300 }}
@@ -326,7 +326,7 @@ const Chatbot = () => {
             </div>
 
             {/* Input */}
-            <div className="p-6 bg-white border-t border-gray-100">
+            <div className="p-6 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
               <div className="flex items-center gap-3">
                 <input
                   ref={inputRef}
@@ -335,7 +335,7 @@ const Chatbot = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask me about Matex services, founder, or contact info..."
-                  className="flex-1 h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#5C3FBD]/20 focus:border-[#5C3FBD] outline-none transition-all duration-200"
+                  className="flex-1 h-12 px-4 text-base bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5C3FBD]/20 focus:border-[#5C3FBD] outline-none transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
                 <motion.button
                   onClick={handleSendMessage}

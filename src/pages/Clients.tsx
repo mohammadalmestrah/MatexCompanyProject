@@ -26,9 +26,9 @@ const Clients = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-indigo-900 text-white py-24 relative overflow-hidden">
+      <section className="bg-indigo-900 dark:bg-gray-900 text-white py-24 relative overflow-hidden">
         <motion.div
           className="absolute inset-0 opacity-10"
           animate={{
@@ -84,7 +84,7 @@ const Clients = () => {
       </section>
 
       {/* Clients Grid */}
-      <section className="py-20">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             {clients.map((client, index) => (
@@ -99,7 +99,7 @@ const Clients = () => {
                   type: "spring",
                   stiffness: 100
                 }}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group relative"
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group relative border border-gray-200 dark:border-gray-700"
                 whileHover={{ y: -12, scale: 1.05, rotateY: 3, z: 30 }}
               >
                 <motion.div 
@@ -120,13 +120,13 @@ const Clients = () => {
                 </motion.div>
                 <div className="p-6">
                   <motion.h3 
-                    className="text-xl font-bold mb-2"
+                    className="text-xl font-bold mb-2 text-gray-900 dark:text-white"
                     whileHover={{ color: "#4F46E5" }}
                     transition={{ duration: 0.2 }}
                   >
                     {client.name}
                   </motion.h3>
-                  <p className="text-gray-600">{client.description}</p>
+                  <p className="text-gray-600 dark:text-gray-300">{client.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -135,7 +135,7 @@ const Clients = () => {
       </section>
 
       {/* Testimonial Section */}
-      <section className="py-20 bg-indigo-900 text-white relative overflow-hidden">
+      <section className="py-20 bg-indigo-900 dark:bg-gray-800 text-white relative overflow-hidden">
         <motion.div
           className="absolute inset-0 opacity-5"
           animate={{

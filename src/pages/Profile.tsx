@@ -84,33 +84,33 @@ const Profile: React.FC = () => {
   const [tab, setTab] = useState<'info' | 'invoices' | 'delete'>('info');
 
   return (
-    <div className="min-h-screen bg-white text-gray-900" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="max-w-6xl mx-auto px-6 py-10">
-        <div className="flex gap-8 border-b border-white/10 text-sm">
-          <button className={`pb-3 transition-colors ${tab==='info' ? 'text-violet-700 border-b-2 border-violet-600' : 'text-gray-600 hover:text-gray-900'}`} onClick={() => setTab('info')}>{t('profile.tabs.info')}</button>
-          <button className={`pb-3 transition-colors ${tab==='invoices' ? 'text-violet-700 border-b-2 border-violet-600' : 'text-gray-600 hover:text-gray-900'}`} onClick={() => setTab('invoices')}>{t('profile.tabs.invoices')}</button>
-          <button className={`pb-3 transition-colors ${tab==='delete' ? 'text-violet-700 border-b-2 border-violet-600' : 'text-gray-600 hover:text-gray-900'}`} onClick={() => setTab('delete')}>{t('profile.tabs.delete')}</button>
+        <div className="flex gap-8 border-b border-gray-200 dark:border-gray-700 text-sm">
+          <button className={`pb-3 transition-colors ${tab==='info' ? 'text-violet-700 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => setTab('info')}>{t('profile.tabs.info')}</button>
+          <button className={`pb-3 transition-colors ${tab==='invoices' ? 'text-violet-700 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => setTab('invoices')}>{t('profile.tabs.invoices')}</button>
+          <button className={`pb-3 transition-colors ${tab==='delete' ? 'text-violet-700 dark:text-violet-400 border-b-2 border-violet-600 dark:border-violet-400' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`} onClick={() => setTab('delete')}>{t('profile.tabs.delete')}</button>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded mt-6 flex items-center">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 p-3 rounded mt-6 flex items-center">
             <AlertCircle className="h-5 w-5 mr-2" />
             <span>{error}</span>
           </div>
         )}
 
         {tab === 'info' && (
-          <div className="mt-8 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-2">{t('profile.title')}</h2>
-            <p className="text-gray-600 mb-6">{t('profile.subtitle')}</p>
+          <div className="mt-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+            <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">{t('profile.title')}</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">{t('profile.subtitle')}</p>
             <div className="space-y-5">
               <div>
-                <label className="block text-sm text-gray-700 mb-2">{t('profile.name')}</label>
-                <input className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-500/20 transition" defaultValue={email?.split('@')[0]} />
+                <label className="block text-sm text-gray-700 dark:text-gray-300 mb-2">{t('profile.name')}</label>
+                <input className="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none focus:border-violet-600 dark:focus:border-violet-400 focus:ring-2 focus:ring-violet-500/20 transition" defaultValue={email?.split('@')[0]} />
               </div>
               <div>
-                <label className="block text-sm text-gray-700 mb-2">{t('profile.email')}</label>
-                <input className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-500/20 transition" defaultValue={maskEmail} />
+                <label className="block text-sm text-gray-700 dark:text-gray-300 mb-2">{t('profile.email')}</label>
+                <input className="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none focus:border-violet-600 dark:focus:border-violet-400 focus:ring-2 focus:ring-violet-500/20 transition" defaultValue={maskEmail} />
               </div>
               <button className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 rounded-xl py-3 font-medium shadow-[0_10px_25px_-10px_rgba(79,70,229,0.6)] transition text-white">{t('profile.save')}</button>
             </div>
@@ -118,16 +118,16 @@ const Profile: React.FC = () => {
         )}
 
         {tab === 'invoices' && (
-          <div className="mt-8 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-2">{t('profile.invoicesTitle')}</h2>
-            <p className="text-gray-600">{t('profile.invoicesEmpty')}</p>
+          <div className="mt-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+            <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">{t('profile.invoicesTitle')}</h2>
+            <p className="text-gray-600 dark:text-gray-300">{t('profile.invoicesEmpty')}</p>
           </div>
         )}
 
         {tab === 'delete' && (
-          <div className="mt-8 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold mb-2 text-violet-700">{t('profile.deleteTitle')}</h2>
-            <p className="text-gray-600 mb-4">{t('profile.deleteBody')}</p>
+          <div className="mt-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
+            <h2 className="text-2xl font-semibold mb-2 text-violet-700 dark:text-violet-400">{t('profile.deleteTitle')}</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">{t('profile.deleteBody')}</p>
             <button onClick={deleteAccount} className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 rounded-xl text-white">{t('profile.deleteCta')}</button>
           </div>
         )}

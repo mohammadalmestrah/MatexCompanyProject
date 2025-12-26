@@ -151,9 +151,9 @@ const Careers = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-indigo-900 text-white py-24 relative overflow-hidden">
+      <section className="bg-indigo-900 dark:bg-gray-900 text-white py-24 relative overflow-hidden">
         <motion.div
           className="absolute inset-0 opacity-10"
           animate={{
@@ -224,8 +224,8 @@ const Careers = () => {
                     type: "spring",
                     stiffness: 100
                   }}
-                  className={`bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-xl relative overflow-hidden ${
-                    selectedPosition === job.title ? 'ring-2 ring-indigo-500' : ''
+                  className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm transition-all duration-300 hover:shadow-xl relative overflow-hidden border border-gray-200 dark:border-gray-700 ${
+                    selectedPosition === job.title ? 'ring-2 ring-indigo-500 dark:ring-indigo-400' : ''
                   }`}
                   whileHover={{ y: -5, scale: 1.02, rotateY: 2 }}
                 >
@@ -235,17 +235,17 @@ const Careers = () => {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{job.title}</h3>
                         <div className="mt-2 space-y-1">
-                          <div className="flex items-center text-gray-600">
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
                             <Building2 className="h-4 w-4 mr-2" />
                             <span>{job.department}</span>
                           </div>
-                          <div className="flex items-center text-gray-600">
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
                             <MapPin className="h-4 w-4 mr-2" />
                             <span>{job.location}</span>
                           </div>
-                          <div className="flex items-center text-gray-600">
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
                             <Clock className="h-4 w-4 mr-2" />
                             <span>{job.type}</span>
                           </div>
@@ -271,12 +271,12 @@ const Careers = () => {
                         stiffness: 100
                       }}
                     >
-                      <p className="text-gray-700 mb-6 leading-relaxed">{job.description}</p>
+                      <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">{job.description}</p>
                       
                       <div className="space-y-6">
                         {job.requirements && (
                           <div>
-                            <h4 className="text-lg font-semibold text-gray-900 mb-3">Requirements</h4>
+                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Requirements</h4>
                             <ul className="space-y-2">
                               {(Array.isArray(job.requirements) ? job.requirements : []).map((req: string, i: number) => (
                                 <motion.li 
@@ -284,8 +284,8 @@ const Careers = () => {
                                   className="flex items-start"
                                   whileHover={{ x: 5 }}
                                 >
-                                  <ArrowRight className="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0 mt-0.5" />
-                                  <span className="text-gray-600">{req}</span>
+                                  <ArrowRight className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mr-2 flex-shrink-0 mt-0.5" />
+                                  <span className="text-gray-600 dark:text-gray-300">{req}</span>
                                 </motion.li>
                               ))}
                             </ul>
@@ -294,12 +294,12 @@ const Careers = () => {
 
                         {job.technologies && (
                           <div>
-                            <h4 className="text-lg font-semibold text-gray-900 mb-3">Technologies</h4>
+                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Technologies</h4>
                             <div className="flex flex-wrap gap-2">
                               {(Array.isArray(job.technologies) ? job.technologies : []).map((tech: string, i: number) => (
                                 <span 
                                   key={i}
-                                  className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium"
+                                  className="px-3 py-1 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full text-sm font-medium"
                                 >
                                   {tech}
                                 </span>
@@ -310,7 +310,7 @@ const Careers = () => {
 
                         {job.responsibilities && (
                           <div>
-                            <h4 className="text-lg font-semibold text-gray-900 mb-3">Responsibilities</h4>
+                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Responsibilities</h4>
                             <ul className="space-y-2">
                               {job.responsibilities.map((resp: string, i: number) => (
                                 <motion.li 
@@ -318,8 +318,8 @@ const Careers = () => {
                                   className="flex items-start"
                                   whileHover={{ x: 5 }}
                                 >
-                                  <ArrowRight className="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0 mt-0.5" />
-                                  <span className="text-gray-600">{resp}</span>
+                                  <ArrowRight className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mr-2 flex-shrink-0 mt-0.5" />
+                                  <span className="text-gray-600 dark:text-gray-300">{resp}</span>
                                 </motion.li>
                               ))}
                             </ul>
@@ -400,32 +400,32 @@ const Careers = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-8 text-center">{t('careers.apply.title')}</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
+            <h2 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white">{t('careers.apply.title')}</h2>
             {submitSuccess ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-8"
               >
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ArrowRight className="h-8 w-8 text-green-500" />
+                <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ArrowRight className="h-8 w-8 text-green-500 dark:text-green-400" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{t('careers.apply.success')}</h3>
-                <p className="text-gray-600">{t('careers.apply.thankYou')}</p>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{t('careers.apply.success')}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{t('careers.apply.thankYou')}</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('careers.apply.form.applicationType')}
                     </label>
                     <select
                       name="type"
                       value={formData.type}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     >
                       <option value="job">{t('careers.apply.options.fullTime')}</option>
                       {positions.internships.length > 0 && (
@@ -435,14 +435,14 @@ const Careers = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('careers.apply.form.position')}
                     </label>
                     <select
                       name="position"
                       value={formData.position}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                       required
                     >
                       <option value="">{t('careers.apply.options.selectPosition')}</option>
@@ -463,7 +463,7 @@ const Careers = () => {
 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('careers.apply.form.fullName')}
                     </label>
                     <input
@@ -471,13 +471,13 @@ const Careers = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('careers.apply.form.email')}
                     </label>
                     <input
@@ -485,14 +485,14 @@ const Careers = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                       required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     {t('careers.apply.form.phone')}
                   </label>
                   <input
@@ -500,14 +500,14 @@ const Careers = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     required
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('careers.apply.form.resume')}
                     </label>
                     <div className="relative">
@@ -524,7 +524,7 @@ const Careers = () => {
                         <button
                           type="button"
                           onClick={() => resumeInputRef.current?.click()}
-                          className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors flex-grow text-left"
+                          className="px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors flex-grow text-left"
                         >
                           {formData.resume ? formData.resume.name : 'Select the file'}
                         </button>
@@ -532,7 +532,7 @@ const Careers = () => {
                           <button
                             type="button"
                             onClick={() => handleCancelFile('resume')}
-                            className="ml-2 p-2 text-gray-400 hover:text-gray-600"
+                            className="ml-2 p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                           >
                             <X className="h-5 w-5" />
                           </button>
@@ -542,7 +542,7 @@ const Careers = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       {t('careers.apply.form.coverLetter')}
                     </label>
                     <div className="relative">
@@ -559,7 +559,7 @@ const Careers = () => {
                         <button
                           type="button"
                           onClick={() => coverLetterInputRef.current?.click()}
-                          className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors flex-grow text-left"
+                          className="px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors flex-grow text-left"
                         >
                           {formData.coverLetter ? formData.coverLetter.name : 'Select the file'}
                         </button>
@@ -567,7 +567,7 @@ const Careers = () => {
                           <button
                             type="button"
                             onClick={() => handleCancelFile('coverLetter')}
-                            className="ml-2 p-2 text-gray-400 hover:text-gray-600"
+                            className="ml-2 p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                           >
                             <X className="h-5 w-5" />
                           </button>
@@ -578,21 +578,21 @@ const Careers = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     {t('careers.apply.form.additionalInfo')}
                   </label>
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                     rows={4}
                     placeholder={t('careers.apply.form.placeholder')}
                   />
                 </div>
 
                 {submitError && (
-                  <div className="text-red-600 text-sm">{submitError}</div>
+                  <div className="text-red-600 dark:text-red-400 text-sm">{submitError}</div>
                 )}
 
                 <motion.button

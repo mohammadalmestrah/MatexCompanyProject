@@ -44,10 +44,10 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900">
       {/* Hero Section */}
       <motion.section 
-        className="bg-indigo-900 text-white relative overflow-hidden"
+        className="bg-indigo-900 dark:bg-gray-900 text-white relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -177,10 +177,10 @@ const Home = () => {
       </motion.section>
 
       {/* Services Section */}
-      <section className="py-20">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2 
-            className="text-3xl font-bold text-center mb-12"
+            className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -198,7 +198,7 @@ const Home = () => {
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group relative"
+                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group relative border border-gray-200 dark:border-gray-700"
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05, y: -8, rotateY: 5 }}
                 whileTap={{ scale: 0.98 }}
@@ -213,7 +213,7 @@ const Home = () => {
                 }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-br from-indigo-50 dark:from-indigo-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 <motion.div 
                   className="text-indigo-600 mb-4 relative z-10"
@@ -223,13 +223,13 @@ const Home = () => {
                   {service.icon}
                 </motion.div>
                 <motion.h3 
-                  className="text-xl font-semibold mb-2 relative z-10"
+                  className="text-xl font-semibold mb-2 relative z-10 text-gray-900 dark:text-white"
                   whileHover={{ color: "#4F46E5" }}
                   transition={{ duration: 0.2 }}
                 >
                   {service.title}
                 </motion.h3>
-                <p className="text-gray-600 mb-4 relative z-10">{service.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 relative z-10">{service.description}</p>
                 <motion.div 
                   whileHover={{ x: 5 }}
                   className="relative z-10"
@@ -253,7 +253,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-gray-50 dark:bg-gray-800 py-20">
         <motion.div 
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           initial={{ opacity: 0, y: 20 }}
@@ -280,13 +280,13 @@ const Home = () => {
                   stiffness: 100
                 }}
                 whileHover={{ scale: 1.1, y: -8, rotateY: 5, z: 50 }}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group"
+                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group border border-gray-200 dark:border-gray-700"
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-br from-indigo-100 dark:from-indigo-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 <motion.div 
-                  className="text-4xl font-bold text-indigo-600 mb-2 relative z-10"
+                  className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2 relative z-10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -296,7 +296,7 @@ const Home = () => {
                   {stat.value}
                 </motion.div>
                 <motion.div 
-                  className="text-gray-600 relative z-10"
+                  className="text-gray-600 dark:text-gray-300 relative z-10"
                   whileHover={{ color: "#4F46E5" }}
                 >
                   {stat.label}
@@ -308,7 +308,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gray-100 py-20">
+      <section className="bg-gray-100 dark:bg-gray-800 py-20">
         <motion.div 
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -316,8 +316,8 @@ const Home = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl font-bold mb-4">{t('home.cta.title')}</h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{t('home.cta.title')}</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
             {t('home.cta.subtitle')}
           </p>
           <motion.div

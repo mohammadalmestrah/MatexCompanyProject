@@ -48,13 +48,13 @@ const Privacy = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-indigo-900 text-white py-16 px-4"
+        className="bg-indigo-900 dark:bg-gray-900 text-white py-16 px-4"
       >
         <div className="max-w-4xl mx-auto text-center">
           <Shield className="w-16 h-16 mx-auto mb-6 text-indigo-300" />
@@ -75,13 +75,13 @@ const Privacy = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
             >
               <div className="flex items-center mb-4">
-                {section.icon}
-                <h3 className="text-lg font-semibold ml-3">{section.title}</h3>
+                <div className="text-indigo-600 dark:text-indigo-400">{section.icon}</div>
+                <h3 className="text-lg font-semibold ml-3 text-gray-900 dark:text-white">{section.title}</h3>
               </div>
-              <p className="text-gray-600 leading-relaxed">{section.content}</p>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{section.content}</p>
             </motion.div>
           ))}
         </div>
@@ -89,10 +89,10 @@ const Privacy = () => {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 pb-16">
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700">
           <div className="p-8">
-            <div className="prose prose-indigo max-w-none">
-              <h2 className="text-2xl font-semibold mb-6">Information We Collect</h2>
+            <div className="prose prose-indigo dark:prose-invert max-w-none">
+              <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Information We Collect</h2>
               
               <div className="grid md:grid-cols-3 gap-6 mb-12">
                 {dataCollected.map((category, index) => (
@@ -101,16 +101,16 @@ const Privacy = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
-                    className="bg-gray-50 p-6 rounded-lg"
+                    className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg"
                   >
                     <div className="flex items-center mb-4">
-                      {category.icon}
-                      <h3 className="text-lg font-medium ml-2">{category.title}</h3>
+                      <div className="text-indigo-500 dark:text-indigo-400">{category.icon}</div>
+                      <h3 className="text-lg font-medium ml-2 text-gray-900 dark:text-white">{category.title}</h3>
                     </div>
                     <ul className="space-y-2">
                       {category.items.map((item, i) => (
-                        <li key={i} className="flex items-center text-gray-600">
-                          <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2" />
+                        <li key={i} className="flex items-center text-gray-600 dark:text-gray-300">
+                          <span className="w-1.5 h-1.5 bg-indigo-400 dark:bg-indigo-500 rounded-full mr-2" />
                           {item}
                         </li>
                       ))}
@@ -120,11 +120,11 @@ const Privacy = () => {
               </div>
 
               <section className="mb-12">
-                <h2 className="text-2xl font-semibold mb-4">How We Use Your Information</h2>
-                <p className="text-gray-600 mb-4">
+                <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">How We Use Your Information</h2>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                   We use the collected information for various purposes, including:
                 </p>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-gray-600 dark:text-gray-300">
                   <li className="flex items-start">
                     <span className="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0" />
                     <span>Providing and maintaining our services</span>
@@ -145,8 +145,8 @@ const Privacy = () => {
               </section>
 
               <section className="mb-12">
-                <h2 className="text-2xl font-semibold mb-4">Your Privacy Rights</h2>
-                <p className="text-gray-600 mb-6">
+                <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Your Privacy Rights</h2>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
                   You have several rights regarding your personal data, including:
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
@@ -163,10 +163,10 @@ const Privacy = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex items-center p-4 bg-gray-50 rounded-lg"
+                      className="flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
                     >
-                      <UserCheck className="w-5 h-5 text-indigo-500 mr-3" />
-                      <span className="text-gray-700">{right}</span>
+                      <UserCheck className="w-5 h-5 text-indigo-500 dark:text-indigo-400 mr-3" />
+                      <span className="text-gray-700 dark:text-gray-300">{right}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -177,16 +177,16 @@ const Privacy = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="bg-indigo-50 rounded-xl p-8"
+                className="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-8"
               >
                 <div className="flex items-center mb-6">
-                  <Mail className="w-6 h-6 text-indigo-600" />
-                  <h2 className="text-2xl font-semibold ml-3">Contact Us</h2>
+                  <Mail className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                  <h2 className="text-2xl font-semibold ml-3 text-gray-900 dark:text-white">Contact Us</h2>
                 </div>
-                <p className="text-gray-700 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   If you have any questions about this Privacy Policy, please contact us at:
                 </p>
-                <div className="space-y-2 text-gray-600">
+                <div className="space-y-2 text-gray-600 dark:text-gray-300">
                   <p>Email: privacy@matex.com</p>
                   <p>Phone: +1 (234) 567-890</p>
                   <p>Address: Lebanon</p>
