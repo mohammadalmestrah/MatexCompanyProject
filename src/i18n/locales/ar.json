@@ -180,7 +180,7 @@
   },
   "footer": {
     "contact": "اتصل بنا",
-    "email": "almestrahmohammad@gmail.com",
+    "email": "contact@matexsolution.com",
     "phone": "+961 76162549",
     "follow": "تابعنا",
     "newsletter": "النشرة الإخبارية",
@@ -214,19 +214,19 @@
       "lebanon": {
         "address": "بعبدا، جبل لبنان",
         "postal": "لبنان",
-        "email": "almestrahmohammad@gmail.com",
+        "email": "contact@matexsolution.com",
         "phone": "+961 76162549"
       },
       "turkey": {
         "address": "إسطنبول، تركيا",
         "postal": "تركيا",
-        "email": "almestrahmohammad@gmail.com",
+        "email": "contact@matexsolution.com",
         "phone": "+961 76162549"
       },
       "france": {
         "address": "باريس، فرنسا",
         "postal": "فرنسا",
-        "email": "almestrahmohammad@gmail.com",
+        "email": "contact@matexsolution.com",
         "phone": "+961 76162549"
       }
     }
