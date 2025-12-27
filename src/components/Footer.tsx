@@ -1,10 +1,47 @@
-import React from 'react';
-import { Mail, Phone, Linkedin, Instagram } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { Mail, Phone, Linkedin, Instagram, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
   const { t } = useTranslation();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) {
+      setStatus('error');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus('idle');
+
+    // Simulate API call - Replace with actual newsletter API integration
+    try {
+      // TODO: Replace with actual newsletter service (Mailchimp, SendGrid, etc.)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Store in localStorage for now (replace with actual API)
+      const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+      subscribers.push({
+        email,
+        timestamp: new Date().toISOString(),
+        language: (window as any).i18next?.language || 'en'
+      });
+      localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
+
+      setStatus('success');
+      setEmail('');
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch (error) {
+      setStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <footer className="bg-gray-900 dark:bg-gray-950 text-white relative overflow-hidden border-t border-gray-800 dark:border-gray-800">
@@ -112,24 +149,60 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
             <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.newsletter')}</h3>
-            <form className="flex">
-              <input
-                type="email"
-                placeholder={t('footer.emailPlaceholder')}
-                className="px-4 py-2 rounded-l-md w-full text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 border border-gray-300 dark:border-gray-600 transition-all duration-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-              />
-              <motion.button
-                type="submit"
-                className="bg-indigo-600 px-4 py-2 rounded-r-md hover:bg-indigo-700 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {t('footer.subscribe')}
-              </motion.button>
+            <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+              <div className="flex">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t('footer.emailPlaceholder')}
+                  className="px-4 py-2 rounded-l-md w-full text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 border border-gray-300 dark:border-gray-600 transition-all duration-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  required
+                  disabled={isSubmitting}
+                />
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-indigo-600 px-4 py-2 rounded-r-md hover:bg-indigo-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+                >
+                  {isSubmitting ? '...' : t('footer.subscribe')}
+                </motion.button>
+              </div>
+              <AnimatePresence>
+                {status === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center gap-2 text-green-400 text-sm"
+                  >
+                    <CheckCircle className="h-4 w-4" />
+                    {t('footer.newsletter.success')}
+                  </motion.div>
+                )}
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center gap-2 text-red-400 text-sm"
+                  >
+                    <AlertCircle className="h-4 w-4" />
+                    {t('footer.newsletter.error')}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
-          </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}

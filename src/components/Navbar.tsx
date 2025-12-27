@@ -79,7 +79,8 @@ const Navbar = () => {
                 { path: '/about', label: t('nav.about') },
                 { path: '/services', label: t('nav.services') },
                 { path: '/clients', label: t('nav.clients') },
-                { path: '/careers', label: t('nav.careers') }
+                { path: '/careers', label: t('nav.careers') },
+                { path: '/faq', label: t('nav.faq') }
               ].map((item, index) => (
                 <motion.div 
                   key={item.path}
@@ -203,7 +204,8 @@ const Navbar = () => {
               { path: '/about', label: t('nav.about') },
               { path: '/services', label: t('nav.services') },
               { path: '/clients', label: t('nav.clients') },
-              { path: '/careers', label: t('nav.careers') }
+              { path: '/careers', label: t('nav.careers') },
+              { path: '/faq', label: t('nav.faq') }
             ].map((item, index) => (
               <motion.div 
                 key={item.path}

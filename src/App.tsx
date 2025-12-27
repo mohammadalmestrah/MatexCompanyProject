@@ -11,6 +11,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import ClientRequirements from './pages/ClientRequirements';
 import Profile from './pages/Profile';
+import FAQ from './pages/FAQ';
 import Chatbot from './components/Chatbot';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -103,6 +104,17 @@ function AnimatedRoutes() {
             transition={pageTransition}
           >
             <Careers />
+          </motion.div>
+        } />
+        <Route path="/faq" element={
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <FAQ />
           </motion.div>
         } />
         <Route path="/privacy" element={
