@@ -6,6 +6,7 @@
     "clients": "Clients",
     "careers": "Careers",
     "profile": "Profile",
+    "faq": "FAQ",
     "auth": {
       "signIn": "Sign In",
       "signOut": "Sign Out"
@@ -176,6 +177,40 @@
       "title": "Ready to Start Your Project?",
       "subtitle": "Let's discuss how our project management expertise can ensure the success of your technology initiative.",
       "button": "Schedule a Consultation"
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "subtitle": "Don't just take our word for it - hear from businesses we've helped transform",
+      "items": [
+        {
+          "name": "Sarah Johnson",
+          "role": "CTO",
+          "company": "TechCorp",
+          "content": "Matex transformed our entire technology infrastructure. Their AI solutions helped us automate processes and increase efficiency by 40%. The team is professional, responsive, and truly understands business needs.",
+          "rating": 5
+        },
+        {
+          "name": "Ahmed Al-Mansouri",
+          "role": "Founder",
+          "company": "InnovateME",
+          "content": "Working with Matex was a game-changer. They delivered our mobile app ahead of schedule and exceeded all expectations. Their expertise in both AI and software development is unmatched.",
+          "rating": 5
+        },
+        {
+          "name": "Marie Dubois",
+          "role": "Product Manager",
+          "company": "Digital Solutions",
+          "content": "The cloud migration project was seamless thanks to Matex. They handled everything from planning to execution flawlessly. Our systems are now more scalable and cost-effective.",
+          "rating": 5
+        },
+        {
+          "name": "David Chen",
+          "role": "CEO",
+          "company": "StartupHub",
+          "content": "Matex's consulting services helped us make critical technology decisions. Their strategic guidance was invaluable, and we've seen significant growth since implementing their recommendations.",
+          "rating": 5
+        }
+      ]
     }
   },
   "footer": {
@@ -188,7 +223,118 @@
     "subscribe": "Subscribe",
     "quickLinks": "Quick Links",
     "rights": "All rights reserved.",
-    "about": "About Us"
+    "about": "About Us",
+    "newsletter": {
+      "success": "Successfully subscribed! Check your email for confirmation.",
+      "error": "Please enter a valid email address."
+    }
+  },
+  "faq": {
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find answers to common questions about our services, pricing, and more"
+    },
+    "search": {
+      "placeholder": "Search for questions...",
+      "results": "Found {{count}} result(s)",
+      "noResults": "No results found. Try different keywords."
+    },
+    "categories": {
+      "services": {
+        "title": "Services",
+        "questions": [
+          {
+            "q": "What services does Matex offer?",
+            "a": "Matex offers comprehensive technology solutions including AI and machine learning services, custom software development, cloud infrastructure solutions, and technology consulting. We help businesses transform digitally with cutting-edge solutions."
+          },
+          {
+            "q": "Do you develop mobile applications?",
+            "a": "Yes, we develop native and cross-platform mobile applications for iOS and Android. Our mobile development services include UI/UX design, development, testing, and deployment."
+          },
+          {
+            "q": "What technologies do you use?",
+            "a": "We use modern technologies including React, Node.js, Python, TypeScript, AWS, Docker, Kubernetes, and various AI/ML frameworks. Our tech stack is chosen based on project requirements and best practices."
+          },
+          {
+            "q": "Can you help with cloud migration?",
+            "a": "Absolutely! We provide comprehensive cloud migration services, helping businesses move to AWS, Google Cloud, or Azure. We handle everything from planning to execution and optimization."
+          }
+        ]
+      },
+      "pricing": {
+        "title": "Pricing",
+        "questions": [
+          {
+            "q": "How much do your services cost?",
+            "a": "Pricing varies based on project scope, complexity, and requirements. We offer custom quotes tailored to each project. Contact us with your project details, and we'll provide a detailed estimate."
+          },
+          {
+            "q": "Do you offer payment plans?",
+            "a": "Yes, we offer flexible payment plans for larger projects. We accept payments via PayPal, Wise, and Wish Money. Payment terms are discussed during project planning."
+          },
+          {
+            "q": "Is there a minimum project size?",
+            "a": "We work with projects of all sizes, from small startups to large enterprises. We'll discuss your needs and provide a solution that fits your budget and requirements."
+          }
+        ]
+      },
+      "careers": {
+        "title": "Careers",
+        "questions": [
+          {
+            "q": "What positions are currently open?",
+            "a": "We regularly post open positions on our Careers page, including full-time roles and internships. Check our Careers page for the latest opportunities in engineering, product management, and more."
+          },
+          {
+            "q": "Do you offer remote work?",
+            "a": "Yes, many of our positions offer remote work options. We have offices in Lebanon and France, but we support remote work for qualified candidates."
+          },
+          {
+            "q": "What is the application process?",
+            "a": "Submit your application through our Careers page with your resume and cover letter. Our team reviews applications and contacts qualified candidates for interviews. The process typically takes 1-2 weeks."
+          }
+        ]
+      },
+      "contact": {
+        "title": "Contact & Support",
+        "questions": [
+          {
+            "q": "How can I contact Matex?",
+            "a": "You can reach us via email at contact@matexsolution.com or call us at +961 76162549. You can also use our AI chatbot for quick answers or fill out the contact form on our website."
+          },
+          {
+            "q": "Where are your offices located?",
+            "a": "We have offices in Baabda, Mount Lebanon (Lebanon) and Paris, France. We also support remote work and serve clients globally."
+          },
+          {
+            "q": "What are your business hours?",
+            "a": "Our business hours are Monday to Friday, 9 AM to 6 PM (GMT+2). However, we're available for urgent matters and can schedule consultations outside these hours."
+          }
+        ]
+      },
+      "technical": {
+        "title": "Technical",
+        "questions": [
+          {
+            "q": "Do you provide ongoing support and maintenance?",
+            "a": "Yes, we offer comprehensive support and maintenance services for all our projects. This includes bug fixes, updates, performance optimization, and technical support."
+          },
+          {
+            "q": "What is your development methodology?",
+            "a": "We follow agile development methodologies, using Scrum and Kanban frameworks. We emphasize iterative development, regular communication, and client collaboration throughout the project."
+          },
+          {
+            "q": "How do you ensure code quality?",
+            "a": "We maintain high code quality through code reviews, automated testing, continuous integration, and following industry best practices. All code is thoroughly tested before deployment."
+          }
+        ]
+      }
+    },
+    "cta": {
+      "title": "Still have questions?",
+      "subtitle": "Can't find what you're looking for? Get in touch with our team.",
+      "button": "Contact Us"
+    }
   },
   "about": {
     "hero": {

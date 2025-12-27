@@ -6,6 +6,7 @@
     "clients": "Clients",
     "careers": "Carrières",
     "profile": "Profil",
+    "faq": "FAQ",
     "auth": {
       "signIn": "Se Connecter",
       "signOut": "Se Déconnecter"
@@ -157,6 +158,40 @@
       "title": "Prêt à Démarrer Votre Projet ?",
       "subtitle": "Discutons de la façon dont notre expertise en gestion de projet peut assurer le succès de votre initiative technologique.",
       "button": "Planifier une Consultation"
+    },
+    "testimonials": {
+      "title": "Ce Que Disent Nos Clients",
+      "subtitle": "Ne nous croyez pas sur parole - écoutez les entreprises que nous avons aidées à transformer",
+      "items": [
+        {
+          "name": "Sarah Johnson",
+          "role": "CTO",
+          "company": "TechCorp",
+          "content": "Matex a transformé toute notre infrastructure technologique. Leurs solutions IA nous ont aidés à automatiser les processus et à augmenter l'efficacité de 40%. L'équipe est professionnelle, réactive et comprend vraiment les besoins commerciaux.",
+          "rating": 5
+        },
+        {
+          "name": "Ahmed Al-Mansouri",
+          "role": "Fondateur",
+          "company": "InnovateME",
+          "content": "Travailler avec Matex a été un changement de jeu. Ils ont livré notre application mobile en avance sur le calendrier et ont dépassé toutes les attentes. Leur expertise en IA et en développement logiciel est inégalée.",
+          "rating": 5
+        },
+        {
+          "name": "Marie Dubois",
+          "role": "Chef de Produit",
+          "company": "Digital Solutions",
+          "content": "Le projet de migration cloud s'est déroulé sans accroc grâce à Matex. Ils ont géré tout, de la planification à l'exécution, de manière impeccable. Nos systèmes sont maintenant plus évolutifs et rentables.",
+          "rating": 5
+        },
+        {
+          "name": "David Chen",
+          "role": "PDG",
+          "company": "StartupHub",
+          "content": "Les services de conseil de Matex nous ont aidés à prendre des décisions technologiques critiques. Leur orientation stratégique a été inestimable, et nous avons connu une croissance significative depuis la mise en œuvre de leurs recommandations.",
+          "rating": 5
+        }
+      ]
     }
   },
   "footer": {
@@ -169,7 +204,102 @@
     "subscribe": "S'abonner",
     "quickLinks": "Liens Rapides",
     "rights": "Tous droits réservés.",
-    "about": "À Propos"
+    "about": "À Propos",
+    "newsletter": {
+      "success": "Abonnement réussi ! Vérifiez votre email pour confirmation.",
+      "error": "Veuillez entrer une adresse email valide."
+    }
+  },
+  "faq": {
+    "hero": {
+      "title": "Questions Fréquemment Posées",
+      "subtitle": "Trouvez des réponses aux questions courantes sur nos services, nos tarifs et plus encore"
+    },
+    "search": {
+      "placeholder": "Rechercher des questions...",
+      "results": "{{count}} résultat(s) trouvé(s)",
+      "noResults": "Aucun résultat trouvé. Essayez d'autres mots-clés."
+    },
+    "categories": {
+      "services": {
+        "title": "Services",
+        "questions": [
+          {
+            "q": "Quels services Matex propose-t-il ?",
+            "a": "Matex propose des solutions technologiques complètes incluant des services d'IA et d'apprentissage automatique, le développement logiciel personnalisé, des solutions d'infrastructure cloud et des conseils technologiques."
+          },
+          {
+            "q": "Développez-vous des applications mobiles ?",
+            "a": "Oui, nous développons des applications mobiles natives et multiplateformes pour iOS et Android."
+          },
+          {
+            "q": "Quelles technologies utilisez-vous ?",
+            "a": "Nous utilisons des technologies modernes incluant React, Node.js, Python, TypeScript, AWS, Docker, Kubernetes et divers frameworks IA/ML."
+          },
+          {
+            "q": "Pouvez-vous aider avec la migration cloud ?",
+            "a": "Absolument ! Nous fournissons des services complets de migration cloud, aidant les entreprises à migrer vers AWS, Google Cloud ou Azure."
+          }
+        ]
+      },
+      "pricing": {
+        "title": "Tarification",
+        "questions": [
+          {
+            "q": "Combien coûtent vos services ?",
+            "a": "Les prix varient selon la portée, la complexité et les exigences du projet. Nous offrons des devis personnalisés adaptés à chaque projet."
+          },
+          {
+            "q": "Offrez-vous des plans de paiement ?",
+            "a": "Oui, nous offrons des plans de paiement flexibles pour les projets plus importants."
+          }
+        ]
+      },
+      "careers": {
+        "title": "Carrières",
+        "questions": [
+          {
+            "q": "Quels postes sont actuellement ouverts ?",
+            "a": "Nous publions régulièrement des postes ouverts sur notre page Carrières, y compris des rôles à temps plein et des stages."
+          },
+          {
+            "q": "Offrez-vous le télétravail ?",
+            "a": "Oui, beaucoup de nos postes offrent des options de télétravail."
+          }
+        ]
+      },
+      "contact": {
+        "title": "Contact & Support",
+        "questions": [
+          {
+            "q": "Comment puis-je contacter Matex ?",
+            "a": "Vous pouvez nous joindre par email à contact@matexsolution.com ou nous appeler au +961 76162549."
+          },
+          {
+            "q": "Où sont situés vos bureaux ?",
+            "a": "Nous avons des bureaux à Baabda, Mont Liban (Liban) et Paris, France."
+          }
+        ]
+      },
+      "technical": {
+        "title": "Technique",
+        "questions": [
+          {
+            "q": "Fournissez-vous un support et une maintenance continus ?",
+            "a": "Oui, nous offrons des services complets de support et de maintenance pour tous nos projets."
+          },
+          {
+            "q": "Quelle est votre méthodologie de développement ?",
+            "a": "Nous suivons les méthodologies de développement agile, en utilisant les frameworks Scrum et Kanban."
+          }
+        ]
+      }
+    },
+    "cta": {
+      "title": "Vous avez encore des questions ?",
+      "subtitle": "Vous ne trouvez pas ce que vous cherchez ? Contactez notre équipe.",
+      "button": "Contactez-nous"
+    }
   },
   "about": {
     "hero": {
