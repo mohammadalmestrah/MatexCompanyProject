@@ -155,7 +155,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.newsletter')}</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.newsletterTitle')}</h3>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <div className="flex">
                 <input
