@@ -92,7 +92,7 @@ const Footer = () => {
                 {t('footer.email')}
               </motion.a>
               <motion.a 
-                href={`tel:${t('footer.phone')}`}
+                href={`tel:${t('footer.phone').replace(/\s/g, '')}`}
                 className="flex items-center hover:text-gray-300 dark:hover:text-gray-400 transition-all duration-300 text-gray-300 dark:text-gray-400"
                 whileHover={{ x: 10, color: '#9CA3AF' }}
               >
