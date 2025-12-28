@@ -120,8 +120,8 @@ const Services = () => {
                 <div className="p-8">
                   <motion.div 
                     className="text-indigo-600 dark:text-indigo-400 mb-4"
-                    whileHover={{ rotate: 360, scale: 1.2 }}
-                    transition={{ duration: 0.5 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
                     {service.icon}
                   </motion.div>

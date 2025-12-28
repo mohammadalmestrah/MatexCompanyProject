@@ -218,8 +218,8 @@ const Home = () => {
                 />
                 <motion.div 
                   className="text-indigo-600 mb-4 relative z-10"
-                  whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.2 }}
-                  transition={{ duration: 0.6, type: "spring" }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 >
                   {service.icon}
                 </motion.div>
