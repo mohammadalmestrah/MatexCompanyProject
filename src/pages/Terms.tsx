@@ -135,7 +135,7 @@ const Terms = () => {
                   For any questions about these Terms of Service, please contact us at:
                 </p>
                 <div className="mt-4 text-gray-600 dark:text-gray-300">
-                  <p>Email: legal@matex.com</p>
+                  <p>Email: contact@matexsolution.com</p>
                   <p>Phone: +961 76162549</p>
                   <p>Address: Lebanon</p>
                 </div>
