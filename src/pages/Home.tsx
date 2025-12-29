@@ -1,8 +1,7 @@
-import { ArrowRight, Briefcase, Target, Clock, Users, Star, Quote } from 'lucide-react';
+import { ArrowRight, Briefcase, Target, Clock, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -253,28 +252,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-              {t('home.testimonials.title')}
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              {t('home.testimonials.subtitle')}
-            </p>
-          </motion.div>
-
-          <TestimonialsCarousel t={t} />
-        </div>
-      </section>
-
       {/* Stats Section */}
       <section className="bg-gray-50 dark:bg-gray-800 py-20">
         <motion.div 
@@ -360,117 +337,5 @@ const Home = () => {
   );
 };
 
-// Testimonials Carousel Component
-const TestimonialsCarousel = ({ t }: { t: any }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const testimonials = t('home.testimonials.items', { returnObjects: true }) as Array<{
-    name: string;
-    role: string;
-    company: string;
-    content: string;
-    rating: number;
-    image?: string;
-  }>;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
-  return (
-    <div className="relative">
-      <motion.div
-        className="overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        <motion.div
-          className="flex transition-transform duration-500 ease-in-out"
-          animate={{ x: `-${currentIndex * 100}%` }}
-        >
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="min-w-full px-4"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 max-w-3xl mx-auto"
-              >
-                <Quote className="h-10 w-10 text-indigo-600 dark:text-indigo-400 mb-4" />
-                <p className="text-gray-700 dark:text-gray-300 mb-6 text-lg leading-relaxed">
-                  "{testimonial.content}"
-                </p>
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-5 w-5 ${
-                        i < testimonial.rating
-                          ? 'text-yellow-400 fill-current'
-                          : 'text-gray-300 dark:text-gray-600'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-lg">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      {testimonial.role} at {testimonial.company}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          ))}
-        </motion.div>
-      </motion.div>
-
-      {/* Navigation Dots */}
-      <div className="flex justify-center gap-2 mt-8">
-        {testimonials.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              index === currentIndex
-                ? 'w-8 bg-indigo-600'
-                : 'w-2 bg-gray-300 dark:bg-gray-600'
-            }`}
-            aria-label={`Go to testimonial ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={() => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:bg-indigo-600 hover:text-white transition-all border border-gray-200 dark:border-gray-700"
-        aria-label="Previous testimonial"
-      >
-        <ArrowRight className="h-5 w-5 rotate-180" />
-      </button>
-      <button
-        onClick={() => setCurrentIndex((prev) => (prev + 1) % testimonials.length)}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:bg-indigo-600 hover:text-white transition-all border border-gray-200 dark:border-gray-700"
-        aria-label="Next testimonial"
-      >
-        <ArrowRight className="h-5 w-5" />
-      </button>
-    </div>
-  );
-};
 
 export default Home;
