@@ -79,7 +79,8 @@
       "web": "Web Development",
       "mobile": "Mobile App",
       "design": "UI/UX Design",
-      "consulting": "Consulting"
+      "consulting": "Consulting",
+      "marketing": "Marketing & Social Media"
     },
     "projectDescription": "Project Description",
     "budgetTimeline": "Budget & Timeline",
@@ -398,6 +399,10 @@
       "consulting": {
         "title": "Technology Consulting",
         "description": "Expert guidance for digital transformation"
+      },
+      "marketing": {
+        "title": "Marketing & Social Media",
+        "description": "Professional marketing ads, social media boosts, and campaign management for Instagram, Facebook, and all major social media platforms"
       }
     }
   },

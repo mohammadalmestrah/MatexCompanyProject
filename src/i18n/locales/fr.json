@@ -39,7 +39,7 @@
     "projectDetails": "Détails du projet",
     "projectType": "Type de projet",
     "selectProjectType": "Sélectionnez un type de projet",
-    "types": { "web": "Développement web", "mobile": "Application mobile", "design": "Conception UI/UX", "consulting": "Conseil" },
+    "types": { "web": "Développement web", "mobile": "Application mobile", "design": "Conception UI/UX", "consulting": "Conseil", "marketing": "Marketing & Réseaux Sociaux" },
     "projectDescription": "Description du projet",
     "budgetTimeline": "Budget et calendrier",
     "budgetRange": "Fourchette de budget",
@@ -363,6 +363,10 @@
       "consulting": {
         "title": "Conseil Technologique",
         "description": "Accompagnement expert pour la transformation digitale"
+      },
+      "marketing": {
+        "title": "Marketing & Réseaux Sociaux",
+        "description": "Publicités marketing professionnelles, boosts sur les réseaux sociaux et gestion de campagnes pour Instagram, Facebook et toutes les principales plateformes de médias sociaux"
       }
     }
   },
