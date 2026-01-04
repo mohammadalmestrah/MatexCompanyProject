@@ -231,6 +231,7 @@ const ClientRequirements = () => {
                   <option value="mobile">{t('requirements.types.mobile')}</option>
                   <option value="design">{t('requirements.types.design')}</option>
                   <option value="consulting">{t('requirements.types.consulting')}</option>
+                  <option value="marketing">{t('requirements.types.marketing')}</option>
                 </select>
               </div>
               <div>

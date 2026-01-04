@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Brain, Code, Cloud, LightbulbIcon } from 'lucide-react';
+import { Brain, Code, Cloud, LightbulbIcon, TrendingUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -30,6 +30,12 @@ const Services = () => {
       title: t('services.categories.consulting.title'),
       description: t('services.categories.consulting.description'),
       image: "https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg"
+    },
+    {
+      icon: <TrendingUp className="h-12 w-12" />,
+      title: t('services.categories.marketing.title'),
+      description: t('services.categories.marketing.description'),
+      image: "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg"
     }
   ];
 
@@ -82,7 +88,7 @@ const Services = () => {
       {/* Services Grid */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
