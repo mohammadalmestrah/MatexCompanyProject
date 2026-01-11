@@ -266,7 +266,7 @@ const Home = () => {
               { value: "58+", label: t('home.stats.projects') },
               { value: "95%", label: t('home.stats.satisfaction') },
               { value: "15+", label: t('home.stats.consultants') },
-              { value: "10+", label: t('home.stats.experience') }
+              { value: "4+", label: t('home.stats.experience') }
             ].map((stat, index) => (
               <motion.div 
                 key={index}
