@@ -73,14 +73,54 @@ function isContentSafe(message) {
   return !UNSAFE_PATTERNS.some(pattern => pattern.test(message));
 }
 
-async function callAzureOpenAI(messages) {
+async function callOpenAI(messages) {
+  // Try standard OpenAI API first
+  const openaiApiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+  
+  if (openaiApiKey && openaiApiKey.startsWith('sk-')) {
+    const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+    const url = 'https://api.openai.com/v1/chat/completions';
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openaiApiKey}`,
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: messages.map(msg => ({
+            role: msg.role,
+            content: msg.content
+          })),
+          temperature: 0.7,
+          max_tokens: 1000,
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('OpenAI API Error:', errorText);
+        throw new Error(`OpenAI API error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      return data.choices?.[0]?.message?.content || 'I apologize, but I could not generate a response.';
+    } catch (error) {
+      console.error('OpenAI API request failed:', error.message);
+      throw error;
+    }
+  }
+
+  // Fallback to Azure OpenAI if OpenAI key not found
   const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
   const apiKey = process.env.AZURE_OPENAI_API_KEY;
   const deployment = process.env.AZURE_OPENAI_CHATGPT_DEPLOYMENT || 'gpt-4.1';
   const apiVersion = process.env.AZURE_OPENAI_API_VERSION || '2025-01-01-preview';
 
   if (!endpoint || !apiKey || apiKey === 'your_azure_openai_api_key_here') {
-    throw new Error('Azure OpenAI configuration missing or using placeholder values');
+    throw new Error('OpenAI configuration missing. Please set OPENAI_API_KEY or AZURE_OPENAI_API_KEY');
   }
 
   const url = `${endpoint.replace(/\/$/, '')}/openai/deployments/${deployment}/chat/completions?api-version=${apiVersion}`;
@@ -151,7 +191,7 @@ app.post('/api/chat', async (req, res) => {
       { role: 'user', content: message }
     ];
 
-    const aiResponse = await callAzureOpenAI(messages);
+    const aiResponse = await callOpenAI(messages);
 
     res.json({
       response: aiResponse,
@@ -179,12 +219,17 @@ app.listen(PORT, () => {
   console.log(`📍 Chat endpoint: http://localhost:${PORT}/api/chat`);
   console.log(`❤️  Health check: http://localhost:${PORT}/api/health\n`);
   
-  const apiKey = process.env.AZURE_OPENAI_API_KEY;
-  if (!apiKey || apiKey === 'your_azure_openai_api_key_here') {
-    console.warn('⚠️  Warning: AZURE_OPENAI_API_KEY not set or using placeholder.');
-    console.warn('   Update .env file with real Azure OpenAI credentials to enable AI responses.');
-    console.warn('   The chatbot will use fallback responses until configured.\n');
-  } else {
+  const openaiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+  const azureKey = process.env.AZURE_OPENAI_API_KEY;
+  
+  if (openaiKey && openaiKey.startsWith('sk-')) {
+    const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+    console.log(`✅ OpenAI API configured successfully (model: ${model}).\n`);
+  } else if (azureKey && azureKey !== 'your_azure_openai_api_key_here') {
     console.log('✅ Azure OpenAI configured successfully.\n');
+  } else {
+    console.warn('⚠️  Warning: No OpenAI API key found.');
+    console.warn('   Set OPENAI_API_KEY or VITE_OPENAI_API_KEY in .env file to enable AI responses.');
+    console.warn('   The chatbot will use fallback responses until configured.\n');
   }
 });
