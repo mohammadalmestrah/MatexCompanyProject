@@ -224,7 +224,7 @@ const Chatbot = () => {
       setShowLead(false);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Thank you for your interest! We have received your information and will contact you soon. You can also reach us directly at almestrahmohammad@gmail.com or +961 76162549.' 
+        content: 'Thank you for your interest! We have received your information and will contact you soon. You can also reach us directly at contact@matexsolution.com or +961 76162549.' 
       }]);
       
       // Reset form
@@ -233,7 +233,7 @@ const Chatbot = () => {
       console.error('Error saving lead:', error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Sorry, there was an error saving your information. Please contact us directly at almestrahmohammad@gmail.com or +961 76162549.' 
+        content: 'Sorry, there was an error saving your information. Please contact us directly at contact@matexsolution.com or +961 76162549.' 
       }]);
     }
   };

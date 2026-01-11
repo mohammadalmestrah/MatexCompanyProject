@@ -4,7 +4,7 @@
     "founder": "Mohammad ALMESTRAH",
     "description": "Matex is a technology solutions company founded by Mohammad ALMESTRAH, specializing in AI solutions, software development, cloud services, and technology consulting.",
     "location": "Baabda, Mount Lebanon",
-    "email": "almestrahmohammad@gmail.com",
+    "email": "contact@matexsolution.com",
     "phone": "+961 76162549"
   },
   "services": [
@@ -74,7 +74,7 @@
     ]
   },
   "contact": {
-    "email": "almestrahmohammad@gmail.com",
+    "email": "contact@matexsolution.com",
     "phone": "+961 76162549",
     "location": "Baabda, Mount Lebanon",
     "working_hours": "Monday - Friday: 9:00 AM - 6:00 PM",
@@ -82,7 +82,7 @@
   },
   "pricing": {
     "note": "Pricing varies based on project scope and requirements. We offer competitive rates and flexible payment options.",
-    "contact_for_quote": "Please contact us at almestrahmohammad@gmail.com for a personalized quote based on your specific needs."
+    "contact_for_quote": "Please contact us at contact@matexsolution.com for a personalized quote based on your specific needs."
   },
   "technologies": {
     "machine_learning": {
@@ -545,7 +545,7 @@
     },
     {
       "question": "How can I contact Matex?",
-      "answer": "You can reach us at almestrahmohammad@gmail.com or call +961 76162549. We're located in Baabda, Mount Lebanon."
+      "answer": "You can reach us at contact@matexsolution.com or call +961 76162549. We're located in Baabda, Mount Lebanon."
     },
     {
       "question": "Do you provide custom software development?",
@@ -581,7 +581,7 @@
     }
   ],
   "escalation": {
-    "complex_question_message": "هذه مسألة معقدة وتتطلب خبرة متخصصة. يوجد عميل سوف يتكلم معكم قريباً. سيتم إرسال بريد إلكتروني إلى mohammad almestrah على almestrahmohammad@gmail.com",
+    "complex_question_message": "هذه مسألة معقدة وتتطلب خبرة متخصصة. يوجد عميل سوف يتكلم معكم قريباً. سيتم إرسال بريد إلكتروني إلى محمد المستراح على contact@matexsolution.com",
     "complex_keywords": [
       "advanced machine learning",
       "deep learning architecture",

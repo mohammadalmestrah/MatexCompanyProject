@@ -176,7 +176,7 @@ Modify the system prompt in `src/services/aiChatbot.ts` to customize the assista
 ## 📞 Support
 
 For issues or questions:
-- Email: almestrahmohammad@gmail.com
+- Email: contact@matexsolution.com
 - Check OpenAI documentation: https://platform.openai.com/docs
 
 ---

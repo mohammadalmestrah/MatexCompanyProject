@@ -72,7 +72,7 @@ export const responseCategories = {
   escalation: {
     keywords: ['advanced machine learning', 'deep learning architecture', 'neural network optimization', 'custom ai model', 'complex algorithm', 'enterprise solution', 'large scale system', 'security implementation', 'performance optimization', 'advanced analytics', 'blockchain development', 'microservices architecture', 'distributed systems', 'real-time processing', 'high availability', 'disaster recovery', 'compliance requirements', 'integration complexity', 'legacy system migration', 'multi-tenant architecture'],
     responses: [
-      "هذه مسألة معقدة وتتطلب خبرة متخصصة. يوجد عميل سوف يتكلم معكم قريباً. سيتم إرسال بريد إلكتروني إلى mohammad almestrah على almestrahmohammad@gmail.com"
+      "هذه مسألة معقدة وتتطلب خبرة متخصصة. يوجد عميل سوف يتكلم معكم قريباً. سيتم إرسال بريد إلكتروني إلى محمد المستراح على contact@matexsolution.com"
     ],
     context: "escalation"
   }

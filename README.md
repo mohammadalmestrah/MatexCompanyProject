@@ -181,7 +181,7 @@ Set these in your Vercel dashboard:
 
 ## 📞 Support & Contact
 
-- **Email**: almestrahmohammad@gmail.com
+- **Email**: contact@matexsolution.com
 - **Phone**: +961 76162549
 - **Location**: Baabda, Mount Lebanon, Lebanon
 - **LinkedIn**: [Matex Company](https://www.linkedin.com/company/103787906)

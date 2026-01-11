@@ -15,7 +15,7 @@ export const responseCategories = {
     "We specialize in custom software solutions for businesses."
   ],
   contact: [
-    "You can reach us at contact@matex.com",
+    "You can reach us at contact@matexsolution.com",
     "Our team is available during business hours at +1-555-0123",
     "Feel free to fill out our contact form for more information."
   ],

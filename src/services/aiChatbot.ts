@@ -47,8 +47,13 @@ class AIChatbot {
     const systemPrompt = `You are Matex AI Assistant, a helpful and knowledgeable AI assistant for Matex, a technology company specializing in LLM algorithms, AI, machine learning, software development, mobile apps, web technologies, cloud computing, and cybersecurity.
 
 Company Information:
-- Founder: Mohammad ALMESTRAH
-- Email: almestrahmohammad@gmail.com
+- Founder: Mohammad ALMESTRAH (in Arabic: محمد المستراح)
+- Email: contact@matexsolution.com
+
+IMPORTANT: When users ask about the founder's name:
+- If the question is in Arabic or the user is speaking Arabic, respond with: "محمد المستراح"
+- If the question is in English or other languages, respond with: "Mohammad ALMESTRAH"
+- You can also mention both: "Mohammad ALMESTRAH (محمد المستراح)" to be inclusive
 - Phone: +961 76162549
 - Locations: Beirut, Lebanon and Paris, France
 
@@ -160,7 +165,7 @@ Always be helpful, accurate, and maintain a professional yet friendly tone.`;
 
     if (/(artificial intelligence|ai|computer vision|nlp)/.test(lowerMessage)) {
       const ai = websiteData.technologies.artificial_intelligence;
-      return `Artificial Intelligence (AI) is ${ai.definition}\n\nMatex offers AI solutions including:\n${ai.branches.map(b => `• ${b.name}: ${b.description}`).join('\n')}\n\nContact us at almestrahmohammad@gmail.com to discuss your AI needs.`;
+      return `Artificial Intelligence (AI) is ${ai.definition}\n\nMatex offers AI solutions including:\n${ai.branches.map(b => `• ${b.name}: ${b.description}`).join('\n')}\n\nContact us at contact@matexsolution.com to discuss your AI needs.`;
     }
 
     if (/(service|what do you do|offer)/.test(lowerMessage)) {
@@ -168,11 +173,11 @@ Always be helpful, accurate, and maintain a professional yet friendly tone.`;
     }
 
     if (/(contact|email|phone|reach|location)/.test(lowerMessage)) {
-      return `You can reach Matex through:\n\n📧 Email: almestrahmohammad@gmail.com\n📞 Phone: +961 76162549\n📍 Locations: Beirut, Lebanon | Paris, France\n\nWe're happy to help with any questions or project inquiries!`;
+      return `You can reach Matex through:\n\n📧 Email: contact@matexsolution.com\n📞 Phone: +961 76162549\n📍 Locations: Beirut, Lebanon | Paris, France\n\nWe're happy to help with any questions or project inquiries!`;
     }
 
     if (/(price|cost|pricing|how much)/.test(lowerMessage)) {
-      return `Pricing for our services varies based on project scope, complexity, and requirements. We provide customized quotes tailored to each client's needs.\n\nTo get an accurate estimate, please contact us at almestrahmohammad@gmail.com with details about your project. We'll provide a comprehensive quote within 24-48 hours.`;
+      return `Pricing for our services varies based on project scope, complexity, and requirements. We provide customized quotes tailored to each client's needs.\n\nTo get an accurate estimate, please contact us at contact@matexsolution.com with details about your project. We'll provide a comprehensive quote within 24-48 hours.`;
     }
 
     if (/(web|website|frontend|backend|development)/.test(lowerMessage)) {

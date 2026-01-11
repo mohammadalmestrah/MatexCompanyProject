@@ -17,7 +17,7 @@ describe('Footer', () => {
   });
 
   it('renders contact information', () => {
-    expect(screen.getByText('almestrahmohammad@gmail.com')).toBeInTheDocument();
+    expect(screen.getByText('contact@matexsolution.com')).toBeInTheDocument();
     expect(screen.getByText('+961 76162549')).toBeInTheDocument();
   });
 

@@ -31,7 +31,7 @@ class LocalChatbot {
   private async sendEscalationEmail(question: string): Promise<void> {
     // In a real implementation, you would send an email here
     // For now, we'll just log it
-    console.log(`ESCALATION EMAIL TO: almestrahmohammad@gmail.com`);
+    console.log(`ESCALATION EMAIL TO: contact@matexsolution.com`);
     console.log(`Subject: Complex Question from Chatbot`);
     console.log(`Question: ${question}`);
     console.log(`Timestamp: ${new Date().toISOString()}`);
@@ -202,8 +202,17 @@ class LocalChatbot {
     }
 
     // Founder information
-    if (message.includes('founder') || message.includes('mohammad') || message.includes('almestrah') || message.includes('ceo')) {
-      return `The founder of Matex is ${websiteData.about.founder.name}, who serves as the ${websiteData.about.founder.role}. ${websiteData.about.founder.description}`;
+    // Check if message is in Arabic (contains Arabic characters)
+    const isArabic = /[\u0600-\u06FF]/.test(message);
+    const founderNameArabic = "محمد المستراح";
+    
+    if (message.includes('founder') || message.includes('mohammad') || message.includes('almestrah') || message.includes('ceo') || 
+        message.includes('مؤسس') || message.includes('المستراح') || message.includes('محمد')) {
+      if (isArabic) {
+        return `مؤسس شركة Matex هو ${founderNameArabic}، الذي يشغل منصب ${websiteData.about.founder.role}. ${websiteData.about.founder.description}`;
+      } else {
+        return `The founder of Matex is ${websiteData.about.founder.name} (${founderNameArabic}), who serves as the ${websiteData.about.founder.role}. ${websiteData.about.founder.description}`;
+      }
     }
 
     // Services

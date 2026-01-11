@@ -198,11 +198,11 @@ def kb_query(query: str, top_n: int = 5) -> List[Dict[str, Any]]:
 def _rule_based_fallback(user_text: str) -> str:
     last = (user_text or "").strip().lower()
     if "price" in last or "cost" in last:
-        return "For pricing, please contact us at contact@matex.com with your project details."
+        return "For pricing, please contact us at contact@matexsolution.com with your project details."
     if "services" in last:
         return "We offer AI solutions, software development, cloud services, and consulting."
     if "contact" in last or "email" in last:
-        return "You can reach us at contact@matex.com or +1 (234) 567-890."
+        return "You can reach us at contact@matexsolution.com or +961 76162549."
     return "I'm here to help with Matex information. How can I assist you today?"
 
 
@@ -227,9 +227,15 @@ def get_or_create_session(session_id: Optional[str]) -> str:
 
 
 COMPANY_KNOWLEDGE = """
-You are Matex's AI assistant. Matex is a technology solutions company founded by Mohammad ALMESTRAH.
+You are Matex's AI assistant. Matex is a technology solutions company founded by Mohammad ALMESTRAH (in Arabic: محمد المستراح).
 We provide: AI solutions, software development, cloud services, and technology consulting.
-Locations: Baabda, Mount Lebanon. Primary email: contact@matex.com. Phone: +1 (234) 567-890.
+Locations: Baabda, Mount Lebanon. Primary email: contact@matexsolution.com. Phone: +961 76162549.
+
+IMPORTANT: When users ask about the founder's name:
+- If the question is in Arabic or the user is speaking Arabic, respond with: "محمد المستراح"
+- If the question is in English or other languages, respond with: "Mohammad ALMESTRAH"
+- You can also mention both: "Mohammad ALMESTRAH (محمد المستراح)" to be inclusive
+
 If unsure, ask a concise clarifying question.
 Be professional, concise, and friendly. Keep answers under 150 words by default.
 """

@@ -32,8 +32,13 @@ const UNSAFE_PATTERNS = [
 const MATEX_CONTEXT = `
 Company Information:
 - Company Name: Matex
-- Founder: Mohammad ALMESTRAH
-- Email: almestrahmohammad@gmail.com
+- Founder: Mohammad ALMESTRAH (in Arabic: محمد المستراح)
+- Email: contact@matexsolution.com
+
+IMPORTANT: When users ask about the founder's name:
+- If the question is in Arabic or the user is speaking Arabic, respond with: "محمد المستراح"
+- If the question is in English or other languages, respond with: "Mohammad ALMESTRAH"
+- You can also mention both: "Mohammad ALMESTRAH (محمد المستراح)" to be inclusive
 - Phone: +961 76162549
 - Locations: Beirut, Lebanon | Paris, France
 - Specializations: AI/ML, LLM Algorithms, Software Development, Mobile Apps, Web Technologies, Cloud Computing, Cybersecurity
@@ -206,7 +211,7 @@ app.post('/api/chat', async (req, res) => {
     
     res.json({
       response: "I'm currently experiencing some technical difficulties. However, I can still help you with basic information:\n\n" +
-                "📧 Contact Matex: almestrahmohammad@gmail.com\n" +
+                "📧 Contact Matex: contact@matexsolution.com\n" +
                 "📞 Phone: +961 76162549\n" +
                 "📍 Locations: Beirut, Lebanon | Paris, France\n\n" +
                 "Please try again in a moment, or contact us directly for assistance.",
