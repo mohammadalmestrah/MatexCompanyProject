@@ -247,16 +247,20 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Chat Button */}
+      {/* Chat Button - Enhanced for Mobile */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-4 sm:bottom-6 bg-[#5C3FBD] text-white px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-[#5C3FBD]/20 transition-all duration-300 flex items-center gap-2 sm:gap-3 z-50 group ${
+        className={`fixed bottom-4 sm:bottom-6 bg-[#5C3FBD] text-white px-5 sm:px-6 py-3.5 sm:py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-[#5C3FBD]/20 transition-all duration-300 flex items-center gap-2.5 sm:gap-3 z-50 group touch-manipulation ${
           isRTL ? 'left-4 sm:left-6' : 'right-4 sm:right-6'
         }`}
+        style={{ 
+          minHeight: '48px', // Minimum touch target size for mobile
+          WebkitTapHighlightColor: 'transparent'
+        }}
         whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        whileTap={{ scale: 0.95 }}
       >
-        <MessageSquare className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
+        <MessageSquare className="h-5 w-5 sm:h-5 sm:w-5 group-hover:rotate-12 transition-transform duration-300" />
         <span className="font-medium text-sm sm:text-base whitespace-nowrap">{t('chatbot.buttonText')}</span>
       </motion.button>
 
@@ -264,54 +268,60 @@ const Chatbot = () => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop overlay */}
+            {/* Backdrop overlay - Visible on mobile too */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-40 md:block hidden"
+              className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-40"
             />
-            {/* Chat Window */}
+            {/* Chat Window - Enhanced for Mobile */}
             <motion.div
               ref={chatWindowRef}
-              initial={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: isRTL ? '-100%' : '100%', scale: 0.9 }}
+              initial={{ opacity: 0, y: '100%' }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: '100%' }}
               transition={{ 
                 type: 'spring', 
-                damping: 25, 
+                damping: 30, 
                 stiffness: 300,
-                mass: 0.5
+                mass: 0.8
               }}
-              className={`fixed top-0 w-full md:w-1/2 h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col ${
+              className={`fixed top-0 w-full md:w-1/2 h-screen md:h-screen bg-white dark:bg-gray-800 shadow-2xl z-50 flex flex-col safe-area-inset ${
                 isRTL 
-                  ? 'left-0 border-r border-gray-200 dark:border-gray-700' 
-                  : 'right-0 border-l border-gray-200 dark:border-gray-700'
+                  ? 'left-0 md:border-r border-gray-200 dark:border-gray-700' 
+                  : 'right-0 md:border-l border-gray-200 dark:border-gray-700'
               }`}
+              style={{
+                paddingTop: 'env(safe-area-inset-top)',
+                paddingBottom: 'env(safe-area-inset-bottom)',
+                maxHeight: '100dvh', // Dynamic viewport height for mobile
+                height: '100dvh'
+              }}
               dir={isRTL ? 'rtl' : 'ltr'}
             >
-            {/* Header */}
-            <div className="bg-[#5C3FBD] dark:bg-gray-800 h-16 flex items-center px-4 sm:px-6 relative overflow-visible">
+            {/* Header - Enhanced for Mobile */}
+            <div className="bg-[#5C3FBD] dark:bg-gray-800 h-14 sm:h-16 flex items-center px-3 sm:px-4 md:px-6 relative overflow-visible safe-area-top">
               <div className="relative flex items-center justify-between w-full">
-                <div className="flex items-center gap-3">
-                  <div className="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm relative">
-                    <Bot className="h-6 w-6 text-white" />
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                  <div className="bg-white/10 p-2 sm:p-2.5 rounded-lg backdrop-blur-sm relative flex-shrink-0">
+                    <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                     <motion.div
                       className="absolute -top-1 -right-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full p-0.5 shadow-lg"
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
                     >
-                      <Sparkles className="h-2.5 w-2.5 text-white" />
+                      <Sparkles className="h-2 w-2 sm:h-2.5 sm:w-2.5 text-white" />
                     </motion.div>
                   </div>
-                  <div>
-                    <h3 className="font-medium text-white text-lg flex items-center gap-2">
-                      {t('chatbot.title')}
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-medium text-white text-base sm:text-lg flex items-center gap-1.5 sm:gap-2 truncate">
+                      <span className="truncate">{t('chatbot.title')}</span>
                       <motion.span
-                        className="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full border border-green-400/30"
+                        className="text-xs bg-green-500/20 text-green-300 px-1.5 sm:px-2 py-0.5 rounded-full border border-green-400/30 flex-shrink-0"
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
@@ -319,38 +329,34 @@ const Chatbot = () => {
                         AI
                       </motion.span>
                     </h3>
-                    <p className="text-xs text-white/70">Powered by Advanced AI</p>
+                    <p className="text-xs text-white/70 hidden sm:block">Powered by Advanced AI</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                   <motion.button
                     onClick={() => setShowSuggestions(!showSuggestions)}
-                    className="text-white/80 hover:text-white p-2.5 rounded-lg hover:bg-white/10 transition-colors relative group"
+                    className="text-white/80 hover:text-white p-2.5 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors relative group touch-manipulation"
+                    style={{ minWidth: '44px', minHeight: '44px' }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <HelpCircle className="h-5 w-5" />
-                    <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 pointer-events-none">
-                      {t('chatbot.showSuggestions')}
-                    </span>
+                    <HelpCircle className="h-5 w-5 sm:h-5 sm:w-5" />
                   </motion.button>
                   <motion.button
                     onClick={() => setIsOpen(false)}
-                    className="text-white/80 hover:text-white p-2.5 rounded-lg hover:bg-white/10 transition-colors relative group"
+                    className="text-white/80 hover:text-white p-2.5 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors relative group touch-manipulation"
+                    style={{ minWidth: '44px', minHeight: '44px' }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <X className="h-5 w-5" />
-                    <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-black/75 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50 pointer-events-none">
-                      {t('chatbot.close')}
-                    </span>
+                    <X className="h-5 w-5 sm:h-5 sm:w-5" />
                   </motion.button>
                 </div>
               </div>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50/50 dark:bg-gray-900/50">
+            {/* Messages - Enhanced for Mobile */}
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4 bg-gray-50/50 dark:bg-gray-900/50 overscroll-contain">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -370,17 +376,17 @@ const Chatbot = () => {
                 >
                   {message.role === 'assistant' && (
                     <motion.div 
-                      className={`w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center ${
-                        isRTL ? 'ml-3' : 'mr-3'
+                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center flex-shrink-0 ${
+                        isRTL ? 'ml-2 sm:ml-3' : 'mr-2 sm:mr-3'
                       }`}
                       whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
                       transition={{ duration: 0.5 }}
                     >
-                      <Bot className="h-5 w-5 text-[#5C3FBD]" />
+                      <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-[#5C3FBD]" />
                     </motion.div>
                   )}
                   <motion.div
-                    className={`max-w-[80%] p-4 text-base rounded-2xl shadow-sm ${
+                    className={`max-w-[85%] sm:max-w-[80%] p-3 sm:p-4 text-sm sm:text-base rounded-2xl shadow-sm break-words ${
                       message.role === 'user'
                         ? `bg-[#5C3FBD] text-white ${isRTL ? 'rounded-bl-none' : 'rounded-br-none'} whitespace-pre-wrap`
                         : `bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`
@@ -391,20 +397,20 @@ const Chatbot = () => {
                     {message.role === 'assistant' ? (
                       <div className="prose prose-sm dark:prose-invert max-w-none 
                         prose-headings:text-[#5C3FBD] dark:prose-headings:text-purple-300 
-                        prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 
-                        prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 
+                        prose-headings:font-semibold prose-headings:mt-2 sm:prose-headings:mt-3 prose-headings:mb-1 sm:prose-headings:mb-2 
+                        prose-p:my-1.5 sm:prose-p:my-2 prose-ul:my-1.5 sm:prose-ul:my-2 prose-ol:my-1.5 sm:prose-ol:my-2 prose-li:my-0.5 
                         prose-strong:text-[#5C3FBD] dark:prose-strong:text-purple-300 
-                        prose-hr:my-3
-                        [&_pre]:bg-[#1e1e1e] [&_pre]:text-gray-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-3
-                        [&_code]:text-sm [&_code]:font-mono
+                        prose-hr:my-2 sm:prose-hr:my-3
+                        [&_pre]:bg-[#1e1e1e] [&_pre]:text-gray-100 [&_pre]:p-3 sm:[&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-2 sm:[&_pre]:my-3 [&_pre]:text-xs sm:[&_pre]:text-sm
+                        [&_code]:text-xs sm:[&_code]:text-sm [&_code]:font-mono
                         [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-gray-100
                         [&_:not(pre)>code]:bg-gray-100 [&_:not(pre)>code]:dark:bg-gray-800 
-                        [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:rounded 
+                        [&_:not(pre)>code]:px-1 sm:[&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:rounded 
                         [&_:not(pre)>code]:text-[#5C3FBD] [&_:not(pre)>code]:dark:text-purple-300">
                         <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     ) : (
-                      message.content
+                      <span className="text-sm sm:text-base leading-relaxed">{message.content}</span>
                     )}
                   </motion.div>
                 </motion.div>
@@ -415,11 +421,11 @@ const Chatbot = () => {
                   animate={{ opacity: 1 }}
                   className={`flex ${isRTL ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center ${isRTL ? 'ml-3' : 'mr-3'}`}>
-                    <Bot className="h-5 w-5 text-[#5C3FBD]" />
+                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center flex-shrink-0 ${isRTL ? 'ml-2 sm:ml-3' : 'mr-2 sm:mr-3'}`}>
+                    <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-[#5C3FBD]" />
                   </div>
-                  <div className={`bg-white dark:bg-gray-700 p-4 rounded-2xl ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`}>
-                    <Loader2 className="h-6 w-6 animate-spin text-[#5C3FBD]" />
+                  <div className={`bg-white dark:bg-gray-700 p-3 sm:p-4 rounded-2xl ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`}>
+                    <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 animate-spin text-[#5C3FBD]" />
                   </div>
                 </motion.div>
               )}
@@ -429,8 +435,8 @@ const Chatbot = () => {
                   animate={{ opacity: 1 }}
                   className={`flex ${isRTL ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`w-10 h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center ${isRTL ? 'ml-3' : 'mr-3'}`}>
-                    <Sparkles className="h-5 w-5 text-[#5C3FBD] animate-pulse" />
+                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#5C3FBD]/10 flex items-center justify-center flex-shrink-0 ${isRTL ? 'ml-2 sm:ml-3' : 'mr-2 sm:mr-3'}`}>
+                    <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-[#5C3FBD] animate-pulse" />
                   </div>
                   <div className={`bg-white dark:bg-gray-700 p-3 rounded-2xl ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`}>
                     <div className="flex gap-1">
@@ -445,46 +451,78 @@ const Chatbot = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="space-y-2"
+                  className="space-y-2 sm:space-y-2"
                 >
                   {suggestions.map((suggestion, index) => (
                     <motion.button
                       key={index}
                       onClick={() => handleSuggestionClick(suggestion)}
-                      className="w-full text-left p-4 text-base bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-xl hover:bg-[#5C3FBD]/5 dark:hover:bg-[#5C3FBD]/10 transition-all duration-200 border border-gray-100 dark:border-gray-600 hover:border-[#5C3FBD]/20 dark:hover:border-[#5C3FBD]/30"
-                      whileHover={{ x: 5 }}
+                      className="w-full text-left p-3.5 sm:p-4 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-xl active:bg-[#5C3FBD]/10 dark:active:bg-[#5C3FBD]/20 transition-all duration-200 border border-gray-100 dark:border-gray-600 hover:border-[#5C3FBD]/20 dark:hover:border-[#5C3FBD]/30 touch-manipulation"
+                      style={{ minHeight: '48px' }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       {suggestion}
                     </motion.button>
                   ))}
                   <motion.button
                     onClick={() => setShowLead(true)}
-                    className="w-full text-left p-4 text-base bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-xl hover:bg-[#5C3FBD]/5 dark:hover:bg-[#5C3FBD]/10 transition-all duration-200 border border-gray-100 dark:border-gray-600 hover:border-[#5C3FBD]/20 dark:hover:border-[#5C3FBD]/30"
-                    whileHover={{ x: 5 }}
+                    className="w-full text-left p-3.5 sm:p-4 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-xl active:bg-[#5C3FBD]/10 dark:active:bg-[#5C3FBD]/20 transition-all duration-200 border border-gray-100 dark:border-gray-600 hover:border-[#5C3FBD]/20 dark:hover:border-[#5C3FBD]/30 touch-manipulation"
+                    style={{ minHeight: '48px' }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {t('chatbot.contactSales')}
                   </motion.button>
                 </motion.div>
               )}
               {showLead && (
-                <div className="mt-4 p-4 bg-white dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-600 space-y-3">
-                  <div className="flex gap-3">
-                    <input placeholder={t('chatbot.leadName')} value={lead.name} onChange={(e)=>setLead({...lead,name:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
-                    <input placeholder={t('chatbot.leadEmail')} value={lead.email} onChange={(e)=>setLead({...lead,email:e.target.value})} className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
+                <div className="mt-4 p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-600 space-y-3">
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input 
+                      placeholder={t('chatbot.leadName')} 
+                      value={lead.name} 
+                      onChange={(e)=>setLead({...lead,name:e.target.value})} 
+                      className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-3 sm:py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-base touch-manipulation"
+                      style={{ fontSize: '16px', minHeight: '48px' }}
+                    />
+                    <input 
+                      placeholder={t('chatbot.leadEmail')} 
+                      value={lead.email} 
+                      onChange={(e)=>setLead({...lead,email:e.target.value})} 
+                      className="flex-1 border border-gray-200 dark:border-gray-600 rounded px-3 py-3 sm:py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-base touch-manipulation"
+                      style={{ fontSize: '16px', minHeight: '48px' }}
+                    />
                   </div>
-                  <input placeholder={t('chatbot.leadCompany')} value={lead.company} onChange={(e)=>setLead({...lead,company:e.target.value})} className="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"/>
-                  <div className="flex gap-2">
-                    <button onClick={submitLead} className="px-4 py-2 bg-[#5C3FBD] text-white rounded">{t('chatbot.leadSubmit')}</button>
-                    <button onClick={()=>setShowLead(false)} className="px-4 py-2 border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">{t('chatbot.leadCancel')}</button>
+                  <input 
+                    placeholder={t('chatbot.leadCompany')} 
+                    value={lead.company} 
+                    onChange={(e)=>setLead({...lead,company:e.target.value})} 
+                    className="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-3 sm:py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-base touch-manipulation"
+                    style={{ fontSize: '16px', minHeight: '48px' }}
+                  />
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <button 
+                      onClick={submitLead} 
+                      className="px-4 py-3 sm:py-2 bg-[#5C3FBD] text-white rounded-lg touch-manipulation font-medium"
+                      style={{ minHeight: '48px' }}
+                    >
+                      {t('chatbot.leadSubmit')}
+                    </button>
+                    <button 
+                      onClick={()=>setShowLead(false)} 
+                      className="px-4 py-3 sm:py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 touch-manipulation"
+                      style={{ minHeight: '48px' }}
+                    >
+                      {t('chatbot.leadCancel')}
+                    </button>
                   </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <div className="p-6 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
-              <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            {/* Input - Enhanced for Mobile */}
+            <div className="p-3 sm:p-4 md:p-6 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 safe-area-bottom">
+              <div className={`flex items-end gap-2 sm:gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <input
                   ref={inputRef}
                   type="text"
@@ -492,16 +530,21 @@ const Chatbot = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={t('chatbot.placeholder')}
-                  className="flex-1 h-12 px-4 text-base bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5C3FBD]/20 focus:border-[#5C3FBD] outline-none transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  className="flex-1 h-12 sm:h-12 px-4 text-base bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5C3FBD]/20 focus:border-[#5C3FBD] outline-none transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 touch-manipulation"
+                  style={{ 
+                    fontSize: '16px', // Prevents zoom on iOS
+                    WebkitAppearance: 'none'
+                  }}
                 />
                 <motion.button
                   onClick={handleSendMessage}
                   disabled={isLoading || !inputValue.trim()}
-                  className="h-12 w-12 flex items-center justify-center bg-[#5C3FBD] text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-[#5C3FBD]/20 transition-all duration-200"
+                  className="h-12 w-12 sm:h-12 sm:w-12 flex items-center justify-center bg-[#5C3FBD] text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed active:shadow-lg active:shadow-[#5C3FBD]/20 transition-all duration-200 touch-manipulation flex-shrink-0"
+                  style={{ minWidth: '48px', minHeight: '48px' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Send className="h-5 w-5" />
+                  <Send className="h-5 w-5 sm:h-5 sm:w-5" />
                 </motion.button>
               </div>
             </div>
