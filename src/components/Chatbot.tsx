@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Send, X, MessageSquare, Loader2, Bot, HelpCircle, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
 import MLChatbot from '../services/mlChatbot';
 import AIChatbot from '../services/aiChatbot';
 
@@ -379,15 +380,21 @@ const Chatbot = () => {
                     </motion.div>
                   )}
                   <motion.div
-                    className={`max-w-[80%] p-4 text-base rounded-2xl shadow-sm whitespace-pre-wrap ${
+                    className={`max-w-[80%] p-4 text-base rounded-2xl shadow-sm ${
                       message.role === 'user'
-                        ? `bg-[#5C3FBD] text-white ${isRTL ? 'rounded-bl-none' : 'rounded-br-none'}`
+                        ? `bg-[#5C3FBD] text-white ${isRTL ? 'rounded-bl-none' : 'rounded-br-none'} whitespace-pre-wrap`
                         : `bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 ${isRTL ? 'rounded-br-none' : 'rounded-bl-none'} border border-gray-100 dark:border-gray-600`
                     }`}
                     whileHover={{ scale: 1.02, y: -2 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    {message.content}
+                    {message.role === 'assistant' ? (
+                      <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-[#5C3FBD] dark:prose-headings:text-purple-300 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-strong:text-[#5C3FBD] dark:prose-strong:text-purple-300 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-hr:my-3">
+                        <ReactMarkdown>{message.content}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      message.content
+                    )}
                   </motion.div>
                 </motion.div>
               ))}
