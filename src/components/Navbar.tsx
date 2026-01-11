@@ -34,10 +34,10 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-indigo-900/95 dark:bg-gray-900/95 backdrop-blur-md text-white border-b border-indigo-800/50 dark:border-gray-700/50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           <motion.div 
-            className="flex items-center"
+            className="flex items-center flex-shrink-0"
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -47,11 +47,11 @@ const Navbar = () => {
               stiffness: 100
             }}
           >
-            <Link to="/" className="flex items-center group">
+            <Link to="/" className="flex items-center group touch-manipulation">
               <motion.img 
                 src="/matex-logo.png" 
                 alt="Matex" 
-                className="h-16 w-auto"
+                className="h-10 sm:h-12 md:h-16 w-auto"
                 whileHover={{ 
                   rotate: [0, -5, 5, -5, 0],
                   scale: 1.1
@@ -62,7 +62,7 @@ const Navbar = () => {
                 }}
               />
               <motion.span 
-                className="ml-2 text-xl font-bold"
+                className="ml-1 sm:ml-2 text-lg sm:text-xl font-bold"
                 whileHover={{ x: 5 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
@@ -166,7 +166,7 @@ const Navbar = () => {
           </div>
 
           <motion.div 
-            className="md:hidden flex items-center space-x-2"
+            className="md:hidden flex items-center gap-2 sm:gap-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -175,9 +175,10 @@ const Navbar = () => {
             <button
               aria-label="Menu"
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md hover:bg-indigo-800 focus:outline-none transition-all duration-300"
+              className="inline-flex items-center justify-center p-2.5 rounded-md hover:bg-indigo-800 active:bg-indigo-700 focus:outline-none transition-all duration-300 touch-manipulation"
+              style={{ minWidth: '44px', minHeight: '44px' }}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={22} className="sm:w-6 sm:h-6" /> : <Menu size={22} className="sm:w-6 sm:h-6" />}
             </button>
           </motion.div>
         </div>
@@ -198,7 +199,7 @@ const Navbar = () => {
               damping: 20
             }}
           >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="px-3 pt-2 pb-4 space-y-1 border-t border-indigo-800/50 dark:border-gray-700/50">
             {[
               { path: '/', label: t('nav.home') },
               { path: '/about', label: t('nav.about') },
@@ -218,7 +219,8 @@ const Navbar = () => {
               >
                 <Link 
                   to={item.path} 
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-800 transition-all duration-300"
+                  className="block px-4 py-3 rounded-md text-base font-medium hover:bg-indigo-800 active:bg-indigo-700 transition-all duration-300 touch-manipulation"
+                  style={{ minHeight: '48px', display: 'flex', alignItems: 'center' }}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
@@ -228,8 +230,10 @@ const Navbar = () => {
             {user ? (
               <motion.button
                 onClick={signOut}
-                className="w-full flex items-center px-3 py-2 text-base font-medium hover:bg-indigo-800 transition-all duration-300"
+                className="w-full flex items-center px-4 py-3 text-base font-medium hover:bg-indigo-800 active:bg-indigo-700 transition-all duration-300 touch-manipulation rounded-md"
+                style={{ minHeight: '48px' }}
                 whileHover={{ x: 10 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <LogOut className="h-5 w-5 mr-2" />
                 {t('nav.auth.signOut')}
@@ -237,8 +241,10 @@ const Navbar = () => {
             ) : (
               <motion.button
                 onClick={() => setShowAuth(true)}
-                className="w-full text-left px-3 py-2 text-base font-medium hover:bg-indigo-800 transition-all duration-300"
+                className="w-full text-left px-4 py-3 text-base font-medium hover:bg-indigo-800 active:bg-indigo-700 transition-all duration-300 touch-manipulation rounded-md"
+                style={{ minHeight: '48px', display: 'flex', alignItems: 'center' }}
                 whileHover={{ x: 10 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {t('nav.auth.signIn')}
               </motion.button>

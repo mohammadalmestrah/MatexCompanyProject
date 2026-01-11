@@ -92,7 +92,7 @@ const Home = () => {
           />
         </motion.div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 relative z-10">
           <motion.div 
             className="text-center"
             initial={{ y: 30, opacity: 0 }}
@@ -100,7 +100,7 @@ const Home = () => {
             transition={{ delay: 0.2, duration: 0.8, type: "spring" }}
           >
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 px-2 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
@@ -108,7 +108,7 @@ const Home = () => {
               {t('home.hero.title')}
             </motion.h1>
             <motion.p 
-              className="text-xl mb-8 max-w-2xl mx-auto"
+              className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -116,7 +116,7 @@ const Home = () => {
               {t('home.hero.subtitle')}
             </motion.p>
             <motion.div 
-              className="flex justify-center gap-4 flex-wrap"
+              className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
@@ -127,10 +127,12 @@ const Home = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
+                className="w-full sm:w-auto"
               >
                 <Link
                   to="/services"
-                  className="bg-white text-indigo-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 inline-block relative overflow-hidden group"
+                  className="bg-white text-indigo-900 px-6 sm:px-6 py-3.5 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 active:bg-gray-200 transition-all duration-300 inline-block relative overflow-hidden group w-full sm:w-auto text-center touch-manipulation"
+                  style={{ minHeight: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <motion.span
                     className="relative z-10"
@@ -152,10 +154,12 @@ const Home = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
+                className="w-full sm:w-auto"
               >
                 <Link
                   to="/clients"
-                  className="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 transition-all duration-300 inline-block relative overflow-hidden group"
+                  className="border-2 border-white px-6 sm:px-6 py-3.5 sm:py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-900 active:bg-white/90 transition-all duration-300 inline-block relative overflow-hidden group w-full sm:w-auto text-center touch-manipulation"
+                  style={{ minHeight: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <motion.span
                     className="relative z-10"
