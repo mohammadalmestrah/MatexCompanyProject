@@ -96,7 +96,7 @@ def _ensure_knowledge_dir() -> None:
 def _simple_tokenize(text: str) -> List[str]:
     return re.findall(r"[\w']+", (text or "").lower())
 
-
+ 
 def _chunk_text(text: str, max_chars: int = 800, overlap: int = 150) -> List[str]:
     text = (text or "").strip()
     if not text:
