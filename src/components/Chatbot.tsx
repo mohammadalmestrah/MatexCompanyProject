@@ -389,7 +389,18 @@ const Chatbot = () => {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     {message.role === 'assistant' ? (
-                      <div className="prose prose-sm dark:prose-invert max-w-none prose-headings:text-[#5C3FBD] dark:prose-headings:text-purple-300 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-strong:text-[#5C3FBD] dark:prose-strong:text-purple-300 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-hr:my-3">
+                      <div className="prose prose-sm dark:prose-invert max-w-none 
+                        prose-headings:text-[#5C3FBD] dark:prose-headings:text-purple-300 
+                        prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2 
+                        prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 
+                        prose-strong:text-[#5C3FBD] dark:prose-strong:text-purple-300 
+                        prose-hr:my-3
+                        [&_pre]:bg-[#1e1e1e] [&_pre]:text-gray-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-3
+                        [&_code]:text-sm [&_code]:font-mono
+                        [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-gray-100
+                        [&_:not(pre)>code]:bg-gray-100 [&_:not(pre)>code]:dark:bg-gray-800 
+                        [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:rounded 
+                        [&_:not(pre)>code]:text-[#5C3FBD] [&_:not(pre)>code]:dark:text-purple-300">
                         <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     ) : (
