@@ -78,14 +78,54 @@ function isContentSafe(message: string): boolean {
   return !UNSAFE_PATTERNS.some(pattern => pattern.test(message));
 }
 
-async function callAzureOpenAI(messages: Message[]): Promise<string> {
+async function callOpenAI(messages: Message[]): Promise<string> {
+  // Try standard OpenAI API first
+  const openaiApiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+  
+  if (openaiApiKey && openaiApiKey.startsWith('sk-')) {
+    const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+    const url = 'https://api.openai.com/v1/chat/completions';
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openaiApiKey}`,
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: messages.map(msg => ({
+            role: msg.role,
+            content: msg.content
+          })),
+          temperature: 0.7,
+          max_tokens: 1000,
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('OpenAI API Error:', errorText);
+        throw new Error(`OpenAI API error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      return data.choices?.[0]?.message?.content || 'I apologize, but I could not generate a response.';
+    } catch (error: any) {
+      console.error('OpenAI API request failed:', error.message);
+      throw error;
+    }
+  }
+
+  // Fallback to Azure OpenAI if OpenAI key not found
   const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
   const apiKey = process.env.AZURE_OPENAI_API_KEY;
   const deployment = process.env.AZURE_OPENAI_CHATGPT_DEPLOYMENT || 'gpt-4.1';
   const apiVersion = process.env.AZURE_OPENAI_API_VERSION || '2025-01-01-preview';
 
   if (!endpoint || !apiKey) {
-    throw new Error('Azure OpenAI configuration missing');
+    throw new Error('OpenAI configuration missing. Please set OPENAI_API_KEY or AZURE_OPENAI_API_KEY in Vercel environment variables');
   }
 
   // Build Azure OpenAI API URL
@@ -169,13 +209,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       { role: 'user', content: message }
     ];
 
-    // Call Azure OpenAI
-    const aiResponse = await callAzureOpenAI(messages);
+    // Call OpenAI (standard or Azure)
+    const aiResponse = await callOpenAI(messages);
+    const model = process.env.OPENAI_MODEL || process.env.AZURE_OPENAI_CHATGPT_MODEL || 'gpt-4o-mini';
 
     return res.status(200).json({
       response: aiResponse,
       session_id: sessionId || `session_${Date.now()}`,
-      model: process.env.AZURE_OPENAI_CHATGPT_MODEL || 'gpt-4.1'
+      model: model
     });
 
   } catch (error: any) {
