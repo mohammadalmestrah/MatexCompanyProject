@@ -157,24 +157,46 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold mb-4 text-white dark:text-gray-100">{t('footer.newsletterTitle')}</h3>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
-              <div className="flex">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-0">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t('footer.emailPlaceholder')}
-                  className="px-4 py-2 rounded-l-md w-full text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 border border-gray-300 dark:border-gray-600 transition-all duration-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="px-4 py-3 sm:py-2 rounded-md sm:rounded-l-md sm:rounded-r-none w-full text-base sm:text-sm text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 border border-gray-300 dark:border-gray-600 transition-all duration-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none touch-manipulation"
+                  style={{ 
+                    fontSize: '16px', // Prevents zoom on iOS
+                    minHeight: '48px', // Minimum touch target
+                    WebkitAppearance: 'none'
+                  }}
                   required
                   disabled={isSubmitting}
                 />
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-indigo-600 px-4 py-2 rounded-r-md hover:bg-indigo-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-indigo-600 px-6 sm:px-4 py-3 sm:py-2 rounded-md sm:rounded-r-md sm:rounded-l-none hover:bg-indigo-700 active:bg-indigo-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium text-base sm:text-sm touch-manipulation whitespace-nowrap flex-shrink-0"
+                  style={{ 
+                    minHeight: '48px', // Minimum touch target
+                    minWidth: '120px', // Ensure button is wide enough on mobile
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
                   whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.92 }}
                 >
-                  {isSubmitting ? '...' : t('footer.subscribe')}
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <motion.span
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="inline-block"
+                      >
+                        ⟳
+                      </motion.span>
+                    </span>
+                  ) : (
+                    t('footer.subscribe')
+                  )}
                 </motion.button>
               </div>
               <AnimatePresence>

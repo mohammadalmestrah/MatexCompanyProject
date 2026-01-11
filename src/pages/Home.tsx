@@ -263,9 +263,9 @@ const Home = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "200+", label: t('home.stats.projects') },
+              { value: "58+", label: t('home.stats.projects') },
               { value: "95%", label: t('home.stats.satisfaction') },
-              { value: "50+", label: t('home.stats.consultants') },
+              { value: "15+", label: t('home.stats.consultants') },
               { value: "10+", label: t('home.stats.experience') }
             ].map((stat, index) => (
               <motion.div 

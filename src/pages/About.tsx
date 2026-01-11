@@ -96,7 +96,7 @@ const About = () => {
               </motion.p>
               <div className="grid grid-cols-2 gap-6">
                 {[
-                  { icon: Users, value: "10+", label: t('about.founder.stats.experts') },
+                  { icon: Users, value: "4+", label: t('about.founder.stats.experts') },
                   { icon: Building2, value: "50+", label: t('about.founder.stats.projects') },
                   { icon: Globe, value: "2+", label: t('about.founder.stats.countries') },
                   { icon: Award, value: "2+", label: t('about.founder.stats.awards') }
