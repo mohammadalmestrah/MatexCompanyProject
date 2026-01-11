@@ -24,15 +24,14 @@ class AIChatbot {
   private sessionId: string;
   private conversationHistory: Message[] = [];
   private config: AIConfig;
-  private readonly API_BASE = 'https://api.openai.com/v1';
   
   constructor(config: AIConfig = {}) {
     this.sessionId = this.generateSessionId();
     this.config = {
       apiKey: config.apiKey || import.meta.env.VITE_OPENAI_API_KEY,
-      model: config.model || 'gpt-3.5-turbo',
+      model: config.model || 'gpt-4.1',
       temperature: config.temperature || 0.7,
-      maxTokens: config.maxTokens || 500,
+      maxTokens: config.maxTokens || 1000,
       useOpenAI: config.useOpenAI !== false
     };
     
@@ -56,17 +55,24 @@ Company Information:
 Your role:
 1. Provide accurate, helpful information about Matex services and technologies
 2. Answer questions about LLM algorithms, AI, ML, software development, and related topics
-3. Be conversational, friendly, and professional
-4. Use the conversation history to maintain context
-5. If you don't know something, admit it and offer to help find the answer
-6. Keep responses concise but informative
-7. Support multiple languages (English, French, Arabic) based on user's language
+3. Answer general knowledge questions on any topic - you are a general-purpose AI assistant like ChatGPT
+4. Be conversational, friendly, and professional
+5. Use the conversation history to maintain context
+6. If you don't know something, admit it and offer to help find the answer
+7. Keep responses concise but informative
+8. Support multiple languages (English, French, Arabic) based on user's language
 
 Available Services:
 ${websiteData.services.map((s, i) => `${i + 1}. ${s.title}: ${s.description}`).join('\n')}
 
 Specialization in LLM Algorithms:
 Matex specializes in Large Language Models (LLMs) including GPT, Claude, LLaMA, BERT, and T5. We provide LLM integration, fine-tuning, deployment, and custom LLM development for various applications.
+
+Safety Guidelines:
+- Do not provide information about illegal activities
+- Do not generate harmful, abusive, or inappropriate content
+- Do not collect or request personal sensitive data
+- Redirect harmful queries politely
 
 Always be helpful, accurate, and maintain a professional yet friendly tone.`;
 
@@ -75,54 +81,30 @@ Always be helpful, accurate, and maintain a professional yet friendly tone.`;
     ];
   }
 
-  private buildContextualPrompt(userMessage: string): string {
-    // Add relevant company data to context
-    const context = `
-Current conversation context:
-- User is asking about: ${userMessage}
-- Company: Matex
-- Services: AI/ML, Software Development, Mobile Apps, Web Technologies, Cloud Computing, Cybersecurity
-- Contact: almestrahmohammad@gmail.com, +961 76162549
-
-Please provide a helpful, accurate response. If the question is about Matex services, use the information above. If it's a general technical question, provide expert knowledge.
-`;
-
-    return context;
-  }
-
-  private async callOpenAI(messages: Message[]): Promise<string> {
-    if (!this.config.apiKey) {
-      throw new Error('OpenAI API key not configured. Please set VITE_OPENAI_API_KEY in your .env file.');
-    }
-
+  private async callServerAPI(messages: Message[]): Promise<string> {
     try {
-      const response = await fetch(`${this.API_BASE}/chat/completions`, {
+      // Call server-side API endpoint (works both locally via proxy and in production)
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
         },
         body: JSON.stringify({
-          model: this.config.model,
-          messages: messages.map(msg => ({
-            role: msg.role,
-            content: msg.content
-          })),
-          temperature: this.config.temperature,
-          max_tokens: this.config.maxTokens,
-          stream: false
+          message: messages[messages.length - 1]?.content || '',
+          conversationHistory: messages.slice(0, -1), // All messages except last user message
+          sessionId: this.sessionId
         })
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error?.message || 'OpenAI API error');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `API error: ${response.status}`);
       }
 
       const data = await response.json();
-      return data.choices[0]?.message?.content || 'I apologize, but I could not generate a response.';
+      return data.response || 'I apologize, but I could not generate a response.';
     } catch (error: any) {
-      console.error('OpenAI API Error:', error);
+      console.error('Server API Error:', error);
       throw error;
     }
   }
@@ -130,6 +112,11 @@ Please provide a helpful, accurate response. If the question is about Matex serv
   private generateSmartFallback(userMessage: string): string {
     const lowerMessage = userMessage.toLowerCase();
     
+    // Greeting responses (using word boundaries)
+    if (/\b(hello|hi|hey|greetings|good morning|good afternoon|good evening)\b/i.test(lowerMessage)) {
+      return "Hello! I'm the Matex AI Assistant. I can help you with questions about technology, programming, AI, or our services. What would you like to know?";
+    }
+
     // Enhanced pattern matching with context awareness
     if (/(machine learning|ml|neural network|deep learning)/.test(lowerMessage)) {
       const ml = websiteData.technologies.machine_learning;
@@ -153,6 +140,22 @@ Please provide a helpful, accurate response. If the question is about Matex serv
       return `Pricing for our services varies based on project scope, complexity, and requirements. We provide customized quotes tailored to each client's needs.\n\nTo get an accurate estimate, please contact us at almestrahmohammad@gmail.com with details about your project. We'll provide a comprehensive quote within 24-48 hours.`;
     }
 
+    if (/(web|website|frontend|backend|development)/.test(lowerMessage)) {
+      return `Matex provides full-stack web development services:\n\n• Frontend: React, Vue.js, Angular, Next.js\n• Backend: Node.js, Python, Java, .NET\n• Database: PostgreSQL, MongoDB, Redis\n• Cloud: AWS, Azure, Google Cloud\n\nWe build scalable, secure, and performant web applications. Contact us to discuss your project!`;
+    }
+
+    if (/(mobile|app|ios|android|flutter|react native)/.test(lowerMessage)) {
+      return `Matex develops cross-platform and native mobile applications:\n\n• iOS Development (Swift, SwiftUI)\n• Android Development (Kotlin, Jetpack Compose)\n• Cross-platform (React Native, Flutter)\n\nWe deliver high-quality mobile apps with excellent user experience. Would you like to discuss your mobile app idea?`;
+    }
+
+    if (/(cloud|aws|azure|gcp|devops|kubernetes)/.test(lowerMessage)) {
+      return `Matex provides cloud computing and DevOps services:\n\n• Cloud Architecture (AWS, Azure, GCP)\n• Container Orchestration (Kubernetes, Docker)\n• CI/CD Pipeline Setup\n• Infrastructure as Code (Terraform, CloudFormation)\n• Monitoring & Logging\n\nWe help businesses scale efficiently in the cloud!`;
+    }
+
+    if (/(security|cybersecurity|hack|protect)/.test(lowerMessage)) {
+      return `Matex offers comprehensive cybersecurity services:\n\n• Security Audits & Penetration Testing\n• Vulnerability Assessment\n• Security Architecture Design\n• Incident Response Planning\n• Compliance (GDPR, SOC2, ISO 27001)\n\nProtect your business with our security experts. Contact us for a security assessment!`;
+    }
+
     // General helpful response
     return `I'm here to help you learn about Matex and our technology services. I can assist with:\n\n• Information about our services (AI/ML, Software Development, Mobile Apps, etc.)\n• Technical questions about technologies we work with\n• Company information and contact details\n• Project inquiries and consultations\n\nWhat would you like to know?`;
   }
@@ -164,9 +167,9 @@ Please provide a helpful, accurate response. If the question is about Matex serv
     let response: string;
 
     try {
-      if (useAI && this.config.apiKey && this.config.useOpenAI) {
-        // Use OpenAI API for intelligent responses
-        response = await this.callOpenAI(this.conversationHistory);
+      if (useAI && this.config.useOpenAI) {
+        // Try to use server-side AI API
+        response = await this.callServerAPI(this.conversationHistory);
       } else {
         // Use smart fallback with enhanced pattern matching
         response = this.generateSmartFallback(message);
@@ -197,76 +200,10 @@ Please provide a helpful, accurate response. If the question is about Matex serv
   }
 
   async chatStream(message: string, onChunk: (chunk: string) => void): Promise<void> {
-    if (!this.config.apiKey) {
-      const fallback = this.generateSmartFallback(message);
-      onChunk(fallback);
-      return;
-    }
-
-    this.conversationHistory.push({ role: 'user', content: message });
-
-    try {
-      const response = await fetch(`${this.API_BASE}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
-        },
-        body: JSON.stringify({
-          model: this.config.model,
-          messages: this.conversationHistory.map(msg => ({
-            role: msg.role,
-            content: msg.content
-          })),
-          temperature: this.config.temperature,
-          max_tokens: this.config.maxTokens,
-          stream: true
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Streaming failed');
-      }
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-      let fullResponse = '';
-
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n').filter(line => line.trim() !== '');
-
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              const data = line.slice(6);
-              if (data === '[DONE]') continue;
-
-              try {
-                const json = JSON.parse(data);
-                const content = json.choices[0]?.delta?.content || '';
-                if (content) {
-                  fullResponse += content;
-                  onChunk(content);
-                }
-              } catch (e) {
-                // Skip invalid JSON
-              }
-            }
-          }
-        }
-      }
-
-      this.conversationHistory.push({ role: 'assistant', content: fullResponse });
-    } catch (error) {
-      console.error('Streaming error:', error);
-      const fallback = this.generateSmartFallback(message);
-      onChunk(fallback);
-      this.conversationHistory.push({ role: 'assistant', content: fallback });
-    }
+    // For streaming, we'll use the non-streaming endpoint and simulate
+    // since streaming requires different server setup
+    const response = await this.chat(message, true);
+    onChunk(response.response);
   }
 
   clearHistory(): void {
@@ -287,4 +224,3 @@ Please provide a helpful, accurate response. If the question is about Matex serv
 }
 
 export default AIChatbot;
-
