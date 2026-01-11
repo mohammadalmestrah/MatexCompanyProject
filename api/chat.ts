@@ -221,16 +221,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   } catch (error: any) {
     console.error('Chat API Error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      openaiKey: process.env.OPENAI_API_KEY ? 'Set' : 'Not set',
+      viteOpenaiKey: process.env.VITE_OPENAI_API_KEY ? 'Set' : 'Not set',
+      azureKey: process.env.AZURE_OPENAI_API_KEY ? 'Set' : 'Not set'
+    });
     
-    // Return a helpful fallback response
+    // Return a helpful fallback response with error details in development
+    const errorMessage = process.env.NODE_ENV === 'development' 
+      ? `Error: ${error.message}. Please check Vercel environment variables (OPENAI_API_KEY).`
+      : "I'm currently experiencing some technical difficulties. However, I can still help you with basic information:\n\n" +
+        "📧 Contact Matex: almestrahmohammad@gmail.com\n" +
+        "📞 Phone: +961 76162549\n" +
+        "📍 Locations: Beirut, Lebanon | Paris, France\n\n" +
+        "Please try again in a moment, or contact us directly for assistance.";
+    
     return res.status(200).json({
-      response: "I'm currently experiencing some technical difficulties. However, I can still help you with basic information:\n\n" +
-                "📧 Contact Matex: almestrahmohammad@gmail.com\n" +
-                "📞 Phone: +961 76162549\n" +
-                "📍 Locations: Beirut, Lebanon | Paris, France\n\n" +
-                "Please try again in a moment, or contact us directly for assistance.",
+      response: errorMessage,
       session_id: 'fallback_response',
-      error: true
+      error: true,
+      errorDetails: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 }

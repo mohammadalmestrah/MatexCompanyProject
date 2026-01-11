@@ -84,27 +84,62 @@ Always be helpful, accurate, and maintain a professional yet friendly tone.`;
   private async callServerAPI(messages: Message[]): Promise<string> {
     try {
       // Call server-side API endpoint (works both locally via proxy and in production)
-      const response = await fetch('/api/chat', {
+      const apiUrl = '/api/chat';
+      const requestBody = {
+        message: messages[messages.length - 1]?.content || '',
+        conversationHistory: messages.slice(0, -1), // All messages except last user message
+        sessionId: this.sessionId
+      };
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          message: messages[messages.length - 1]?.content || '',
-          conversationHistory: messages.slice(0, -1), // All messages except last user message
-          sessionId: this.sessionId
-        })
+        body: JSON.stringify(requestBody)
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `API error: ${response.status}`);
+        const errorMessage = errorData.error || `API error: ${response.status}`;
+        console.error('API Error Response:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorMessage,
+          url: apiUrl
+        });
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
-      return data.response || 'I apologize, but I could not generate a response.';
+      
+      // Check if there's an error in the response
+      if (data.error) {
+        console.warn('API returned error flag:', data);
+        // Still return the response message if available
+        if (data.response) {
+          return data.response;
+        }
+        throw new Error(data.errorDetails || 'API returned an error');
+      }
+      
+      if (!data.response) {
+        console.warn('API response missing response field:', data);
+        throw new Error('Invalid API response format');
+      }
+      
+      return data.response;
     } catch (error: any) {
-      console.error('Server API Error:', error);
+      // More detailed error logging
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        console.error('Network Error: Could not reach API endpoint. Make sure the API is deployed correctly.');
+        throw new Error('Network error: API endpoint unavailable. Please check if the server is running.');
+      }
+      console.error('Server API Error:', {
+        message: error.message,
+        name: error.name,
+        stack: error.stack
+      });
       throw error;
     }
   }
